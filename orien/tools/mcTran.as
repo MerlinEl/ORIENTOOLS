@@ -1,8 +1,10 @@
 package orien.tools {
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
+	import flash.display.MovieClip;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
+	import flash.text.TextField;
 	
 	/**
 	 * ...
@@ -52,6 +54,19 @@ package orien.tools {
 				o.scaleY = s.y;
 			}
 			return s;
+		}
+		
+		/**
+		 * Fit one rectangle in to another proportionally
+		 * @param	container
+		 * @param	content
+		 * @param	offset
+		 */
+		public static function fitToContainer(container:MovieClip, content:MovieClip, offset:Number = 0):void {
+			
+			var scale:Number = Math.min((container.width - offset) / content.width, (container.height - offset) / content.height);
+			content.width *= scale;
+			content.height *= scale;
 		}
 		
 		/**
@@ -249,5 +264,16 @@ package orien.tools {
 			}
 		
 		}
+		
+		static public function getRect(obj:DisplayObject):Rectangle {
+			
+			return new Rectangle(obj.x, obj.y, obj.width, obj.height);
+		}
+		
+		static public function isInRect(p:Point, rect:Rectangle):Boolean {
+			
+			return rect.contains(p.x, p.y);
+		}
+
 	}
 }

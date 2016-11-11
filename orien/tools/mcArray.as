@@ -23,9 +23,26 @@ package orien.tools {
 			this.source = data
 		}
 		
-		private function mergeArray(arr:Array):void {
+		public function mergeArray(arr:Array):void {
 			
 			source = source.concat(arr);
+		}
+		
+		public function clone():mcArray {
+			
+			var self_clone:mcArray = new mcArray();
+			self_clone.source = [].concat(source);
+			return self_clone;
+		}
+		
+		public function preBuild(cnt:int):void {
+			
+			for (var i:int = 0; i < cnt; i++) source.push(new Array());
+		}
+		
+		public function preIndex(from:int, to:int):void {
+			
+			for (var i:int = from; i <= to; i++) source.push(i);
 		}
 		
 		public function get length():int {
@@ -36,6 +53,35 @@ package orien.tools {
 		public function getItemAt(index:int):Object {
 			
 			return source[index];
+		}
+		
+		public function removeItemByName(item_name:String):void {
+			
+			var result:Array = [];
+			
+			for (var i:int = 0; i < source.length; i++)
+				if (item_name != source[i])
+					result.push(source[i]);
+			
+			source = result;
+		}
+		
+		/**
+		 * Create field of numbers in range  {"min": 0, "max": 10, "step": 1}
+		 * @example	regenerateRange( {"min": 10, "max": 50, "step": 5}, false) //output [10, 15, 20, 25...]
+		 * @param	range
+		 */
+		public function regenerateRange(range:Object, shuffle:Boolean = true):void {
+			
+			//ftrace("Regenerating...")
+			if (!range.min || !range.max || !range.step){
+				
+				ftrace("Missing parameter(s) in range object.")
+				return;
+			}
+			var new_field:Array = mcMath.numbersInRange(range.min, range.max, "all", range.step);
+			source = new_field;
+			if (shuffle) this.shuffle();
 		}
 		
 		public function removeItemAt(index:int):void {
@@ -95,6 +141,11 @@ package orien.tools {
 					return true;
 			
 			return false;
+		}
+		
+		public function isEmpty():Boolean {
+			
+			return source.length == 0;
 		}
 		
 		public function toString():String {
@@ -162,6 +213,28 @@ package orien.tools {
 		}
 		
 		/**
+		 * Get closest object from target center
+		 * @param	target_obj
+		 * @return	clossest object
+		 */
+		public function getClossestObject(target_obj:Object):Object {
+			
+			if (source.length == 0) return null;
+			var closest_obj:Object = source[0];
+			var min_dist:Number;
+			for each (var o:Object in source) {
+				
+				var dist:Number = mcTran.twoPointsDistance(mcTran.pos(o), mcTran.pos(target_obj));
+				if (!min_dist || min_dist > dist) {
+					
+					closest_obj = o;
+					min_dist = dist;
+				}
+			}
+			return closest_obj;
+		}
+		
+		/**
 		 * Collect values from objects by paramater, add array result to source
 		 * @param	arr objects array
 		 * @param	param parameter which contains wanted value
@@ -173,6 +246,31 @@ package orien.tools {
 				if (o[param] != null)
 					obj_arr.push(o[param]);
 			source = obj_arr;
+		}
+		
+		/**
+		 * Collect items by paramater value and return new array
+		 * @param	param parameter name
+		 * @param	value parameter value
+		 * @return	new array contains only objects with defined value
+		 */
+		public function collectItemsByValue(param:String, value:*):Array {
+			
+			var new_array:Array = new Array();
+			for each (var o:* in source)
+				if (o[param] != null && o[param] == value)
+					new_array.push(o);
+			return new_array;
+		}
+		
+		
+		public function extractParams(param:String):Array{
+			
+			var data_arr:Array = new Array();
+			for each (var o:* in source)
+				if (o[param] != null)
+					data_arr.push(o[param]);
+			return data_arr;
 		}
 		
 		public function getUniqueName(name:String):String {
@@ -223,7 +321,7 @@ package orien.tools {
 			for each (var o:* in source) trace("Param:" + o[param]);
 		}
 		
-		public function print():void {
+		public function printObj():void {
 			
 			for each (var o:* in source) {
 				
@@ -232,10 +330,25 @@ package orien.tools {
 			}
 		}
 		
+		public function print():void {
+			
+			for each (var o:* in source) trace(o);
+		}
+		
 		public function clear():void {
 			
 			source = [];
 		}
+		
+		/*
+		 * Sort objects in array, by given path and type
+		 * @param	component_path tf_name.text
+		 * @param	type Number, String
+		
+		   public function sortByComponent(component_path:Array, type:String):void {
+		
+		
+		   } */
 		
 		public function sortByDistance(p:Point):void {
 			
@@ -252,6 +365,28 @@ package orien.tools {
 		public function sortByAttribute(attr:String):void {
 			
 			source.sortOn(attr);
+		}
+		
+		/**
+		 * Capture index from a name: object_01 -> index = int(1)
+		 */
+		public function getIndexFromName():void {
+			
+			for each (var o:* in source) {
+				
+				var index:int = int(o.name.split("_").pop());
+				o["index"] = index;
+			}
+		}
+		
+		public function splitBy(size:int):void {
+			
+			var results:Array = new Array();
+			while (source.length) { //parse core
+				
+				results.push(source.splice(0, size));
+			}
+			source = results; //replace core
 		}
 		
 		public function shuffle():void {
@@ -273,6 +408,30 @@ package orien.tools {
 			
 			return source.pop();
 		}
+		
+		public function substract(arr:Array):void {
+			
+			if (arr.length == 0) return;
+			var new_a:Array = new Array();
+			while (source.length > 0) {
+				
+				var element:* = source.shift();
+				var index:Number = arr.indexOf(element);
+				if (index == -1) new_a.push(element);
+			}
+			this.source = new_a;
+		}
+		
+		/*public function indexOfNamePart(str_part:String):Number {
+		
+		   for (var i:int = 0; i < source.length; i++ ) {
+		   var n:String = source[i];
+		
+		   trace("match str:"+n+" str_part:"+str_part+" found:"+n.indexOf(str_part))
+		   if (n.indexOf(str_part) != -1) return i;
+		   }
+		   return -1;
+		   }*/
 		
 		private function randomSort(a:*, b:*):Number {
 			

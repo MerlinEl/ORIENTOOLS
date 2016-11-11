@@ -12,13 +12,14 @@ package orien.tools {
 		static public var DEBUG:int = 0
 		
 		public function mcCollect() {
-		
+
 		}
 		
 		/**
 		 * Collect objects from container by condition string
 		 * @param	container
 		 * @param	condition String >
+		 * @usage	Usage: 
 		 * "all":	get all objects inside container
 		 * "name":	get objects with given name
 		 * "part":	get objects which contains given string
@@ -35,7 +36,7 @@ package orien.tools {
 			for (var i:Number = 0; i <= container.numChildren - 1; i++) {
 				
 				var o:Object = container.getChildAt(i);
-				if (!o.hasOwnProperty("name")) continue; //all objects with name can pass 
+				if (!o.hasOwnProperty("name")) continue; //skip objects without name parameter
 				switch (condition) {
 				
 				case "all": 
@@ -58,6 +59,9 @@ package orien.tools {
 					break;
 				case "prefix": 
 					if (o.name.split("_")[0] == str) output.push(o);
+					break;
+				case "prefix_and_set":
+					if (o.name.split("_")[0] == str && o["set"] == Number(arg)) output.push(o);
 					break;
 				case "except": 
 					if (o.name.indexOf(str) == -1) output.push(o);
@@ -90,6 +94,7 @@ package orien.tools {
 			}
 			return new_arr;
 		}
+		
 		/**
 		 * Detect special parameters and construct Objects
 		 * @param	obj	Object, Movieclip, Sprite....
@@ -128,6 +133,26 @@ package orien.tools {
 			objs_with_distance.sortByDistance(internal_point);
 			var closest_object:DisplayObject = objs_with_distance.getItemAt(0) as DisplayObject;
 			return mcTran.twoPointsDistance(mcTran.pos(closest_object), internal_point) <= max_dist ? closest_object : null;
+		}
+		
+		/**
+		 * Get object under dropped card by name part. If many objects are overlapping, chosse closest one by center.
+		 * @param	target_obj
+		 * @param	str
+		 * @param	source_obj
+		 * @return	DisplayObject with given name part or null
+		 */
+		static public function getTargetOverlapByNamePart(target_obj:DisplayObjectContainer, str:String, source_obj:DisplayObject):DisplayObject {
+			
+			var objs:Array = byCondition(target_obj, "part", str);
+			if (objs.length == 0) return null;
+			var overlaped_objs:mcArray = new mcArray();
+			for each (var o:DisplayObject in objs) {
+				
+				if (o.hitTestObject(source_obj)) overlaped_objs.addItem(o);
+			}
+			if (overlaped_objs.length == 0) return null;
+			return overlaped_objs.getClossestObject(source_obj) as DisplayObject;
 		}
 		
 		/**
@@ -172,6 +197,25 @@ package orien.tools {
 			}
 			return parents;
 		}
+		
+		/**
+		 * Show or hide objects with given name prefix: obj == [obj_01, obj_02, obj_03...]
+		 * @param	container 
+		 * @param	names
+		 * @param	show
+		 */
+		static public function displayObjectsByPrefix(container:DisplayObjectContainer, names:Array, show:Boolean):void {
+			
+			//var names_arr:mcArray = new mcArray
+			for (var i:Number = 0; i <= container.numChildren - 1; i++) {
+				
+				var o:Object = container.getChildAt(i);
+				if (!o.hasOwnProperty("name")) continue; //skip objects without name parameter
+				var prefix:String = o.name.split("_")[0];
+				//trace("search objs with prefix:"+names+" in:"+o.name+" pre:"+prefix)
+				if (names.indexOf(prefix) == -1) continue; //skip all not match
+				o.visible = show;
+			}
+		}
 	}
-
 }

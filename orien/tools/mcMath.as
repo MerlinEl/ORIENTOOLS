@@ -6,6 +6,8 @@ package orien.tools {
 	 */
 	public class mcMath {
 		
+		//private const MAX_TRY:int = 400;
+		
 		public function mcMath() {
 		
 		}
@@ -25,7 +27,7 @@ package orien.tools {
 		}
 		
 		/**
-		 * Round a number to dozens
+		 * Round a number to dozens, hundred, thousand, etc..
 		 * @param	num a Number we want to round
 		 * @param	to 10, 20, 30, ...
 		 * @return	rounded number
@@ -36,14 +38,66 @@ package orien.tools {
 		}
 		
 		/**
-		 * Generate a random number between defined range
+		 * Remove all zeros at end
+		 * @param	num like 24 000
+		 * @return	optimized Number
+		 */
+		static public function removeZerosAtEnd(num:Number):Number {
+			
+			/*
+			   var cislo = 5300;
+			   var zlomek = cislo / Math.pow(10, String(cislo).length-1);
+			   var cislo_bez_nul = zlomek * Math.pow(10, String(zlomek).length-2);
+			   trace("zlomek:"+zlomek+" cislo_bez_nul:"+cislo_bez_nul)*/
+			
+			var cnt:int = 0;
+			for (var i:int = 1; i < String(num).length; i++) {
+				
+				if (mcMath.mod(num, Math.pow(10, i)) == 0) cnt++;
+			}
+			return num / Math.pow(10, cnt);
+		}
+		
+		/**
+		 * @return	random true or false
+		 */
+		static public function randomSwitch():Boolean {
+			
+			return randomRange(0, 1) == 1;
+		}
+		
+		/**
+		 * Updated:(01.11.2016)
+		 * Generate a random number between defined range.
 		 * @param	min_num minimum number
 		 * @param	max_num maximum number
+		 * @param	round_type round Number type: floor, ceil, round.
+		 * @param	to_fixed maximum decimal places
 		 * @return	number
 		 */
-		static public function randomRange(min_num:Number, max_num:Number):Number {
+		static public function randomRange(min_num:Number, max_num:Number, round_type:String = "floor", to_fixed:int = 0):Number {
 			
-			return (Math.floor(Math.random() * (max_num - min_num + 1)) + min_num);
+			var random_num:Number = Math.random() * (max_num - min_num + 1);
+			switch (round_type) {
+			
+			case "none": 
+				random_num += min_num;
+				break;
+			case "floor": 
+				random_num = Math.floor(random_num) + min_num;
+				break;
+			}
+			return to_fixed == 0 ? random_num : toFixed(random_num, to_fixed);
+		}
+		
+		/**
+		 * Generate random decimal number in range [0 - 1] and reduce decimal places like: 0.2, 0.21, 0.568 etc...
+		 * @param	decimals fixed decimal places
+		 * @return
+		 */
+		static public function randomDecimal(decimals:int):Number {
+			
+			return Number(Math.random().toFixed(decimals));
 		}
 		
 		/**
@@ -70,6 +124,22 @@ package orien.tools {
 		}
 		
 		/**
+		 * Create field of numbers in range and shuffle;
+		 * @example	if (cars_frames.length == 0) cars_frames = mcMath.regenerateField(1, cars_01.totalFrames);
+		 * @example	var random_unique_frame = car_frames.pop();
+		 * @param	from
+		 * @param	to
+		 * @param	shuffle
+		 * @return	mcArray
+		 */
+		static public function regenerateField(from:Number, to:Number, shuffle:Boolean = true):mcArray {
+			
+			var new_field:mcArray = new mcArray(numbersInRange(from, to));
+			if (shuffle) new_field.shuffle();
+			return new_field;
+		}
+		
+		/**
 		 * @date 15.9.2014
 		 * Generate a random number between defined range (rounded to dozens)
 		 * @param	min_num minimum number
@@ -93,6 +163,45 @@ package orien.tools {
 		}
 		
 		/**
+		 * @example	trace("1990 in roman is " + mcMath.arabicToRoman(1990));
+		 * @param	val
+		 */
+		static public function arabicToRoman(val:int) {
+			
+			if (val < 1 || val > 3999) return "-1";
+			
+			var arr_1:Array = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
+			var arr_2:Array = ["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"];
+			var roman:String = ""
+			
+			for (var i:int = 0; i < arr_1.length; i++) {
+				//ftrace("key: % val: %", arr_2[i], arr_1[i])
+				while (val >= arr_1[i]) {
+					roman += arr_2[i];
+					val -= arr_1[i];
+				}
+			}
+			return roman;
+		}
+		
+		/**
+		 * @example	trace("MCMXC in arabic is " + mcMath.romanToArabic("MCMXC"));
+		 * @param	roman
+		 * @return
+		 */
+		static public function romanToArabic(roman:String):Number {
+			
+			var roman_arr:Array = roman.toUpperCase().split('');
+			var lookup:Object = { I:1, V:5, X:10, L:50, C:100, D:500, M:1000 };
+			var num:Number = 0, val:Number = 0;
+			while (roman_arr.length) {
+				val = lookup[roman_arr.shift()];
+				num += val * (val < lookup[roman_arr[0]] ? -1 : 1);
+			}
+			return num;
+		}
+		
+		/**
 		 * Generate an array of unmbers between min | max range
 		 * @param	min_num minimum number
 		 * @param	max_num maximum number
@@ -102,6 +211,11 @@ package orien.tools {
 		 */
 		static public function numbersInRange(min_num:Number, max_num:Number, type:String = "all", step:int = 1):Array {
 			
+			if (step < 1) {
+				
+				trace("Error numbersInRange, step must be bigger than 0!")
+				return [];
+			}
 			//trace("min:"+min_num+"max:"+max_num);
 			var nums:Array = new Array();
 			for (var i:Number = min_num; i <= max_num; i += step) {
@@ -117,6 +231,31 @@ package orien.tools {
 					if (!isEven(i)) nums.push(i);
 					break;
 				}
+			}
+			return nums;
+		}
+		
+		static public function numbersInRangeDecimal(min_num:Number, max_num:Number, step:Number = 0.1, dec_only:Boolean = false, decimals:int = 2):Array {
+			
+			if (step < 0.1) {
+				
+				trace("Error numbersInRangeDecimal, step must be bigger than 0!")
+				return [];
+			}
+			var nums:Array = dec_only ? [] : [min_num];
+			var num:Number = min_num + step;
+			while (num <= max_num) {
+				
+				if (isWhole(num) && dec_only) {
+					
+					//skip whole number
+					
+				} else {
+					
+					nums.push(num);
+				}
+				num += step;
+				num = Number(num.toFixed(decimals)); //aded fixer to avoid this: 1.2000000000000002
 			}
 			return nums;
 		}
@@ -167,6 +306,16 @@ package orien.tools {
 		}
 		
 		/**
+		 * Check if number is whole
+		 * @param	val
+		 * @return
+		 */
+		static public function isWhole(val:Number):Boolean {
+			
+			return int(val) == val;
+		}
+		
+		/**
 		 * Check if given number is even or odd
 		 * @param	num number which we want to check
 		 * @return	bollean: true | false
@@ -179,6 +328,16 @@ package orien.tools {
 		static public function mod(val_a:Number, val_b:Number):Number {
 			
 			return val_a % val_b;
+		}
+		
+		/**
+		 * Convert positive number in to negative and vice versa
+		 * @example inverseNumber(24) == -24;
+		 * @param	val
+		 */
+		static public function inverseNumber(val:Number):Number {
+			
+			return val * -1;
 		}
 		
 		//rozklad čísla na sčítání
@@ -207,16 +366,23 @@ package orien.tools {
 			return output;
 		}
 		
+		/**
+		 * Split number to whole and decimal part
+		 * @param	num
+		 * @return	new Array ( Number(whole), Number(decimal) )
+		 */
+		static public function splitDecimals(num:Number):Array {
+			
+			if (num.toString().indexOf(".") == -1) return [num, 0];
+			var str_arr:Array = num.toString().split(".");
+			return [Number(str_arr[0]), Number("0." + str_arr[1])];
+		}
+		
 		static public function getNumArraySum(arr:Array):Number {
 			
 			var sum:Number = 0;
 			for each (var o:Number in arr) sum += o;
 			return sum;
-		}
-		
-		static public function randomSwitch():Boolean {
-			
-			return randomRange(0, 1) == 0;
 		}
 		
 		//get second digit from numbers 10-infinite;
@@ -241,17 +407,17 @@ package orien.tools {
 			}
 			digits.reverse();
 			return digits;
-			
-			/*var numbers_array:Array = new Array();
-			var num_str:String = num.toString();
-			for (var i:int = 0; i < num_str.length; i++) {
-				
-				var char:String = num_str.charAt(i);
-				if (!mcString.isNumber(char)) continue; //skip non number chars
-				var current_num:Number = Number(char) * Math.pow(10, num_str.length -1 - i);
-				numbers_array.push(current_num);
-			}
-			return numbers_array;*/
+		
+		/*var numbers_array:Array = new Array();
+		   var num_str:String = num.toString();
+		   for (var i:int = 0; i < num_str.length; i++) {
+		
+		   var char:String = num_str.charAt(i);
+		   if (!mcString.isNumber(char)) continue; //skip non number chars
+		   var current_num:Number = Number(char) * Math.pow(10, num_str.length -1 - i);
+		   numbers_array.push(current_num);
+		   }
+		   return numbers_array;*/
 		}
 		
 		//if a + b is crossing over ten. etc. true --> 15+6 false --> 15+5
@@ -283,6 +449,19 @@ package orien.tools {
 				new_nums.push(ex);
 			}
 			return new_nums;
+		}
+		
+		/**
+		 * Calculate percent from a given number
+		 * @param	num	any number
+		 * @param	percent	numbers between 1 - 100
+		 * @param	fixed if not -1 then define how many decimals are in number.
+		 * @return	number percent from given number
+		 */
+		static public function percentFromNumber(num:Number, percent:Number, fixed:int = -1):Number {
+			
+			var percent:Number = (num * percent) / 100;
+			return fixed > -1 ? toFixed(percent, fixed) : percent;
 		}
 		
 		static public function minMaxFrom(num:Number, min:Number, max:Number):Number {
@@ -341,6 +520,19 @@ package orien.tools {
 			return examples;
 		}
 		
+		static public function generateDivideExamplesSimple(mod_numbers:Array, shuffle:Boolean = false, debug:Boolean = false):mcArray {
+			
+			var examples:mcArray = new mcArray();
+			for each (var mod:int in mod_numbers) { //generate nums for each multiply digit
+				
+				var random_nums:mcArray = new mcArray(multiplyNumSimple(mod));
+				if (shuffle) random_nums.shuffle();
+				examples.addItem({"mod": mod, "nums": random_nums.toArray()});
+				if (debug) trace("modify:" + mod + " random_nums:" + random_nums);
+			}
+			return examples;
+		}
+		
 		static public function traceExamples(arr:mcArray):void {
 			
 			for each (var o:Object in arr.source) trace(o.a + (o.operator == "+" ? " + " : " - ") + o.b + " = " + o.c);
@@ -354,7 +546,148 @@ package orien.tools {
 			}
 			return num_arr;
 		}
-	
+		
+		/**
+		 * Get index of a number which is most close to given index
+		 * @param	numbers array of numbers
+		 * @param	index
+		 * @return	int array position
+		 */
+		static public function getClosestIndex(numbers:Array, index:int):int {
+			
+			var colsest_index:int = 0;
+			var min_dist:Number = Math.abs(numbers[0] - index);
+			for (var i:int = 0; i < numbers.length; i++) {
+				
+				var dist:Number = Math.abs(numbers[i] - index);
+				//trace("min_dist:"+min_dist+" dist:"+dist + " num:"+numbers[i] + " index:"+index + " i:"+i)
+				if (min_dist > dist) {
+					
+					colsest_index = i;
+					min_dist = dist;
+				}
+			}
+			return colsest_index;
+		}
+		
+		/**
+		 * Add replace decimals from one number to another 1.25, 56.3 == 56.25;
+		 * @param	num_a
+		 * @param	num_b
+		 */
+		static public function copyDecimalsFromTo(num_a:Number, num_b:Number):Number {
+			
+			var numa_arr:Array = splitDecimals(num_a);
+			var numb_arr:Array = splitDecimals(num_b);
+			return numb_arr[0] + numa_arr[1];
+		}
+		
+		/**
+		 * Generate list of modifyed number by three different ways:
+		 * One number is always correct
+		 * 1. plus
+		 * 2. minus
+		 * 3. plus & minus
+		 * @param	num number which will be modified
+		 * @param	all_mods ex.: [10, 20, 30, -10, -20, -30]
+		 * @param	results how many modifications will be done
+		 * @return	random selected numbers as mcArray (shuffled)
+		 */
+		static public function fakeNumberPlusMinusBoth(num:Number, all_mods:Array, mods:int):mcArray {
+			
+			//filter mods
+			var random_mods:mcArray;
+			switch (new mcArray(["plus", "minus", "both"]).getRandomItem()) {
+			
+			case "plus": 
+				random_mods = filterNumbers(all_mods, "positive");
+				break;
+			case "minus": 
+				random_mods = filterNumbers(all_mods, "negative");
+				break;
+			case "both": 
+				random_mods = new mcArray(all_mods);
+				break;
+			}
+			random_mods.shuffle();
+			//modify number
+			var all_results:mcArray = new mcArray([num]);
+			for (var i:int = 0; i < mods; i++) {
+				
+				all_results.addItem(num + Number(random_mods.pop()));
+			}
+			all_results.shuffle();
+			return all_results;
+		}
+		
+		/**
+		 * Modify a number to many variations(percent_range)
+		 * @example
+		 * var num:Number = 123;
+		 * var percents:Array = [99, 101];
+		 * var nums:Array = mcMath.fakeNumberPercenage(num, percents, 2, 2)
+		 * ftrace("num: % mods: %", num, nums)
+		 * output: num: 123 mods: 124.23,121.77
+		 * @param	num a Number
+		 * @param	percent_range Array of percents like: [95, 105]
+		 * @param	mods how many modifications will output
+		 * @return	Array of modified numbers
+		 */
+		static public function fakeNumberPercenage(num:Number, percent_range:Array, mods:int, fixed:int = -1):Array {
+			
+			if (percent_range.length != 2) {
+				
+				trace("range must have two numbers [from, to].")
+				return [];
+			}
+			if (percent_range[1] - percent_range[0] < mods) {
+				
+				trace("mods length is exceeded percent_range.")
+				return [];
+			}
+			var output:Array = new Array();
+			var used_percents:Array = new Array();
+			for (var i:int = 0; i < mods; i++) {
+				
+				var random_percent:Number = randomRange(percent_range[0], percent_range[1]);
+				while (used_percents.indexOf(random_percent) != -1 || random_percent == 100) { //skip 100% 
+					
+					random_percent = randomRange(percent_range[0], percent_range[1]);
+				}
+				used_percents.push(random_percent);
+				var mod_num:Number = percentFromNumber(num, random_percent, fixed);
+				output.push(mod_num);
+			}
+			return output;
+		}
+		
+		/**
+		 * Collect numbers from given array by type: positive or negative
+		 * @param	nums array of numbers ex.: [10, 20, 30, -10, -20, -30]
+		 * @param	type
+		 * @return
+		 */
+		static public function filterNumbers(nums:Array, type:String):mcArray {
+			
+			var nums_array:mcArray = new mcArray();
+			for each (var num in nums) {
+				
+				switch (type) {
+				
+				case "positive": 
+					if (num >= 0) nums_array.addItem(num);
+					break;
+				case "negative": 
+					if (num < 0) nums_array.addItem(num);
+					break;
+				}
+			}
+			return nums_array;
+		}
+		
+		static public function toFixed(num:Number, decimals:int):Number {
+			
+			return Number(num.toFixed(decimals));
+		}
 	}
-
 }

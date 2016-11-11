@@ -40,7 +40,7 @@ package orien.tools {
 			
 			try {
 				data = new XML(event.target.data);
-				
+				//trace("data:"+data)
 				urlLoader.removeEventListener(Event.COMPLETE, onComplete);
 				urlLoader.removeEventListener(IOErrorEvent.IO_ERROR, onIOError);
 				

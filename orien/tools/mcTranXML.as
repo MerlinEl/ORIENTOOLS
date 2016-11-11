@@ -20,10 +20,25 @@ package orien.tools {
 			return -1;
 		}
 		
+		/*static public function getItemIndexAtr(xml:XML, item_name:String, param:String):int {
+		
+		   for each (var item:XML in xml.children()) {
+		   if (item.attribute(param) == item_name) return item.childIndex();
+		   }
+		   return -1;
+		   }*/
+		
 		static public function getItemByName(xml:XMLList, item_name:String):XML {
 			
 			for each (var item:XML in xml)
 				if (item.@name == item_name) return item;
+			return null;
+		}
+		
+		static public function getXMLListItemByAttribute(xml:XMLList, item_label:String, param:String):XML {
+			
+			for each (var item:XML in xml)
+				if (item.attribute(param) == item_label) return item;
 			return null;
 		}
 		
@@ -40,6 +55,26 @@ package orien.tools {
 		static public function addItemAt(xml:XML, index:int, new_item:XML):void {
 			
 			xml.child[index] = new_item;
+		}
+		
+		/**
+		 * Add new node in to XMLList (list must be replaced after return)
+		 * @param	list XMLList
+		 * @param	xml new XML node
+		 * @return	populated XMLList
+		 */
+		static public function addToXMLList(list:XMLList, xml:XML):XMLList {
+			
+			list += xml;
+			return list;
+		}
+		//mcTranXML.removeFromXMLListByAttribute(xml.Books[book_name].item, itm_name, "label");
+		static public function removeFromXMLListByAttribute(list:XMLList, item_name:String, param:String):void {
+			
+			for (var i:int = 0; i < list.length(); i++) {
+				
+				if (list[i].attribute(param) == item_name) delete list[i];
+			}
 		}
 		
 		/*static public function addReplace(xml:XML, item_name:String, new_group:XML):void {
@@ -60,6 +95,12 @@ package orien.tools {
 			var index:int = getItemIndex(xml, item_name);
 			if (index != -1) delete xml.children()[index];
 		}
+		
+		/*static public function removeItemByAttribute(xml:XML, item_name:String, param:String):void {
+		
+		   var index:int = getItemIndexAtr(xml, item_name, param);
+		   if (index != -1) delete xml.children()[index];
+		   }*/
 		
 		/**
 		 * Sort keys xml by her attribute : label, name, ...
@@ -99,5 +140,49 @@ package orien.tools {
 				return xml.setChildren(sortedXmlList);
 			}
 		}
+		//works only for root xml keys
+		static public function removeXMLListByName(xml:XML, key:String):void {
+			
+			//trace("Original xml:"+xml.toXMLString());
+			var child:XMLList = xml.child(key);
+			//trace("XMLList:"+child.toXMLString());
+			delete child[0];
+			//trace("Modified xml:"+xml.toXMLString());
+		}
+		
+		/**
+		 * Remove given XMLList from XML
+		 * @example	mcTranXML.removeXMLList(xml.Books[sel_book.selectedItem.id])
+		 * @param	list XMLList
+		 */
+		static public function removeXMLList(list:XMLList):void {
+			
+			delete list[0];
+		}
+		
+		/**
+		 * Remove all XML nodes from XMLList
+		 * @example	mcTranXML.clearXMLList(xml.Books[sel_book.selectedItem.id])
+		 * @param	list XMLList
+		 */
+		static public function clearXMLList(list:XMLList):void {
+			
+			list.setChildren(new XMLList());	
+		}
 	}
 }
+
+/*
+   trace("---Example 1 : for each in---");
+   for each(var a:XML in xml1.@*)
+   {
+   trace (a.name() + " : " + a.toXMLString());
+   }
+
+   trace("---Example 2 : for---");
+   var atts:XMLList = xml1.attributes();
+   for (var i:int = 0; i < atts.length(); i++)
+   {
+   trace (String(atts[i].name()) + " : " + atts[i].toXMLString());
+   }
+ */

@@ -62,12 +62,15 @@
 		}
 		
 		/**
-		 * Get directory that is parent of current directory
-		 * @return String
+		 * Get directory that is parent(level) of current directory
+		 * @param	levels how many level up from app dir
+		 * @return	String
 		 */
-		static public function getApplicationUpperDir():String {
+		static public function getApplicationUpperDir(levels:int = 1):String {
 			
-			var upper_dir:String = new File(File.applicationDirectory.nativePath).resolvePath("./../").nativePath;
+			var level_mask:String = "./";
+			for (var i:int = 0; i < levels; i++) level_mask += "../"
+			var upper_dir:String = new File(File.applicationDirectory.nativePath).resolvePath(level_mask).nativePath;
 			return upper_dir;
 		}
 		
@@ -127,7 +130,27 @@
 		static public function getAppDir():String {
 			
 			//replacing backslashes with forward slashes
-			return File.applicationDirectory.nativePath.replace( /\\/g, '/');
+			return File.applicationDirectory.nativePath.replace(/\\/g, '/');
+		}
+		
+		/**
+		 * Collect files from directory by given extension
+		 * @param	dir
+		 * @param	extension file extension
+		 * @return	array of files
+		 */
+		static public function getFilesFromDir(dir:String, extension:String = "all"):Array {
+			
+			var root_dir:File = File.applicationDirectory.resolvePath(dir);
+			var all_files:Array = root_dir.getDirectoryListing();
+			if (extension == "all") return all_files;
+			var chossen_files:Array = new Array();
+			for each (var f:File in all_files) {
+				
+				var ext:String = f.name.split(".").pop();
+				if (ext == extension) chossen_files.push(f);
+			}
+			return chossen_files;
 		}
 	}
 }

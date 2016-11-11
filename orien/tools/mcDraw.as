@@ -11,7 +11,7 @@ package orien.tools {
 	 * Draw Splines or Shapes ?
 	 * @author Alex Hannigan
 	 * @author René Bača (Orien) 2015
-	 * 
+	 *
 	 *
 	 */
 	public class mcDraw {
@@ -34,12 +34,13 @@ package orien.tools {
 		 * @param	color uint
 		 * @param	alpha Number 0 - 1
 		 */
-		public static function drawRectangle(gr:Graphics, x:Number, y:Number, width:Number, height:Number, color:uint, alpha:Number = 1, centred:Boolean = true):void {
+		public static function drawRectangle(gr:Graphics, x:Number, y:Number, width:Number, height:Number, color:uint, alpha:Number = 1, params:Object = null):void {
 			
-			if (centred) {
+			if (params["centred"]) {
 				x -= width / 2;
 				y -= height / 2;
 			}
+			if (params["border"]) gr.lineStyle(params["thickness"] || 1, params["border_color"] || 0, params["alpha"] || 1);
 			gr.beginFill(color, alpha);
 			gr.drawRect(x, y, width, height);
 			gr.endFill();
@@ -109,6 +110,7 @@ package orien.tools {
 			gr.lineTo(x, y + height / 2);
 			gr.endFill();
 		}
+		
 		/**
 		 * Need to finish cetntred part
 		 * @param	gr
@@ -121,13 +123,49 @@ package orien.tools {
 		 * @param	centred
 		 * @param	way
 		 */
-		static public function drawTriangle(gr:Graphics,  x:Number, y:Number, width:Number, height:Number, color:uint, alpha:Number = 1, centred:Boolean = true, way:String = "top"):void {
+		static public function drawTriangle(gr:Graphics, x:Number, y:Number, width:Number, height:Number, color:uint, alpha:Number = 1, centred:Boolean = true, way:String = "top"):void {
 			
 			var tri:mcTriangle = new mcTriangle(x, y, width, height);
 			if (centred) tri.move(-width / 2, height / 2); //move to center
 			tri.pointAt(way);
 			gr.beginFill(color, alpha);
 			gr.drawTriangles(tri.verts);
+			gr.endFill();
+		}
+		
+		/**
+		 *
+		 * @param	gr
+		 * @param	points Array of point coordinates (x0, y0, x1, y1, .. xN, yN)
+		 * @param	params Object {fill_color:uint, border_color:uint, alpha:Number, thickness:int, border:Boolean}
+		 */
+		//color:uint, alpha:Number = 1, border:Object = {}
+		static public function drawShape(gr:Graphics, points:Vector.<Point>, params:Object = null):void {
+			
+			if (mcObject.isEmpty(params)) params = {};
+			gr.beginFill(params["fill_color"] || 0xC0C0C0, params["alpha"] || 1);
+			if (params["border"]) gr.lineStyle(params["thickness"] || 1, params["border_color"] || 0, params["alpha"] || 1);
+			for (var i:int = 0; i < points.length; ++i) {
+				if (i == 0) {
+					gr.moveTo(points[i].x, points[i].y);
+				} else {
+					gr.lineTo(points[i].x, points[i].y);
+				}
+			}
+			gr.endFill();
+		}
+		
+		static public function drawLine(gr:Graphics, points:Vector.<Point>, params:Object = null):void {
+			
+			if (mcObject.isEmpty(params)) params = {};
+			gr.lineStyle(params["thickness"] || 1, params["color"] || 0, params["alpha"] || 1);
+			for (var i:int = 0; i < points.length; ++i) {
+				if (i == 0) {
+					gr.moveTo(points[i].x, points[i].y);
+				} else {
+					gr.lineTo(points[i].x, points[i].y);
+				}
+			}
 			gr.endFill();
 		}
 	}

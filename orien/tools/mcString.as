@@ -7,17 +7,20 @@
 	import flash.text.TextFieldAutoSize;
 	import flash.text.TextFormat;
 	import flash.text.TextFormatAlign;
+	import mcs.MathExample;
 	
 	/**
 	 * ...
 	 * @author René Bača (Orien)
 	 */
 	public class mcString {
+		
 		private static var max_try:int = 10;
 		/**
 		 * DEBUG = int trace different functions
 		 */
 		public static var DEBUG:int = 0
+		public static var thin_space:String = " ";
 		
 		public function mcString() {
 		
@@ -73,6 +76,13 @@
 		public static function numToString(num:Number):String {
 			
 			return (num < 10 ? "0" + String(num) : String(num));
+		}
+		
+		public static function Multiply(str:String, cnt:int):String {
+			
+			var new_str:String = "";
+			for (var i:int = 0; i < cnt; i++) new_str += str;
+			return new_str;
 		}
 		
 		/**
@@ -155,9 +165,9 @@
 			//TODO recursive call if is Object
 			if (str.charAt(0) == "[") return toArray(str);
 			if (str.charAt(0) == "{") return str; //late call this recursive, to get true object; 
-			if (str.indexOf("..."   ) != -1) return rangeToNumbers(str);
-			if (str.indexOf("true"  ) != -1) return true;
-			if (str.indexOf("false" ) != -1) return false;
+			if (str.indexOf("...") != -1) return rangeToNumbers(str);
+			if (str.indexOf("true") != -1) return true;
+			if (str.indexOf("false") != -1) return false;
 			if (isNaN(Number(str))) return String(str);
 			return Number(str);
 		}
@@ -167,9 +177,11 @@
 			//temove braces if exists
 			if (str.charAt(0) == "[") str = str.substring(1, str.length);
 			if (str.charAt(str.length - 1) == "]") str = str.substring(0, str.length - 1);
+			str = trimWhiteSpacesBeforeAfterDividers(str, [","]);
 			//split to array
 			return str.split(",");
 		}
+		
 		/**
 		 * Conver string Object in to Point
 		 * @param	str "(x=1, y=56)" or "1,56"
@@ -178,11 +190,11 @@
 		static public function toPoint(str:String):Point {
 			
 			str = trimWhiteSpaces(str);
-			if (str.charAt(0) == "("){ //"(x=1, y=2)"
+			if (str.charAt(0) == "(") { //"(x=1, y=2)"
 				
 				var pos_x:int = str.indexOf("x=");
 				var pos_y:int = str.indexOf("y=");
-				if (pos_x == -1 || pos_y  == -1) return null; //is not point data 
+				if (pos_x == -1 || pos_y == -1) return null; //is not point data 
 				var num_x:Number = Number(str.substring(pos_x + 2, str.indexOf(",")));
 				var num_y:Number = Number(str.substring(pos_y + 2, str.indexOf(")")));
 				if (isNaN(num_x) || isNaN(num_y)) return null; //is not point data 
@@ -192,7 +204,7 @@
 			var arr:Array = str.split(","); //"1,2"
 			if (isNaN(Number(arr[0])) || isNaN(Number(arr[1]))) return null; //is not point data 
 			return new Point(arr[0], arr[1]);
-		}	
+		}
 		
 		/**
 		 * Remove white spaces before and after for each special character
@@ -201,7 +213,7 @@
 		 * @return	String
 		 */
 		static public function trimWhiteSpacesBeforeAfterDividers(str:String, dividers:Array):String {
-			
+			//ftrace("str: % div: %", str, dividers);
 			for each (var d:String in dividers) {
 				
 				var index:int = 0
@@ -269,11 +281,10 @@
 			return str.replace(rex, '');
 		}
 		
-		/*static public function trimWhiteSpaceFrontBack(str:String):String{
-		
-		   var rex:RegExp /^\s*|\s*$/gim;
-		   return str.replace(rex,'');
-		   }*/
+		static public function trimWhiteSpaceFrontBack(str:String):String {
+			
+			return str.replace(/^\s+|\s+$/g, "");
+		}
 		
 		/**
 		 * Get from string a value at given position
@@ -379,6 +390,262 @@
 		static public function isNumber(str:String):Boolean {
 			
 			return !isNaN(Number(str));
+		}
+		
+		static public function removeFirst(str:String):String {
+			
+			return str.substr(1);
+		}
+		
+		static public function removeLast(str:String):String {
+			
+			return str.substring(0, str.length - 1);
+		}
+		
+		/**
+		 * Remove first and last character from _string_
+		 * @usage	Usage: 
+		 * var str:String = "1abcde2";
+		 * var str:String = "1abcde2";
+		 * var str_1:String = mcString.removeFirst(str);
+		 * var str_2:String = mcString.removeLast(str);
+		 * var str_3:String = mcString.removeFirstAndLast(str);
+		 * trace(str, str_1, str_2, str_3)
+		 * output: 1abcde2, abcde2, 1abcde, abcde,
+		 * @param	str full String
+		 * @return	shorten String
+		 */
+		static public function removeFirstAndLast(str:String):String {
+			
+			return removeFirst(removeLast(str));
+		}
+		
+		static public function singleQuoteToDouble(str:String):String {
+			
+			return str.replace(/\"/g, '\'');
+		}
+		
+		/**
+		 * Replace character(search) at position by given one(replace)
+		 * @param	str String where we want replace characters
+		 * @param	search String which characters will be replaced
+		 * @param	replace New chars
+		 * @return	New String
+		 */
+		static public function replaceAt(str:String, search:String, replace:String, pos:int = 0):String {
+			
+			//trace("replace word:" + search + " with:" + replace+" at:" + pos + " in text:" + str);
+			var begin:String = str.substring(0, str.indexOf(search, pos));
+			var end:String = str.substring(str.indexOf(search, pos) + search.length);
+			//trace("begin:"+begin+" end:"+end)
+			return begin + replace + end;
+		}
+		
+		static public function replaceAll(str:String, search:String, replace:String):String {
+			
+			//return str.replace(new RegExp(search, "g"), replace); //working
+			return str.split(search).join(replace);
+		}
+		
+		/**
+		 * Replace clossest occurence from given index
+		 * @param	str
+		 * @param	search
+		 * @param	replace
+		 * @param	index
+		 * @return
+		 */
+		static public function replaceClosest(str:String, search:String, replace:String, index:int):String {
+			
+			var all_char_indexes:Array = new Array();
+			var next_pos:int = str.indexOf(search, next_pos);
+			while (next_pos != -1) {
+				
+				all_char_indexes.push(next_pos);
+				next_pos = str.indexOf(search, next_pos + 1);
+			}
+			var closest_index:int = mcMath.getClosestIndex(all_char_indexes, index);
+			var start:int = all_char_indexes[closest_index];
+			//trace("all char indexes:" + all_char_indexes + " hit index:" + index + " closest index:" + closest_index);
+			return replaceAt(str, search, replace, start);
+		}
+		
+		/**
+		 * Reverse a string
+		 * @param	str
+		 * @return
+		 */
+		static public function reverse(str:String):String {
+			
+			return str.split("").reverse().join("");
+		}
+		
+		/**
+		 * Cout how many words is in a String
+		 * @param	str text
+		 * @param	search word
+		 * @return	int count
+		 */
+		static public function charsCount(str:String, search:String):int {
+			
+			var cnt:int = 0;
+			var next_pos:int = str.indexOf(search, next_pos);
+			while (next_pos != -1) {
+				
+				cnt++;
+				next_pos = str.indexOf(search, next_pos + 1);
+			}
+			return cnt;
+		}
+		
+		static public function removeTabsAndNewLines(str:String):String { //not used
+			
+			var rex:RegExp = /(\t|\n|\r)/gi;
+			str = str.replace(rex, '');
+			return str;
+		}
+		
+		static public function fixTextChars(str:String):String { //not used
+			
+			var new_str:String = str.split("\\n").join("\n");
+			new_str = new_str.split("\\r").join("\r");
+			new_str = new_str.split("\\t").join("\t");
+			//string = string.replace(/\n/g, "<br>");
+			//var newText:String = str.replace(/\r\n/g, "\n");
+			//var new_str:String = str.replace(/\\n/g, "\n");
+			//new_str = new_str.replace(/\\t/g, "\t");
+			return new_str;
+		}
+		
+		/**
+		 * Breaks a string into an array of letters.
+		 * @param	str
+		 * @return	Array
+		 */
+		static public function splitAll(str:String):Array {
+
+			var new_array:Array = new Array();
+			for (var i = 0; i < str.length; i++ ){
+				
+				new_array.push(str.charAt(i));
+			} 
+			return new_array
+		}
+		
+		/**
+		 * Insert char(s) in to a string
+		 * @param	str input string
+		 * @param	add char(s)
+		 * @param	pos place where char(s) will be inserted
+		 * @return	modiffied string
+		 */
+		static public function insertAt(str:String, add:String, pos:int):String{
+			
+			return str.substr(0, pos) + add + str.substr(pos);
+		}
+		
+		/**
+		 * Convert a "String number" with commas in to Number ("1,5" -> 1.5)
+		 * @param	num_str
+		 * @return
+		 */
+		static public function stringToNumber(num_str:String, decimals:int = -1):Number{
+	
+			if (num_str.indexOf(",")) num_str = replaceAll(num_str, ",", ".");
+			if (isNumber(num_str)){
+				
+				return (decimals == -1) ? Number(num_str) : Number(Number(num_str).toFixed(decimals)); 
+			}
+			return NaN;
+		}
+		
+		/**
+		 * Conver a Number in to string with custom separator (1.5 -> "1.5" or "1,5")
+		 * @param	num
+		 * @param	separator
+		 * @param	
+		 * @return
+		 */
+		static public function numberToString(num:Number, decimals:int = -1, separator:String = ","):String{
+			
+			if (decimals != -1) num = Number(num.toFixed(decimals));
+			var num_str:String = num.toString();
+			if (separator == ",") {
+				
+				if (num_str.indexOf(".")) num_str = replaceAll(num_str, ".", ",");	
+			} else {
+				
+				if (num_str.indexOf(",")) num_str = replaceAll(num_str, ",", ".");
+			}
+			return num_str;
+		}
+		
+		/**
+		 * Insert hair spaces in number, like: 1000 == 1 000, 25600, 25 600, etc..
+		 * @param	num_str String Number
+		 * @param	space thin_space
+		 * @return	modified num_string
+		 */
+		static public function formatNumber(num_str:String, space:String = ""):String{
+			
+			space.length == 0 ? space = thin_space : null;
+			if (num_str.length < 3) return num_str; //if is less than 1000 return back
+			return num_str.replace( /\d{1,3}(?=(\d{3})+(?!\d))/g , "$&"+space);
+		}
+		
+		/**
+		 * Remove all thin spaces 
+		 * @param	num_str
+		 * @param	space thin_space
+		 * @return	collapsed String
+		 */
+		static public function unformatNumber(num_str:String, space:String = ""):String{
+			
+			space.length == 0 ? space = thin_space : null;
+			if (num_str.length < 4) return num_str; //if is less than 1000 return back
+			return num_str.split(space).join("");
+		}
+		
+		/**
+		 * Split formated number in to parts
+		 * @param	num_str "1 222 333"
+		 * @param	space thin_space
+		 * @return	array of string numbers "1 222 333" > ["1", "222", "333"]
+		 */
+		static public function splitFormatedNumber(num_str:String, space:String = ""):Array{
+			
+			space.length == 0 ? space = thin_space : null;
+			return num_str.split(space);
+		}
+		
+		/**
+		 * Parse string in to Object MathExample
+		 * @param	str "123*6" or "45/3" or "45+897" ...
+		 * @return	Object new MathExample {numa, numb, operator}
+		 */
+		static public  function parseToExample(str:String):Object {
+			
+			var operators:Array = ["+", "-", "*", "/", ":"];
+			var num_a:String = "";
+			var num_b:String = "";
+			var half:Boolean = false;
+			var obj:MathExample = new MathExample();
+			for (var i:int = 0; i < str.length; i++ ){
+				
+				var char:String = str.charAt(i);
+				if (operators.indexOf(char) != -1) {
+					
+					obj.numa = Number(num_a);
+					obj.operator = String(char);
+					half = true;
+				} else {
+					
+					half ? num_b += char : num_a += char;
+				}
+				//at the end append num_b
+				if (i == str.length -1) obj.numb = Number(num_b);
+			}
+			return obj;
 		}
 	}
 }
