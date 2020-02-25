@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orien.Tools", "Orien.Tools.csproj", "{990CC2B4-6D5F-4660-9594-782D10DDCB47}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bk", "Bk", "{BE632B3F-955B-44BE-87DC-F8F998B1F11B}"
+	ProjectSection(SolutionItems) = preProject
+		mcXML.cs = mcXML.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Help", "Help", "{A9674CCE-659F-42D5-9346-491632C5B401}"
+	ProjectSection(SolutionItems) = preProject
+		Maxscript.ms = Maxscript.ms
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{990CC2B4-6D5F-4660-9594-782D10DDCB47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{990CC2B4-6D5F-4660-9594-782D10DDCB47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{990CC2B4-6D5F-4660-9594-782D10DDCB47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{990CC2B4-6D5F-4660-9594-782D10DDCB47}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DF1BA7FB-C2D0-4D91-8378-DDA660231D9B}
+	EndGlobalSection
+EndGlobal

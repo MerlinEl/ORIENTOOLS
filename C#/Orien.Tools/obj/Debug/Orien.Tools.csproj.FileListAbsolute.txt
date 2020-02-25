@@ -1,0 +1,6 @@
+E:\Aprog\Orien\OrienTools\C#\Orien.Tools\bin\Debug\Orien.Tools.dll
+E:\Aprog\Orien\OrienTools\C#\Orien.Tools\bin\Debug\Orien.Tools.pdb
+E:\Aprog\Orien\OrienTools\C#\Orien.Tools\obj\Debug\Orien.Tools.csprojResolveAssemblyReference.cache
+E:\Aprog\Orien\OrienTools\C#\Orien.Tools\obj\Debug\Orien.Tools.csproj.CoreCompileInputs.cache
+E:\Aprog\Orien\OrienTools\C#\Orien.Tools\obj\Debug\Orien.Tools.dll
+E:\Aprog\Orien\OrienTools\C#\Orien.Tools\obj\Debug\Orien.Tools.pdb
