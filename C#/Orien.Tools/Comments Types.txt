@@ -1,0 +1,22 @@
+﻿Doporučené značky
+Generátor dokumentace musí přijmout a zpracovat všechny značky, které jsou platné podle pravidel XML. 
+Následující značky poskytují běžně používané funkce v dokumentaci uživatele. (Samozřejmě jsou možné další značky.)
+Inteligentní	Section	Účel
+<c>	<c>	Nastavení textu v písmu podobného kódu
+<code>	<code>	Nastavení jednoho nebo více řádků zdrojového kódu nebo výstupu programu
+<example>	<example>	Označení příkladu
+<exception>	<exception>	Určuje výjimky, které může metoda vyvolat.
+<include>	<include>	Zahrnuje XML z externího souboru.
+<list>	<list>	Vytvoření seznamu nebo tabulky
+<para>	<para>	Povolit přidání struktury do textu
+<param>	<param>	Popište parametr pro metodu nebo konstruktor.
+<paramref>	<paramref>	Určení, že slovo je název parametru
+<permission>	<permission>	Dokumentuje přístupnost člena v zabezpečení.
+<remarks>	<remarks>	Popište Další informace o typu.
+<returns>	<returns>	Popisuje návratovou hodnotu metody.
+<see>	<see>	Zadat odkaz
+<seealso>	<seealso>	Generovat položku viz také
+<summary>	<summary>	Popis typu nebo členu typu
+<value>	<value>	Popsat vlastnost
+<typeparam>		Popsat parametr obecného typu
+<typeparamref>		Určení, že slovo je názvem parametru typu

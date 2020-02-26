@@ -9,6 +9,10 @@ namespace Orien.Tools {
         public string url = "";
         public bool loaded = false;
         public string xmlNodeQuan = (typeof(XmlNode)).AssemblyQualifiedName;
+        /// <summary>
+        /// Open or Create XML file
+        /// </summary>
+        /// <param name="xmlPath">XML file path</param>
         public mcXML(string xmlPath) {
 
             url = xmlPath;
