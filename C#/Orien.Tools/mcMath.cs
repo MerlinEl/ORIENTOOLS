@@ -1,6 +1,6 @@
 ﻿using System;
 //--------------------------------------------------------------------------------//
-//                                mcMath by Orien 2019                            //
+//                                mcMath by Orien 2020                            //
 //--------------------------------------------------------------------------------//
 /*
 *@Used Structures
@@ -11,7 +11,7 @@
 *
 */
 namespace Orien.Tools {
-    public static class mcMath {
+    public class mcMath {
         /// <summary>
         /// Keep given value between min - max range
         /// </summary>
@@ -32,18 +32,3 @@ namespace Orien.Tools {
         }
     }
 }
-
-
-
-//old comments As3 style
-/**
-*@Usage
-    value   :int input number
-    min     :int minimum value	
-    max     :int maximum value
-    return  :int min, max or value
-*@Example
-    mcMath.minMax 100	1	50	--> 50
-    mcMath.minMax -1	1	50	--> 1
-    mcMath.minMax 100	1	200	--> 100
-*/
