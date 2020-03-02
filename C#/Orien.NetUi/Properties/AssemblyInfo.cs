@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Orien.Tools")]
+[assembly: AssemblyTitle("Orien.NetUi")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Orien.Tools")]
+[assembly: AssemblyProduct("Orien.NetUi")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("44e5920e-191f-4ef8-b153-a31518e23c29")]
+[assembly: Guid("bb779fa8-a6c3-41e1-b7b9-9809df8c3504")]
 
 // Version information for an assembly consists of the following four values:
 //

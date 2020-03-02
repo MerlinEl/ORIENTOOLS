@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29025.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orien.Launcher", "Orien.Launcher.csproj", "{CDF5DD17-1DEA-4155-802E-CE37A6C9014E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orien.NetUi", "..\Orien.NetUi\Orien.NetUi.csproj", "{BB779FA8-A6C3-41E1-B7B9-9809DF8C3504}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orien.Tools", "..\Orien.Tools\Orien.Tools.csproj", "{44E5920E-191F-4EF8-B153-A31518E23C29}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CDF5DD17-1DEA-4155-802E-CE37A6C9014E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDF5DD17-1DEA-4155-802E-CE37A6C9014E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDF5DD17-1DEA-4155-802E-CE37A6C9014E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDF5DD17-1DEA-4155-802E-CE37A6C9014E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB779FA8-A6C3-41E1-B7B9-9809DF8C3504}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB779FA8-A6C3-41E1-B7B9-9809DF8C3504}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB779FA8-A6C3-41E1-B7B9-9809DF8C3504}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB779FA8-A6C3-41E1-B7B9-9809DF8C3504}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44E5920E-191F-4EF8-B153-A31518E23C29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44E5920E-191F-4EF8-B153-A31518E23C29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44E5920E-191F-4EF8-B153-A31518E23C29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44E5920E-191F-4EF8-B153-A31518E23C29}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {59F07838-58C2-46FF-BBFC-587FF91B4217}
+	EndGlobalSection
+EndGlobal
