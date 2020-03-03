@@ -1,0 +1,8 @@
+﻿// Your mxs sting of code
+string mxsCode = ("$Box001.name");
+// an sdk ifpvalue type that will get populated with the result of the mxs code
+IFPValue mxsRetVal = Kernel.Global.FPValue.Create();
+// run the string... you may want to try catch here...
+Kernel.Global.ExecuteMAXScriptScript(mxsCode, true, mxsRetVal);
+// here you can retreive the return.. check this class (mxsRetVal.Type will tell you the type of value returned.. here i know its a string (.S))
+string ret = mxsRetVal.S;
