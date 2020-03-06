@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="mcArray.cs" />
+    <Compile Include="mcDynObj2.cs" />
+    <Compile Include="mcDynObj.cs" />
     <Compile Include="mcMath.cs" />
     <Compile Include="mcString.cs" />
     <Compile Include="mcXML.cs" />

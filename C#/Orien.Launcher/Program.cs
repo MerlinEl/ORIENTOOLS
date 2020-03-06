@@ -1,7 +1,9 @@
 ﻿using Orien.NetUi;
+using Orien.Tools;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,16 +13,16 @@ namespace Orien.Launcher {
     class Program {
         static void Main(string[] args) {
 
-            testRoundLabel();
+            DynObjTest2();
         }
-        public static void createTestForm() {
+        public static void CreateTestForm() {
 
             Form aForm = new Form();
             aForm.Text = @"About Us";
             aForm.Controls.Add(new Label() { Text = "Version 5.0" });
             aForm.ShowDialog();  // Or just use Show(); if you don't want it to be modal.
         }
-        public static void testRoundLabel() {
+        public static void TestRoundLabel() {
 
             Form aForm = new Form();
             aForm.Text = @"Label test:";
@@ -28,9 +30,21 @@ namespace Orien.Launcher {
                 Text = "Version 5.0",
                 Location = new Point(60, 20),
                 FillColor = Color.FromArgb(255, 0, 0),
-                TextColor = Color.FromArgb(0,255,0)
-            }); 
+                TextColor = Color.FromArgb(0, 255, 0)
+            });
             aForm.ShowDialog();  // Or just use Show(); if you don't want it to be modal.
+        }
+        public static void DynObjTest() {
+
+            dynamic person = new mcDynObj();
+            person.FirstName = "Ellen";
+            person.LastName = "Adams";
+            Console.WriteLine(person.firstname + " " + person.lastname);
+        }
+        public static void DynObjTest2() {
+
+            SetMemberBinder bi = new SetMemberBinderChild("hola", false);
+            Console.WriteLine("this is: " + bi.Name);
         }
     }
 }
