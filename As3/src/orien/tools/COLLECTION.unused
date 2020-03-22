@@ -1,0 +1,71 @@
+package orien.tools {
+	
+	/**
+	 * ...
+	 * @author	René Bača (Orien) 2016
+	 * @usage	Matematika 6 cv.44b
+	 */
+	public class COLLECTION {
+		
+		private var _source:mcArray;
+		
+		/**
+		 * 
+		 * @example
+		 * @param	arr
+		 */
+		public function COLLECTION(arr:Array = null):void {
+			
+			_source = new mcArray();
+			//append all with index
+			for each (var o:OBJECT in arr){
+				
+				o.setValue("index", _source.length -1);
+				_source.addItem(o);
+			}
+		}
+		
+		/**
+		 * Automatically used when trace
+		 */
+		public function toString() {
+			
+			if (_source.length == 0) return "";
+			ftrace("cnt:%", _source.length)
+			/*for each (var o:OBJECT in _source) {
+				
+				var str:String = "{COLLECTION(\n"
+				str += "\t" + o.toString();
+				str += ")}\n";
+			}
+			str  = str.substring(0, str.length - 1); //remove last enter
+			return str;*/
+		}
+		
+		public function shuffle():void{
+			
+			_source.shuffle();
+		}
+		
+			
+		public function getItemAt(index:int):OBJECT {
+			
+			return _source[index];
+		}
+		
+		/*public function getItem(key:String, val:*):OBJECT {
+			
+			for each (var o:OBJECT in _source){
+				
+				if (int(o.getValue(key)) == index) return o;
+			}
+			return null
+		}*/
+		
+		public function addItem(obj:OBJECT):void {
+			
+			obj.setValue("index", _source.length -1);
+			_source.addItem(obj);
+		}
+	}
+}

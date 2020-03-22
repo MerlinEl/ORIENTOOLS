@@ -1,0 +1,69 @@
+﻿package orien.tools {
+	import flash.display.CapsStyle;
+	import flash.display.Graphics;
+	import flash.display.JointStyle;
+	import flash.display.LineScaleMode;
+	import flash.geom.Point;
+	import flash.geom.Vector3D;
+	
+	/**
+	 * ...
+	 * @author René Bača (Orien) 2018
+	 */
+	public class mcVector3D {
+		
+		//instance properties
+		private var dirX:Number = 0;
+		private var dirY:Number = 0;
+		private var dirZ:Number = 0;
+
+		/**
+		 * constructor mcVector3D
+		 * @example	
+		 * var v1:mcVector3D = new mcVector3D(p1, center, 10, p3); 
+		 * @param	... args[]
+		 * 0 > Point(p1) or Number(dirX)	: 
+		 * 1 > Point(p2) or Number(dirY)	: 
+		 * 2 > Number(10) 					: length of vector
+		 * 3 > Point(p3) 					: start pos	
+		 */
+		public function mcVector3D(... args) {
+			
+			if (args.length == 0) {
+			
+				dirX = 0;
+				dirY = 0;
+				dirZ = 0;
+				
+			} else if (args.length >= 2) {
+				
+				if (args[0] is mcPoint3D && args[1] is mcPoint3D){ // two points were pasted (build vector a - b)
+					
+					dirX = args[0].x - args[1].x, 
+					dirY = args[0].y - args[1].y;
+					dirY = args[0].z - args[1].z;
+				} else { // x and y were passed
+					
+					dirX = fixNumber(args[0]);
+					dirY = fixNumber(args[1]);
+					dirZ = fixNumber(args[2]);
+				}
+				//if (args.length > 2 && args[2]) length = args[2]; //set vector length
+				//if (args.length > 3 && args[3]) moveTo(args[3]); //move vector to pos
+			}
+		}
+
+		/**
+		 * Automatically used when trace
+		 */
+		public function toString():String {
+			
+			return "{object mcVector3D(dirX:" + dirX + ", dirY:" + dirY +, "dirZ:" + dirZ + ")}";
+		}
+		
+		public function toVector3D():Vector3D {
+			
+			return new Vector3D(dirX, dirY, dirY);
+		}
+	}
+}

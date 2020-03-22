@@ -1,0 +1,71 @@
+﻿package orien.tools { //not works not used
+	import org.bytearray.smtp.events.SMTPEvent;
+	import org.bytearray.smtp.mailer.SMTPMailer;
+	
+	public class mcEmail {
+		
+		private var _from:String;
+		private var _to:String;
+		private var _subject:String;
+		private var _msg:String;
+		private var default_port:Number = 25;
+		private var tls_port:Number = 587; //smtp.gmail.com
+		private var ssl_port:Number = 465; //smtp.gmail.com
+		private var pop_port:Number = 995; //"pop.gmail.com"
+		
+		public function mcEmail(from:String, to:String, subject:String = "", msg:String = "") {
+			
+			_from = from;
+			_to = to;
+			_subject = subject;
+			_msg = msg;
+		}
+		
+		public function sendIt():void {
+			
+			var host:String = "smtp.gmail.com";
+			var port:int = tls_port;
+			var login:String = "novaskola.brno.iuctech@gmail.com";
+			var pass:String = "Camelot1973";
+			
+			var mailer:SMTPMailer = new SMTPMailer(host, port);
+			
+			mailer.addEventListener(SMTPEvent.MAIL_ERROR, function(e:SMTPEvent):void {
+				
+				trace("error:" + e.toString());
+			});
+			
+			mailer.addEventListener(SMTPEvent.AUTHENTICATED, function(e:SMTPEvent):void {
+				
+				trace("authent:" + e.toString());
+			});
+			
+			mailer.addEventListener(SMTPEvent.BAD_SEQUENCE, function(e:SMTPEvent):void {
+				
+				trace("bad:" + e.toString());
+			});
+			
+			mailer.addEventListener(SMTPEvent.CONNECTED, function(e:SMTPEvent):void {
+				
+				trace("connected:" + e.toString());
+			});
+			
+			mailer.addEventListener(SMTPEvent.DISCONNECTED, function(e:SMTPEvent):void {
+				
+				trace("disconnected:" + e.toString());
+			});
+			
+			mailer.addEventListener(SMTPEvent.MAIL_SENT, function(e:SMTPEvent):void {
+				
+				trace("mailsent:" + e.toString());
+			});
+			
+			mailer.connect(host, port);
+			mailer.authenticate(login, pass);
+			
+			mailer.sendHTMLMail(_from, _to, _subject, _msg);
+			trace(mailer.connected);
+			trace("end");
+		}
+	}
+}

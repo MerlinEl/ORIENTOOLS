@@ -1,0 +1,61 @@
+package orien.tools {
+	
+	/**
+	 * ...
+	 * @author	René Bača (Orien) 2016
+	 * @usage	Matematika 6 cv.44b
+	 */
+	public class OBJECT {
+		
+		private var _source:Object;
+		private var _key:String;
+		private var _val:*;
+		
+		/**
+		* Object which print his contet
+		var angles:Array = [25,100,55];
+		new OBJECT({"a":angles[0], "data":000}), 
+		new OBJECT({"b":angles[1], "data":111}), 
+		new OBJECT({"c":angles[2], "data":222})
+		ftrace("angles:%", a)
+		ftrace("index:%", OBJECT(a[0]).getValue("data"))
+		 * @example
+		 * @param	obj_key
+		 * @param	obj_val
+		 */
+		public function OBJECT(obj:Object):void {
+			
+			_source = obj;
+		}
+		
+		/**
+		 * Automatically used when trace
+		 */
+		public function toString() {
+			
+			var str:String = "{OBJECT("
+			for (var key:String in _source){
+				
+				str += key + ":" + _source[key] + ", ";
+			} 
+			str  = str.substring(0, str.length - 2); //remove last comma
+			str += ")}";
+			return str;
+		}
+		
+		public function getValue(key:String):* {
+			
+			return _source[key];
+		}
+		
+		public function setValue(key:String, val:*):void {
+			
+			_source[key] = val;
+		}
+		
+		public function keyExists(key:String):Boolean{
+			
+			return _source[key] != null;
+		}
+	}
+}

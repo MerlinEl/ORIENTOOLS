@@ -1,0 +1,59 @@
+package orien.tools {
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
+	import flash.display.DisplayObject;
+	import flash.geom.Matrix;
+	
+	/**
+	 * ... NOT USED
+	 * @author René Bača (Orien) 2017
+	 */
+	public class mcBitmap {
+		
+		public function mcBitmap() {
+		
+		}
+		
+		/**
+		 * Get bitmapdata from movieclip(pivot TopLeft) and return as Bitmap
+		 * @param	obj
+		 * @param	tint
+		 * @return
+		 */
+		static public function getObjectBitmap(obj:DisplayObject, tint:uint = undefined):Bitmap {
+			
+			var bd:BitmapData = mcBitmapData.fromObject(obj, tint);
+			return new Bitmap(bd);
+		}
+		
+		/**
+		 * Get bitmapdata from movieclip(pivot Center) and return as Bitmap
+		 * @param	obj
+		 * @param	tint
+		 * @return
+		 */
+		static public function getObjectBitmapCenter(obj:DisplayObject, tint:uint = undefined):Bitmap {
+			
+			var bd:BitmapData = mcBitmapData.fromObjectCenter(obj, tint);
+			//shift bitmap back to center
+			b.x -= obj.width / 2;
+			b.y -= obj.height / 2;
+			return b;
+		}
+		
+		static public function getObjectBitmapData(obj:DisplayObject, transparency:Boolean = true):BitmapData{
+			
+			// bounds and size of parent in its own coordinate space
+			var rect:Rectangle = target.parent.getBounds(target.parent);
+			var bmp:BitmapData = new BitmapData(rect.width, rect.height, true, 0);
+
+			// offset for drawing
+			var matrix:Matrix = new Matrix();
+			matrix.translate(-rect.x, -rect.y);
+
+			// Note: we are drawing parent object, not target itself: 
+			// this allows to save all transformations and filters of target
+			bmp.draw(target.parent, matrix);
+		}
+	}
+}
