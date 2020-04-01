@@ -13,7 +13,11 @@ namespace Orien.Launcher {
     class Program {
         static void Main(string[] args) {
 
-            DynObjTest2();
+            Console.WriteLine("Orien Tools Solution START!");
+            mcRadialProgressBar progb = new mcRadialProgressBar();
+            //progb.location
+            //DynObjTest2();
+            Console.ReadLine();
         }
         public static void CreateTestForm() {
 
