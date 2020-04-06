@@ -46,5 +46,18 @@ namespace Orien.Tools {
             center_y -= (bounds2.Height / 2) + offset.Y;
             return new Point(center_x, center_y);
         }
+        /// <summary>
+        /// Keep given val in min - max Range
+        /// </summary>
+        /// <param name="val">input value</param>
+        /// <param name="val_min">maximum range</param>
+        /// <param name="val_max">minimum range</param>
+        /// <returns></returns>
+        public static int minMax(int val, int val_min, int val_max) {
+
+            val = Math.Max(val, val_min); //get larger value
+            val = Math.Min(val, val_max); //get smaller value
+            return val;
+        }
     }
 }

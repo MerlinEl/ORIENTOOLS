@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Orien.Tools;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -41,7 +42,7 @@ namespace Orien.NetUi {
                 ControlStyles.UserPaint |
                 ControlStyles.OptimizedDoubleBuffer |
                 ControlStyles.ResizeRedraw, true);
-
+            // TODO send event when done
             _animator = DesignMode ? null : new Animator();
             AnimationFunction = KnownAnimationFunctions.Liner;
             AnimationSpeed = 500;

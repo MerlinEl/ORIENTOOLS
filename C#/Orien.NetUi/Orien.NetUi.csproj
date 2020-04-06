@@ -51,9 +51,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="mcUiGlobal.cs" />
     <Compile Include="mcLabel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="mcPopUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="mcRadialProgressBar.cs">
       <SubType>Component</SubType>
@@ -61,6 +63,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Orien.Tools\Orien.Tools.csproj">
+      <Project>{44E5920E-191F-4EF8-B153-A31518E23C29}</Project>
+      <Name>Orien.Tools</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
