@@ -51,6 +51,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="mcButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="mcUiGlobal.cs" />
     <Compile Include="mcLabel.cs">
       <SubType>Component</SubType>

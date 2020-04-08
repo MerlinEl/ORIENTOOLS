@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using System.Windows.Forms;
+using WinFormAnimation;
 
 namespace Orien.NetUi {
     /// <summary>
@@ -15,10 +16,20 @@ namespace Orien.NetUi {
     [ToolboxBitmap(typeof(mcRadialProgressBar), "mcRadialProgressBar.bmp")]
     [DefaultBindingProperty("Value")]
     public class mcRadialProgressBar : ProgressBar {
+        private readonly Animator _animator;
+        private int? _animatedStartAngle;
 
-        private readonly int? _animatedStartAngle;
-        private readonly float? _animatedValue;
+        private float? _animatedValue;
+
+        private AnimationFunctions.Function _animationFunction;
+
         private Brush _backBrush;
+
+        private KnownAnimationFunctions _knownAnimationFunction;
+
+        private ProgressBarStyle? _lastStyle;
+
+        private int _lastValue;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="mcRadialProgressBar" /> class.
@@ -30,7 +41,14 @@ namespace Orien.NetUi {
                 ControlStyles.UserPaint |
                 ControlStyles.OptimizedDoubleBuffer |
                 ControlStyles.ResizeRedraw, true);
+            // TODO send event when done
+            _animator = DesignMode ? null : new Animator();
+            AnimationFunction = KnownAnimationFunctions.Liner;
+            AnimationSpeed = 500;
+            MarqueeAnimationSpeed = 2000;
             StartAngle = 270;
+
+            _lastValue = Value;
 
             // Child class should be responsible for handling this values at the constructor
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
@@ -69,6 +87,41 @@ namespace Orien.NetUi {
         public void Reset() {
             Value = 0;
             Text = "0%";
+        }
+
+        /// <summary>
+        ///     Sets a known animation function.
+        /// </summary>
+        [Category("Behavior")]
+        public KnownAnimationFunctions AnimationFunction {
+            get => _knownAnimationFunction;
+            set {
+                _animationFunction = AnimationFunctions.FromKnown(value);
+                _knownAnimationFunction = value;
+            }
+        }
+
+        /// <summary>
+        ///     Gets or sets the animation speed in milliseconds.
+        /// </summary>
+        [Category("Behavior")]
+        public int AnimationSpeed { get; set; }
+
+        /// <summary>
+        ///     Sets a custom animation function.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        [Browsable(false)]
+        public AnimationFunctions.Function CustomAnimationFunction {
+            private get { return _animationFunction; }
+            set {
+                if ( value == null ) {
+                    throw new ArgumentNullException(nameof(value));
+                }
+
+                _knownAnimationFunction = KnownAnimationFunctions.None;
+                _animationFunction = value;
+            }
         }
 
         /// <summary>
@@ -211,6 +264,15 @@ namespace Orien.NetUi {
         /// <param name="e">A <see cref="T:System.Windows.Forms.PaintEventArgs" /> that contains the event data. </param>
         protected override void OnPaint(PaintEventArgs e) {
             try {
+                if ( !DesignMode ) {
+                    if ( Style == ProgressBarStyle.Marquee ) {
+                        InitializeMarquee(_lastStyle != Style);
+                    } else {
+                        InitializeContinues(_lastStyle != Style);
+                    }
+
+                    _lastStyle = Style;
+                }
 
                 if ( _backBrush == null ) {
                     RecreateBackgroundBrush();
@@ -251,6 +313,80 @@ namespace Orien.NetUi {
         protected override void OnStyleChanged(EventArgs e) {
             base.OnStyleChanged(e);
             Invalidate();
+        }
+
+        /// <summary>
+        ///     Initialize the animation for the continues styling
+        /// </summary>
+        /// <param name="firstTime">True if it is the first execution of this function, otherwise false</param>
+        protected virtual void InitializeContinues(bool firstTime) {
+            if ( _lastValue == Value && !firstTime ) {
+                return;
+            }
+
+            _lastValue = Value;
+
+            _animator.Stop();
+            _animatedStartAngle = null;
+
+            if ( AnimationSpeed <= 0 ) {
+                _animatedValue = Value;
+                Invalidate();
+
+                return;
+            }
+
+            _animator.Paths =
+                new Path(_animatedValue ?? Value, Value, (ulong)AnimationSpeed, CustomAnimationFunction).ToArray();
+            _animator.Repeat = false;
+            _animator.Play(
+                new SafeInvoker<float>(
+                    v => {
+                        try {
+                            _animatedValue = v;
+                            Invalidate();
+                        } catch {
+                            _animator.Stop();
+                        }
+                    },
+                    this));
+        }
+
+        /// <summary>
+        ///     Initialize the animation for the marquee styling
+        /// </summary>
+        /// <param name="firstTime">True if it is the first execution of this function, otherwise false</param>
+        protected virtual void InitializeMarquee(bool firstTime) {
+            if ( !firstTime &&
+                ( _animator.ActivePath == null ||
+                 _animator.ActivePath.Duration == (ulong)MarqueeAnimationSpeed &&
+                 _animator.ActivePath.Function == CustomAnimationFunction ) ) {
+                return;
+            }
+
+            _animator.Stop();
+            _animatedValue = null;
+
+            if ( AnimationSpeed <= 0 ) {
+                _animatedStartAngle = 0;
+                Invalidate();
+
+                return;
+            }
+
+            _animator.Paths = new Path(0, 359, (ulong)MarqueeAnimationSpeed, CustomAnimationFunction).ToArray();
+            _animator.Repeat = true;
+            _animator.Play(
+                new SafeInvoker<float>(
+                    v => {
+                        try {
+                            _animatedStartAngle = (int)( v % 360 );
+                            Invalidate();
+                        } catch {
+                            _animator.Stop();
+                        }
+                    },
+                    this));
         }
 
         /// <summary>

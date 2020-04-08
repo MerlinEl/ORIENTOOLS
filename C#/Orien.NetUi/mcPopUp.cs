@@ -2,7 +2,6 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using WinFormAnimation;
 
 namespace Orien.NetUi {
     public class mcPopUp {
@@ -19,7 +18,7 @@ namespace Orien.NetUi {
             private readonly bool ShowConfirmButtonOnDone = false;
 
             // Ui variables
-            private readonly Button btn_ok = new Button();
+            private readonly mcButton btn_ok = new mcButton();
             private readonly mcLabel lbl_title = new mcLabel();
             private readonly mcRadialProgressBar prog_bar = new mcRadialProgressBar();
 
@@ -50,7 +49,6 @@ namespace Orien.NetUi {
                 TransparencyKey = mcUiGlobal.TRANSPARENT_COLOR;
 
                 //Progressbar setup
-                prog_bar.AnimationFunction = KnownAnimationFunctions.Liner;
                 prog_bar.Anchor = AnchorStyles.None;
                 prog_bar.BackColor = Color.Transparent;
                 prog_bar.Font = new Font("Impact", 30F, FontStyle.Regular, GraphicsUnit.Point, 178);
@@ -90,8 +88,11 @@ namespace Orien.NetUi {
                 //Button OK setup
                 btn_ok.Size = new Size(40, 40);
                 btn_ok.Location = new Point(30, 30);
-                btn_ok.ForeColor = Color.FromArgb(215, 247, 122);
-                btn_ok.BackColor = Color.FromArgb(80, 80, 100);
+                btn_ok.TextColor = Color.FromArgb(215, 247, 122);
+                btn_ok.FillColor = Color.FromArgb(80, 80, 100);
+                btn_ok.BorderColor = Color.FromArgb(160, 248, 160);
+                btn_ok.BorderThickness = 2;
+                btn_ok.CornerRadius = 20;
                 btn_ok.Text = "OK";
                 btn_ok.Visible = false;
                 Point btn_offset = new Point(0, -40);
@@ -119,6 +120,7 @@ namespace Orien.NetUi {
                 int percent = mcMath.minMax(val, 1, 100); //min-max val correction
                 System.Threading.Thread.Sleep(1);
                 prog_bar.Value = percent;
+                prog_bar.Text = percent.ToString() + "%";
                 prog_bar.Update();
                 //Console.WriteLine("animation:"+prog_bar.AnimationFunction.ToString());
                 //Console.WriteLine("progress:" + percent.ToString());
