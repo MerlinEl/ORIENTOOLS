@@ -65,11 +65,6 @@ namespace Orien.NetUi {
 
             Size = new Size(320, 320);
         }
-        //TODO Reset fn in Radial Progressbar not works
-        public void Reset() {
-            Value = 0;
-            Text = "0%";
-        }
 
         /// <summary>
         ///     Gets or sets the font of text in the <see cref="mcRadialProgressBar" />.

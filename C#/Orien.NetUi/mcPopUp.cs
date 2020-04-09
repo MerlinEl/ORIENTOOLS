@@ -88,16 +88,21 @@ namespace Orien.NetUi {
                 //Button OK setup
                 btn_ok.Size = new Size(40, 40);
                 btn_ok.Location = new Point(30, 30);
+                btn_ok.ForeColor = Color.FromArgb(215, 247, 122);
+                btn_ok.BackColor = Color.FromArgb(29, 84, 56);
+                btn_ok.BackDownColor = Color.FromArgb(12, 194, 101);
+                btn_ok.BorderColor = Color.FromArgb(148, 194, 15);
+                btn_ok.BorderOverColor = Color.FromArgb(215, 247, 122);
+                /*
                 btn_ok.TextColor = Color.FromArgb(215, 247, 122);
-                btn_ok.FillColor = Color.FromArgb(80, 80, 100);
-                btn_ok.BorderColor = Color.FromArgb(160, 248, 160);
+                btn_ok.FillColor = Color.FromArgb(29, 84, 56);
+                 */
                 btn_ok.BorderThickness = 2;
                 btn_ok.CornerRadius = 20;
                 btn_ok.Text = "OK";
                 btn_ok.Visible = false;
                 Point btn_offset = new Point(0, -40);
                 btn_ok.Location = mcMath.GetBoundsCenter(prog_bar.Bounds, btn_ok.Bounds, btn_offset); // offset button
-
 
                 // Add event handlers 
                 btn_ok.Click += new EventHandler(onBtn_01_Click);
@@ -131,10 +136,16 @@ namespace Orien.NetUi {
                     } else Close();
                 }
             }
+            public void Reset() {
+                prog_bar.Value = 0;
+                prog_bar.Text = "0%";
+                btn_ok.Visible = false;
+            }
+
             // Debug
             public void onClick(object sender, EventArgs e) {
 
-                prog_bar.Reset();
+                Reset();
                 float total_steps = 500;
                 for ( int i = 0; i <= total_steps; i++ ) {
                     double percent = 100.0 / total_steps * i;
