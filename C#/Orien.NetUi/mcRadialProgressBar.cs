@@ -36,7 +36,6 @@ namespace Orien.NetUi {
             ForeColor = Color.FromArgb(64, 64, 64);
             DoubleBuffered = true;
             Font = new Font(Font.FontFamily, 72, FontStyle.Bold);
-            SecondaryFont = new Font(Font.FontFamily, (float)( Font.Size * .5 ), FontStyle.Regular);
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
 
             OuterMargin = -25;
@@ -52,14 +51,6 @@ namespace Orien.NetUi {
 
             TextMargin = new Padding(8, 8, 0, 0);
             Value = 68;
-
-            SuperscriptMargin = new Padding(10, 35, 0, 0);
-            SuperscriptColor = Color.FromArgb(166, 166, 166);
-            SuperscriptText = "°C";
-
-            SubscriptMargin = new Padding(10, -35, 0, 0);
-            SubscriptColor = Color.FromArgb(166, 166, 166);
-            SubscriptText = ".23";
 
             Size = new Size(320, 320);
         }
@@ -119,44 +110,8 @@ namespace Orien.NetUi {
 
         /// <summary>
         /// </summary>
-        [Category("Appearance")]
-        public Font SecondaryFont { get; set; }
-
-        /// <summary>
-        /// </summary>
         [Category("Layout")]
         public int StartAngle { get; set; }
-
-        /// <summary>
-        /// </summary>
-        [Category("Appearance")]
-        public Color SubscriptColor { get; set; }
-
-
-        /// <summary>
-        /// </summary>
-        [Category("Layout")]
-        public Padding SubscriptMargin { get; set; }
-
-        /// <summary>
-        /// </summary>
-        [Category("Appearance")]
-        public string SubscriptText { get; set; }
-
-        /// <summary>
-        /// </summary>
-        [Category("Appearance")]
-        public Color SuperscriptColor { get; set; }
-
-        /// <summary>
-        /// </summary>
-        [Category("Layout")]
-        public Padding SuperscriptMargin { get; set; }
-
-        /// <summary>
-        /// </summary>
-        [Category("Appearance")]
-        public string SuperscriptText { get; set; }
 
         /// <summary>
         ///     Gets or sets the text in the <see cref="mcRadialProgressBar" />.
@@ -196,7 +151,6 @@ namespace Orien.NetUi {
             base.OnLocationChanged(e);
             Invalidate();
         }
-
 
         /// <summary>
         ///     Raises the <see cref="E:System.Windows.Forms.Control.Paint" /> event.
@@ -371,56 +325,6 @@ namespace Orien.NetUi {
                         point.X + ( size.Width - textSize.Width ) / 2,
                         point.Y + ( size.Height - textSize.Height ) / 2);
 
-                    if ( SubscriptText != string.Empty || SuperscriptText != string.Empty ) {
-                        float maxSWidth = 0;
-                        var supSize = SizeF.Empty;
-                        var subSize = SizeF.Empty;
-
-                        if ( SuperscriptText != string.Empty ) {
-                            supSize = g.MeasureString(SuperscriptText, SecondaryFont);
-                            maxSWidth = Math.Max(supSize.Width, maxSWidth);
-                            supSize.Width -= SuperscriptMargin.Right;
-                            supSize.Height -= SuperscriptMargin.Bottom;
-                        }
-
-                        if ( SubscriptText != string.Empty ) {
-                            subSize = g.MeasureString(SubscriptText, SecondaryFont);
-                            maxSWidth = Math.Max(subSize.Width, maxSWidth);
-                            subSize.Width -= SubscriptMargin.Right;
-                            subSize.Height -= SubscriptMargin.Bottom;
-                        }
-
-                        textPoint.X -= maxSWidth / 4;
-
-                        if ( SuperscriptText != string.Empty ) {
-                            var supPoint = new PointF(
-                                textPoint.X + textSize.Width - supSize.Width / 2,
-                                textPoint.Y - supSize.Height * 0.85f);
-                            supPoint.X += SuperscriptMargin.Left;
-                            supPoint.Y += SuperscriptMargin.Top;
-                            g.DrawString(
-                                SuperscriptText,
-                                SecondaryFont,
-                                new SolidBrush(SuperscriptColor),
-                                new RectangleF(supPoint, supSize),
-                                stringFormat);
-                        }
-
-                        if ( SubscriptText != string.Empty ) {
-                            var subPoint = new PointF(
-                                textPoint.X + textSize.Width - subSize.Width / 2,
-                                textPoint.Y + textSize.Height * 0.85f);
-                            subPoint.X += SubscriptMargin.Left;
-                            subPoint.Y += SubscriptMargin.Top;
-                            g.DrawString(
-                                SubscriptText,
-                                SecondaryFont,
-                                new SolidBrush(SubscriptColor),
-                                new RectangleF(subPoint, subSize),
-                                stringFormat);
-                        }
-                    }
-
                     g.DrawString(
                         Text,
                         Font,
@@ -429,6 +333,7 @@ namespace Orien.NetUi {
                         stringFormat);
                 }
             } catch {
+                // Console.WriteLine("mcRadialProgressBar > catch");
                 // ignored
             }
         }

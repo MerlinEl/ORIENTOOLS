@@ -58,14 +58,12 @@ namespace Orien.NetUi {
                 prog_bar.InnerWidth = -1;
                 prog_bar.Size = new Size(248, 248); //perimeter
                 prog_bar.Location = mcMath.GetBoundsCenter(Bounds, prog_bar.Bounds);
-                prog_bar.Name = "Pop_Up_Progress_Bar";
+                prog_bar.Name = "progBar";
                 prog_bar.OuterColor = Color.Gray; //progress background color
                 prog_bar.OuterMargin = -25;
                 prog_bar.OuterWidth = 26;
                 prog_bar.ProgressColor = Color.FromArgb(0, 255, 0);
                 prog_bar.ProgressWidth = 20; //circle thickness
-                prog_bar.SubscriptText = "";
-                prog_bar.SuperscriptText = "";
                 prog_bar.TabIndex = 8;
                 prog_bar.Text = "0%";
                 prog_bar.TextMargin = new Padding(0, -5, 0, 0);
@@ -87,25 +85,22 @@ namespace Orien.NetUi {
 
                 //Button OK setup
                 btn_ok.Size = new Size(40, 40);
+                btn_ok.Name = "btnOK";
                 btn_ok.Location = new Point(30, 30);
                 btn_ok.ForeColor = Color.FromArgb(215, 247, 122);
                 btn_ok.BackColor = Color.FromArgb(29, 84, 56);
-                btn_ok.BackDownColor = Color.FromArgb(12, 194, 101);
+                btn_ok.BackDownColor = Color.FromArgb(5, 62, 32);
                 btn_ok.BorderColor = Color.FromArgb(148, 194, 15);
                 btn_ok.BorderOverColor = Color.FromArgb(215, 247, 122);
-                /*
-                btn_ok.TextColor = Color.FromArgb(215, 247, 122);
-                btn_ok.FillColor = Color.FromArgb(29, 84, 56);
-                 */
                 btn_ok.BorderThickness = 2;
                 btn_ok.CornerRadius = 20;
                 btn_ok.Text = "OK";
                 btn_ok.Visible = false;
-                Point btn_offset = new Point(0, -40);
+                Point btn_offset = new Point(0, -50);
                 btn_ok.Location = mcMath.GetBoundsCenter(prog_bar.Bounds, btn_ok.Bounds, btn_offset); // offset button
 
                 // Add event handlers 
-                btn_ok.Click += new EventHandler(onBtn_01_Click);
+                btn_ok.MouseUp += new MouseEventHandler(onButtonOkClick);
                 if ( debug ) prog_bar.Click += new EventHandler(onClick);
 
                 //if ( debug ) prog_bar.Click += new EventHandler(onClick);
@@ -113,8 +108,7 @@ namespace Orien.NetUi {
                 //Add controls in to form
                 Controls.AddRange(new Control[] { btn_ok, prog_bar, lbl_title });
             }
-            private void onBtn_01_Click(object sender, EventArgs e) => Close();
-
+            private void onButtonOkClick(object sender, MouseEventArgs e) => Close();
             public void showOkButton(bool val) => btn_ok.Visible = val;
             /// <summary>
             /// 
@@ -123,11 +117,10 @@ namespace Orien.NetUi {
             public void progressTo(int val) {
 
                 int percent = mcMath.minMax(val, 1, 100); //min-max val correction
-                System.Threading.Thread.Sleep(1);
+                System.Threading.Thread.Sleep(2);
                 prog_bar.Value = percent;
                 prog_bar.Text = percent.ToString() + "%";
                 prog_bar.Update();
-                //Console.WriteLine("animation:"+prog_bar.AnimationFunction.ToString());
                 //Console.WriteLine("progress:" + percent.ToString());
                 if ( percent == 100 ) { //when is finished
                     Console.WriteLine("progress done with:" + percent.ToString());

@@ -17,28 +17,20 @@ BackOverColor " - specifies the over color when button triggers the event "OnMou
 namespace Orien.NetUi {
     internal class mcButton : Button {
         public Color TransparentColor { get; set; } = Color.FromArgb(0, 0, 50, 50);
-
         [Category("Fill"), DisplayName("Fill Down Color")] //FlatAppearance.MouseDownBackColor
         public Color BackDownColor { get; set; } = Color.FromArgb(113, 117, 121); //Invalidate();
-
         [Category("Fill"), DisplayName("Fill Over Color")] //FlatAppearance.MouseOverBackColor
         public Color BackOverColor { get; set; }
-
         [Category("Border"), DisplayName("Border Color")]
         public Color BorderColor { get; set; } = Color.FromArgb(181, 190, 198);
-
         [Category("Border"), DisplayName("Border Over Color")]
         public Color BorderOverColor { get; set; } = Color.FromArgb(208, 210, 212);
-
         [Category("Border"), DisplayName("Border Width")]
         public float BorderThickness { get; set; } = 1.75f;
-
         private int corner_radius = 50;
         public bool IsMouseOver { get; private set; }
         private bool IsMouseDown { get; set; }
-
         public mcButton() { }
-
         [Category("Border"), DisplayName("Border Radius")]
         public int CornerRadius {
             get {
@@ -52,7 +44,6 @@ namespace Orien.NetUi {
                 Invalidate();
             }
         }
-
         GraphicsPath GetRoundPath(RectangleF Rect, int radius, float width = 0) {
             //Fix radius to rect size
             radius = (int)Math.Max((Math.Min(radius, Math.Min(Rect.Width, Rect.Height)) - width), 1);
@@ -79,7 +70,6 @@ namespace Orien.NetUi {
 
             return GraphPath;
         }
-
         private void DrawText(Graphics g, RectangleF Rect) {
             float r2 = CornerRadius / 2f;
             float w2 = BorderThickness / 2f;
@@ -144,9 +134,13 @@ namespace Orien.NetUi {
             using (Brush brush = new SolidBrush(ForeColor))
                 g.DrawString(Text, Font, brush, point, format);
         }
-
         protected override void OnPaint(PaintEventArgs e) {
-            e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
+            //e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            //e.Graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
+            //e.Graphics.CompositingQuality = CompositingQuality.HighQuality;
+            //e.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+            //e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
             RectangleF Rect = new RectangleF(0, 0, this.Width, this.Height);
             Brush brush = new SolidBrush(this.BackColor);
             //Pen pen = new Pen(BorderColor, BorderWidth);
@@ -191,27 +185,23 @@ namespace Orien.NetUi {
             //Draw Text
             DrawText(e.Graphics, Rect);
         }// End Paint Method
-
         protected override void OnMouseEnter(EventArgs e) {
             IsMouseOver = true;
             Invalidate();
             base.OnMouseEnter(e);
         }
-
         protected override void OnMouseLeave(EventArgs e) {
             IsMouseOver = false;
             IsMouseDown = false;
             Invalidate();
             base.OnMouseHover(e);
         }
-
         protected override void OnMouseDown(MouseEventArgs e) {
             IsMouseDown = true;
             Invalidate();
             base.OnMouseDown(e);
             Capture = true;
         }
-
         protected override void OnMouseUp(MouseEventArgs e) {
             IsMouseDown = false;
             Invalidate();
