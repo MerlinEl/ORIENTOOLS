@@ -51,6 +51,7 @@
     <Compile Include="mcDesktop.cs" />
     <Compile Include="mcMath.cs" />
     <Compile Include="mcNet.cs" />
+    <Compile Include="mcRegistry.cs" />
     <Compile Include="mcString.cs" />
     <Compile Include="mcThreadHelper.cs" />
     <Compile Include="mcXML.cs" />

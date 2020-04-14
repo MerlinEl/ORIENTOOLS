@@ -3,7 +3,7 @@
 namespace Orien.Tools {
     public class mcThreadHelper {
         delegate void SetTextCallback(Form f, TextBox ctrl, string text, bool append);
-        public void SetText(Form form, TextBox ctrl, string text, bool append = false) {
+        public void SetText(Form form, TextBox ctrl, string text, bool append = true) {
             // InvokeRequired required compares the thread ID of the 
             // calling thread to the thread ID of the creating thread. 
             // If these threads are different, it returns true. 
