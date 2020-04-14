@@ -16,10 +16,12 @@ package orien.tools {
 		
 		//private varibles
 		private var _index:int = 0;
+		private var _axis:String = "x";
 		
-		public function mcArray(data:Array = null, clone:Boolean = false) {
+		public function mcArray(data:Array = null, clone:Boolean = false, shuffle:Boolean = false) {
 			
 			if (data) clone ? mergeArray(data) : instanceArray(data);
+			if (shuffle) this.shuffle();
 		}
 		
 		private function instanceArray(data:Array):void {
@@ -287,7 +289,7 @@ package orien.tools {
 			return null;
 		}
 		
-		public function getItemByAttribute(key:String, val:String):* {
+		public function getItemByAttribute(key:String, val:*):* {
 			
 			for (var i:int = 0; i < source.length; i++) {
 				
@@ -297,6 +299,12 @@ package orien.tools {
 			return null;
 		}
 		
+		/**
+		 * @example
+		 * var greek_letters:Array = new mcArray(all_corners).collectParams("greekLetter");
+		 * @param	attr
+		 * @return
+		 */
 		public function collectParams(attr:String):Array {
 			
 			var params:Array = new Array();
@@ -484,7 +492,7 @@ package orien.tools {
 			}
 			return new_arr;
 		}
-		
+
 		public function printParam(param:String):void {
 			
 			for each (var o:* in source) trace("Param:" + o[param]);
@@ -531,11 +539,92 @@ package orien.tools {
 			extractItemsByParam(obj_arr, "obj"); //add to source only obj array
 		}
 		
+		/**
+		 * Sorting avlues from lower to higer (be carefull si there trouble with negative values > -1, -2, -3...)
+		 * @param	attr
+		 */
 		public function sortByAttribute(attr:String):void {
 			
 			source.sortOn(attr);
 		}
+		/**
+		 * Not works, need fix
+		 * Sort array of strings alphabetically by attribute
+		 * book_items.sortAlphabeticallyByAttribute("title");
+		 * @param	attr attribute for string access
+		 * @return
+		 */
+		/*public function sortAlphabeticallyByAttribute(attr:String):void {
+			
+			function orderAlphabetically(a:*, b:*):Number {
+			
+				//get string by param
+				var stra:String = a[attr].toLowerCase();
+				var strb:String = b[attr].toLowerCase();
+				
+				//compare char indexes
+				//get pos if is different
+				var pos:uint = 0;
+				while(stra.charCodeAt(pos) == strb.charCodeAt(pos)){
+					pos++;
+				}
+				
+				// make them both lowercase
+				var aLower:String = stra.charAt(pos).toLowerCase();
+				var bLower:String = strb.charAt(pos).toLowerCase();
+				
+				//get characters code at(pos) from both titles
+				var aIndex:Number = mcKeyboard.ALPHABET_NUMS_CZ_LOW.indexOf( aLower ); //find index from custom char list
+				var bIndex:Number = mcKeyboard.ALPHABET_NUMS_CZ_LOW.indexOf( bLower ); //find index from custom char list
+				
+				//ftrace ("compare a:% char:% index:% with b:% char:% index:% at pos:%", stra, aLower, aIndex, strb, bLower, bIndex, pos);
+				
+				//if is nan set to 0
+				if(isNaN(aIndex)) aIndex= 0;
+				if(isNaN(bIndex)) bIndex= 0;
+				
+				
+				//compare integers
+				if (aIndex < bIndex) {
+					
+					return -1;
+					
+				}else if (aIndex > bIndex) {
+					
+					return 1;
+					
+				}else {
+					
+					return 0;
+				}
+			}
+			source.sort(orderAlphabetically);
+		}*/
+
+		/**
+		 * Better way to sort Movieclips by x or y
+		 * @param	axis
+		 */
+		public function sortByAxis(axis:String):void {
+			
+			_axis = axis;
+			source.sort(axisMatch)
+		}
 		
+		// returning -1, 0, 1
+		private function axisMatch(a:Object, b:Object):int {
+			
+			var result:int;
+			if (a[_axis] < b[_axis]) {
+				result = -1;
+			} else if (a[_axis] > b[_axis]) {
+				result =  1;    
+			} else {
+				result 0;
+			}
+			return result;
+		}
+
 		/**
 		 * Capture index from a name: object_01 -> index = int(1)
 		 */
@@ -640,6 +729,28 @@ package orien.tools {
 		}
 		
 		/**
+		 * Check if one of source(multiArray) items is same as target_array
+		 * @example 
+		 * var item:Array = source[0];
+		 * loop item[i] == item_b[i]
+		 * @param	arr
+		 * @return
+		 */
+		public function isDupplicated(target_arr:Array):Boolean {
+			
+			var match_cnt:int = 0;
+			for each (var a:Array in source) {
+				
+				for (var i:int = 0; i < target_arr.length; i++) {
+					
+					if (a[i] == target_arr[i]) match_cnt++;
+				}
+			}
+			return match_cnt == target_arr.length;
+		}
+		
+		
+		/**
 		 * Remove dupplicate items from array. Works with strings and numbers. Other types are not tested.
 		 */
 		public function removeDuplicates():void {
@@ -654,5 +765,45 @@ package orien.tools {
 			}
 			source = new_source;
 		}
+		
+		/**
+		 * @example
+		var all_angles:mcArray = new mcArray([20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100,105,110,115,120,125,130,135,140]);
+		all_angles.removeHigestThan(75);
+		remains: 20,25,30,35,40,45,50,55,60,65,70,75	
+		 * @param	num
+		 */
+		public function removeHigestThan(num:Number):void {
+			
+			for each (var n:Number in source) if (n > num) removeItem(n);
+		}
+		
+		//static functions
+		static public function shuffleArray(arr:Array):Array{
+			
+			arr.sort(rSort);
+			function rSort(a:*, b:*):Number {
+			
+				if (Math.random() < 0.5) return -1;
+				else return 1;
+			}
+			return arr;
+		}
 	}
 }
+
+
+/*
+//Executes a function on each item in an collection, 
+//and constructs a new collection of items corresponding 
+//to the results of the function on each item in the original collection.
+
+public function map(callback:Function, thisObject:* = null):Collection {
+	var mappedArray:Array = _collection.map(callback, thisObject);
+	var mappedCollection:Collection = new Collection();
+	for each (var item in mappedArray) {
+		mappedCollection.addItems(item);
+	}
+	return mappedCollection;
+} 
+ */

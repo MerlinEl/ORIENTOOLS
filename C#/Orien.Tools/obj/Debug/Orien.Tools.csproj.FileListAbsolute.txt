@@ -4,3 +4,9 @@ D:\ReneBaca\Aprog\ORIENTOOLS\C#\Orien.Tools\obj\Debug\Orien.Tools.csprojAssembly
 D:\ReneBaca\Aprog\ORIENTOOLS\C#\Orien.Tools\obj\Debug\Orien.Tools.csproj.CoreCompileInputs.cache
 D:\ReneBaca\Aprog\ORIENTOOLS\C#\Orien.Tools\obj\Debug\Orien.Tools.dll
 D:\ReneBaca\Aprog\ORIENTOOLS\C#\Orien.Tools\obj\Debug\Orien.Tools.pdb
+E:\Aprog\Orien\OrienTools\C#\Orien.Tools\bin\Debug\Orien.Tools.dll
+E:\Aprog\Orien\OrienTools\C#\Orien.Tools\bin\Debug\Orien.Tools.pdb
+E:\Aprog\Orien\OrienTools\C#\Orien.Tools\obj\Debug\Orien.Tools.csprojAssemblyReference.cache
+E:\Aprog\Orien\OrienTools\C#\Orien.Tools\obj\Debug\Orien.Tools.csproj.CoreCompileInputs.cache
+E:\Aprog\Orien\OrienTools\C#\Orien.Tools\obj\Debug\Orien.Tools.dll
+E:\Aprog\Orien\OrienTools\C#\Orien.Tools\obj\Debug\Orien.Tools.pdb

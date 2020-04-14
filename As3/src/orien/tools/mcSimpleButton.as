@@ -41,6 +41,7 @@
 			addEventListener(MouseEvent.MOUSE_DOWN, down);
 			//if button have 3f enable hilighter
 			if (totalFrames > 2) mouseHilighter = true;
+			afterInit();
 		}
 		
 		private function down(e:MouseEvent) {
@@ -49,6 +50,7 @@
 			gotoAndStop(2);
 			addEventListener(MouseEvent.MOUSE_UP, up);
 			on_down();
+			afterDown();
 		}
 		
 		private function up(e:MouseEvent) {
@@ -57,9 +59,9 @@
 			gotoAndStop(1);
 			removeEventListener(MouseEvent.MOUSE_UP, up);
 			on_up();
+			afterUp();
 		}
-		
-				
+			
 		public function set mouseHilighter(state:Boolean):void {
 			
 			if (state) {
@@ -75,12 +77,12 @@
 				
 		private function over(e:MouseEvent):void {
 			
-			gotoAndStop(3);
+			if (!_is_locked) gotoAndStop(3);
 		}
 		
 		private function out(e:MouseEvent):void {
 			
-			gotoAndStop(1);
+			if (!_is_locked) gotoAndStop(1);
 		}
 		
 		public function get is_locked():Boolean {
@@ -168,6 +170,17 @@
 			scaleX = scale;
 			scaleY = scale;
 		}
+		
+		//override functions
+		public function afterInit():void {
+			
+		}
+		public function afterDown():void {
+			
+		}
+		public function afterUp():void {
+			
+		}	
 	}
 }
 

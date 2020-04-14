@@ -4,8 +4,7 @@ using System.Xml;
 
 namespace Orien.Tools {
     class mcXML {
-
-        XmlDocument doc;
+        readonly XmlDocument doc;
         public string url = "";
         public bool loaded = false;
         public string xmlNodeQuan = (typeof(XmlNode)).AssemblyQualifiedName;
@@ -76,7 +75,7 @@ namespace Orien.Tools {
             if(nodePath.Length == 0) return new List<MaxXmlNode>();
             XmlNodeList nodes = doc.DocumentElement.SelectNodes(nodePath);
             if (nodes == null) return new List<MaxXmlNode>();
-            List<MaxXmlNode> nodes_list = new List<MaxXmlNode>();
+            var nodes_list = new List<MaxXmlNode>();
             foreach (XmlNode n in nodes) {
                 nodes_list.Add(new MaxXmlNode(doc, n, nodePath));
             }
@@ -91,7 +90,7 @@ namespace Orien.Tools {
         public MaxXmlNode FindNodeByName(string nodePath, string nodeName) {
             if (nodePath.Length == 0) return null;
             XmlNodeList nodes = doc.DocumentElement.SelectNodes(nodePath);
-            List<MaxXmlNode> nodes_list = new List<MaxXmlNode>();
+            //List<MaxXmlNode> nodes_list = new List<MaxXmlNode>();
             MaxXmlNode max_node = null;
             foreach (XmlNode n in nodes) {
 

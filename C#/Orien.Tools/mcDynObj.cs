@@ -5,7 +5,7 @@ namespace Orien.Tools {
 
     public class mcDynObj : DynamicObject {
         // The inner dictionary.
-        Dictionary<string, object> dictionary = new Dictionary<string, object>();
+        readonly Dictionary<string, object> dictionary = new Dictionary<string, object>();
         // This property returns the number of elements
         // in the inner dictionary.
         public int Count => dictionary.Count;

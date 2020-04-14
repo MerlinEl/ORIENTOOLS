@@ -1,0 +1,18 @@
+as3-signals.swc 
+-v0.9-BETA
+
+flixel.swc 
+-v2.55
+
+greensock.swc
+
+fl.swc
+-vCS6: 
+-C:\Program Files (x86)\Adobe\Adobe Flash CS6\Common\Configuration\Component Source\ActionScript 3.0\User Interface
+
+
+
+Additional
+
+C:\Program Files (x86)\Adobe\Adobe Flash CS6\Common\Configuration\Component Source\ActionScript 3.0\User Interface
+C:\Program Files (x86)\Adobe\Adobe Flash CS6\Common\First Run\Classes

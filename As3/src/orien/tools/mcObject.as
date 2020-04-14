@@ -84,22 +84,22 @@
 		
 		/**
 		 * Get parameter if exists, else return default value
-		 * @example	
-			var params:Object = {"fill":false, "fill_color":0xFF99FF, "age":45};
-			var out1:uint = mcObject.pick(params, "fill_color", 0xFFFFFF);
-			var out2:Number = mcObject.pick(params, "age", 25);
-			var out3:String = mcObject.pick(params, "greeting", "heloo");
-			var out4:Boolean = mcObject.pick(params, "fill", true);
-			ftrace("out1:% out2:% out3:% out4:%", out1, out2, out3, out4)
-			out1:16751103 out2:45 out3:heloo out4:false
+		 * @example
+		   var params:Object = {"fill":false, "fill_color":0xFF99FF, "age":45};
+		   var out1:uint = mcObject.pick(params, "fill_color", 0xFFFFFF);
+		   var out2:Number = mcObject.pick(params, "age", 25);
+		   var out3:String = mcObject.pick(params, "greeting", "heloo");
+		   var out4:Boolean = mcObject.pick(params, "fill", true);
+		   ftrace("out1:% out2:% out3:% out4:%", out1, out2, out3, out4)
+		   out1:16751103 out2:45 out3:heloo out4:false
 		 * @param	params
 		 * @param	key
 		 * @param	default_value
 		 * @return
 		 */
-		static public function pick(params:Object, key:String, default_value:*):*{
+		static public function pick(params:Object, key:String, default_value:*):* {
 			
-			if (isEmpty(params)) params = { };
+			if (isEmpty(params)) params = {};
 			return isNaN(params[key]) ? default_value : params[key];
 		}
 		
@@ -123,7 +123,7 @@
 			return null;
 		}
 		
-		static public  function cloneTextField(tf:TextField):TextField {
+		static public function cloneTextField(tf:TextField):TextField {
 			
 			var clone:TextField = new TextField();
 			var description:XML = describeType(tf);
@@ -139,8 +139,8 @@
 			clone.defaultTextFormat = tf.getTextFormat();
 			return clone;
 		}
-	
-		static public  function cloneMovieClip(mc:MovieClip):MovieClip {
+		
+		static public function cloneMovieClip(mc:MovieClip):MovieClip {
 			
 			var targetClass:Class = Object(mc).constructor;
 			var clone:MovieClip = new targetClass();
@@ -156,9 +156,15 @@
 			return clone;
 		}
 		
-		static public function toRectangle(o:Object):Rectangle{
+		static public function toRectangle(o:Object):Rectangle {
 			
 			return new Rectangle(o.x, o.y, o.width, o.height);
+		}
+		
+		static public function getValue(obj:Object, key:String):* {
+		
+			if (!obj) return null;
+			return obj[key];
 		}
 	}
 }

@@ -46,14 +46,15 @@
     <Reference Include="WindowsBase, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\Orien.Launcher\packages\WindowsBase.4.6.1055.0\lib\WindowsBase.dll</HintPath>
     </Reference>
-    <Reference Include="WinFormAnimation, Version=1.6.0.4, Culture=neutral, PublicKeyToken=310fd07b25df79b3, processorArchitecture=MSIL">
-      <HintPath>..\Orien.Launcher\packages\WinFormAnimation.1.6.0.4\lib\net40\WinFormAnimation.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="mcButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="mcProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="mcThreadHelper.cs" />
     <Compile Include="mcUiGlobal.cs" />
     <Compile Include="mcLabel.cs">
       <SubType>Component</SubType>

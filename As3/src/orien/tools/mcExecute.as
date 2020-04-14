@@ -17,7 +17,6 @@
 	 */
 	public class mcExecute extends EventDispatcher {
 		
-		private var _alert:mcMsgBox;
 		private var _fpath:String;
 		private var _response:String = "";
 		private var _nativepcs:NativeProcess;

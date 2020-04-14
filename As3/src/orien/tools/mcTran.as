@@ -107,6 +107,17 @@ package orien.tools {
 			return s;
 		}
 		
+		/**
+		 * Check if botg points are at same place
+		 * @param	p1
+		 * @param	p2
+		 * @return
+		 */
+		public static function isEqual(p1:Point, p2:Point):Boolean {
+			
+			return (p1.x == p2.x && p1.y == p2.y);
+		}
+		
 		//not used
 		public static function isNear(p1:Point, p2:Point, offset:Number):Boolean {
 			
@@ -457,6 +468,21 @@ package orien.tools {
 			obj.transform.matrix = matrix;
 			
 			obj.rotation = Math.round(obj.rotation);
+		}
+		
+		static public function roundPoint(p:Point, decimals:int):void {
+			
+			p.x = mcMath.roundToDecimals(p.x, decimals);
+			p.y = mcMath.roundToDecimals(p.y, decimals);
+		}
+		
+		static public function shuffleObjectsPosAt(obj_array:Array, axis:String = "x"):void{
+			
+			var o:Object;
+			var all_positions:mcArray = new mcArray();
+			for each (o in obj_array) all_positions.addItem(o[axis]);
+			all_positions.shuffle();
+			for each (o in obj_array) o[axis] = Number(all_positions.pop());
 		}
 	}
 }

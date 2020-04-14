@@ -1,17 +1,19 @@
-﻿using Orien.NetUi;
-using Orien.Tools;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Dynamic;
 using System.Windows.Forms;
-using WinFormAnimation;
+using Orien.NetUi;
+using Orien.Tools;
 
-namespace Orien.Launcher {
-    class Program {
+namespace Orien.Launcher
+{
+    class Program
+    {
         public static bool Exit { get; private set; }
 
         [STAThread] //required for full COM support
-        static void Main(string[] args) {
+        static void Main(string[] args)
+        {
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -35,14 +37,16 @@ namespace Orien.Launcher {
             */
         }
 
-        public static Form TestRadialProgressBar() {
+        public static Form TestRadialProgressBar()
+        {
 
             mcPopUp.ProgBar progb = new mcPopUp.ProgBar("Processing geometry calculations", true, true, true);
             //progb.Show();
             return progb;
         }
 
-        public static void CreateTestForm() {
+        public static void CreateTestForm()
+        {
 
             Size form_size = new Size(800, 600);
             Form aForm = new Form();
@@ -50,11 +54,13 @@ namespace Orien.Launcher {
             aForm.Controls.Add(new Label() { Text = "Version 5.0" });
             aForm.ShowDialog();  // Or just use Show(); if you don't want it to be modal.
         }
-        public static void TestRoundLabel() {
+        public static void TestRoundLabel()
+        {
 
             Form aForm = new Form();
             aForm.Text = @"Label test:";
-            aForm.Controls.Add(new mcLabel() {
+            aForm.Controls.Add(new mcLabel()
+            {
                 Text = "Version 5.0",
                 Location = new Point(60, 20),
                 FillColor = Color.FromArgb(255, 0, 0),
@@ -62,14 +68,16 @@ namespace Orien.Launcher {
             });
             aForm.ShowDialog();  // Or just use Show(); if you don't want it to be modal.
         }
-        public static void DynObjTest() {
+        public static void DynObjTest()
+        {
 
             dynamic person = new mcDynObj();
             person.FirstName = "Ellen";
             person.LastName = "Adams";
             Console.WriteLine(person.firstname + " " + person.lastname);
         }
-        public static void DynObjTest2() {
+        public static void DynObjTest2()
+        {
 
             SetMemberBinder bi = new SetMemberBinderChild("hola", false);
             Console.WriteLine("this is: " + bi.Name);

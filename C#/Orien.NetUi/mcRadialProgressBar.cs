@@ -16,8 +16,6 @@ namespace Orien.NetUi {
     [DefaultBindingProperty("Value")]
     public class mcRadialProgressBar : ProgressBar {
 
-        private readonly int? _animatedStartAngle;
-        private readonly float? _animatedValue;
         private Brush _backBrush;
 
         /// <summary>
@@ -334,9 +332,7 @@ namespace Orien.NetUi {
 
                     g.FillPie(
                         new SolidBrush(ProgressColor),
-                        ToRectangle(new RectangleF(point, size)),
-                        _animatedStartAngle ?? StartAngle,
-                        ( _animatedValue ?? Value ) / ( Maximum - Minimum ) * 360);
+                        ToRectangle(new RectangleF(point, size)), StartAngle, Value / ( Maximum - Minimum ) * 360);
 
                     if ( ProgressWidth >= 0 ) {
                         point = AddPoint(point, ProgressWidth);

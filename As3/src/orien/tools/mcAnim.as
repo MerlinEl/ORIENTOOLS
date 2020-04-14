@@ -2,10 +2,13 @@ package orien.tools {
 	import com.greensock.TweenLite;
 	import com.greensock.TweenMax;
 	import com.greensock.easing.Bounce;
+	import com.greensock.easing.Expo;
 	import flash.display.FrameLabel;
 	import flash.display.MovieClip;
+	import flash.display.Shape;
 	import flash.events.Event;
 	import flash.events.TimerEvent;
+	import flash.geom.Point;
 	import flash.utils.Timer;
 	
 	/**
@@ -266,5 +269,23 @@ package orien.tools {
 			card.alpha = 0;
 			TweenLite.to(card, 1, {alpha: 1, ease: Bounce.easeOut, onComplete: comp_fn, onCompleteParams: comp_params});
 		}
+		
+		
+		/*static public function drawLineFromCenter(mc:MovieClip, p1:Point, p2:Point, thickness:Number, clr:uint, onCompleteFn:Function, speed:Number = 1, offset:Number = 0):void{
+			
+			var lineAnim:Shape = new Shape();
+			lineAnim.graphics.lineStyle(thickness, clr, 1);
+			mc.addChild(lineAnim);
+			TweenLite.to(lineAnim, speed, {x:p1.x, y:p1.y, onUpdate:updateHandler});
+			function updateHandler():void{
+			 lineAnim.graphics.lineTo(mc.x, mc.y);
+			 lineAnim.graphics.moveTo(p1.x, p1.y);
+			}
+			
+			TweenMax.to (lineAnim, speed, { x:p1.x, y:p1.y, onUpdate:drawLine, ease:Expo.easeOut, onComplete:onCompleteFn} );
+			function drawLine():void {
+               lineAnim.graphics.lineTo(int(mc.x), int(mc.y));
+            }
+		}*/
 	}
 }

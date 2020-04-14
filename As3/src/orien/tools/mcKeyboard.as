@@ -4,6 +4,7 @@ package orien.tools {
 		/* GLOBAL CONSTANTS */
 		public static const ALPHABET_ENG_UP:String = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 		public static const ALPHABET_CZ_LOW:String = "aábcčdďeéěfghchiíjklmnňoópqrřsštťuúůvwxyýzž"
+		public static const ALPHABET_NUMS_CZ_LOW:String = "0123456789aábcčdďeéěfghchiíjklmnňoópqrřsštťuúůvwxyýzž"
 		public static const ALPHABET_CZ_UP:String = "AÁBCČDĎEÉĚFGHCHIÍJKLMNŇOÓPQRŘSŠTŤUÚŮVWXYÝZŽ"
 		public static const ALPHABET_CZ_LOWUP:String = "AaÁáBbCcČčDdĎďEeÉéĚěFfGgHhCHChchIiÍíJjKkLlMmNnŇňOoÓóPpQqRrŘřSsŠšTtŤťUuÚúŮůVvWwXxYyÝýZzŽž"
 		public static const LANG_ENG:String = "eng";

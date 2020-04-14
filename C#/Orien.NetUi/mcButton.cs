@@ -46,7 +46,7 @@ namespace Orien.NetUi {
                 return corner_radius;
             }
             set {
-                if ( corner_radius == value ) return;
+                if (corner_radius == value) return;
                 //b_radius = Math.Min(Math.Min(Height, Width), value);
                 corner_radius = value;
                 Invalidate();
@@ -55,7 +55,7 @@ namespace Orien.NetUi {
 
         GraphicsPath GetRoundPath(RectangleF Rect, int radius, float width = 0) {
             //Fix radius to rect size
-            radius = (int)Math.Max(( Math.Min(radius, Math.Min(Rect.Width, Rect.Height)) - width ), 1);
+            radius = (int)Math.Max((Math.Min(radius, Math.Min(Rect.Width, Rect.Height)) - width), 1);
             float r2 = radius / 2f;
             float w2 = width / 2f;
             GraphicsPath GraphPath = new GraphicsPath();
@@ -86,62 +86,62 @@ namespace Orien.NetUi {
             Point point = new Point();
             StringFormat format = new StringFormat();
 
-            switch ( TextAlign ) {
+            switch (TextAlign) {
                 case ContentAlignment.TopLeft:
-                point.X = (int)( Rect.X + r2 / 2 + w2 + Padding.Left );
-                point.Y = (int)( Rect.Y + r2 / 2 + w2 + Padding.Top );
-                format.LineAlignment = StringAlignment.Center;
-                break;
+                    point.X = (int)(Rect.X + r2 / 2 + w2 + Padding.Left);
+                    point.Y = (int)(Rect.Y + r2 / 2 + w2 + Padding.Top);
+                    format.LineAlignment = StringAlignment.Center;
+                    break;
                 case ContentAlignment.TopCenter:
-                point.X = (int)( Rect.X + Rect.Width / 2f );
-                point.Y = (int)( Rect.Y + r2 / 2 + w2 + Padding.Top );
-                format.LineAlignment = StringAlignment.Center;
-                format.Alignment = StringAlignment.Center;
-                break;
+                    point.X = (int)(Rect.X + Rect.Width / 2f);
+                    point.Y = (int)(Rect.Y + r2 / 2 + w2 + Padding.Top);
+                    format.LineAlignment = StringAlignment.Center;
+                    format.Alignment = StringAlignment.Center;
+                    break;
                 case ContentAlignment.TopRight:
-                point.X = (int)( Rect.X + Rect.Width - r2 / 2 - w2 - Padding.Right );
-                point.Y = (int)( Rect.Y + r2 / 2 + w2 + Padding.Top );
-                format.LineAlignment = StringAlignment.Center;
-                format.Alignment = StringAlignment.Far;
-                break;
+                    point.X = (int)(Rect.X + Rect.Width - r2 / 2 - w2 - Padding.Right);
+                    point.Y = (int)(Rect.Y + r2 / 2 + w2 + Padding.Top);
+                    format.LineAlignment = StringAlignment.Center;
+                    format.Alignment = StringAlignment.Far;
+                    break;
                 case ContentAlignment.MiddleLeft:
-                point.X = (int)( Rect.X + r2 / 2 + w2 + Padding.Left );
-                point.Y = (int)( Rect.Y + Rect.Height / 2 );
-                format.LineAlignment = StringAlignment.Center;
-                break;
+                    point.X = (int)(Rect.X + r2 / 2 + w2 + Padding.Left);
+                    point.Y = (int)(Rect.Y + Rect.Height / 2);
+                    format.LineAlignment = StringAlignment.Center;
+                    break;
                 case ContentAlignment.MiddleCenter:
-                point.X = (int)( Rect.X + Rect.Width / 2 );
-                point.Y = (int)( Rect.Y + Rect.Height / 2 );
-                format.LineAlignment = StringAlignment.Center;
-                format.Alignment = StringAlignment.Center;
-                break;
+                    point.X = (int)(Rect.X + Rect.Width / 2);
+                    point.Y = (int)(Rect.Y + Rect.Height / 2);
+                    format.LineAlignment = StringAlignment.Center;
+                    format.Alignment = StringAlignment.Center;
+                    break;
                 case ContentAlignment.MiddleRight:
-                point.X = (int)( Rect.X + Rect.Width - r2 / 2 - w2 - Padding.Right );
-                point.Y = (int)( Rect.Y + Rect.Height / 2 );
-                format.LineAlignment = StringAlignment.Center;
-                format.Alignment = StringAlignment.Far;
-                break;
+                    point.X = (int)(Rect.X + Rect.Width - r2 / 2 - w2 - Padding.Right);
+                    point.Y = (int)(Rect.Y + Rect.Height / 2);
+                    format.LineAlignment = StringAlignment.Center;
+                    format.Alignment = StringAlignment.Far;
+                    break;
                 case ContentAlignment.BottomLeft:
-                point.X = (int)( Rect.X + r2 / 2 + w2 + Padding.Left );
-                point.Y = (int)( Rect.Y + Rect.Height - r2 / 2 - w2 - Padding.Bottom );
-                format.LineAlignment = StringAlignment.Center;
-                break;
+                    point.X = (int)(Rect.X + r2 / 2 + w2 + Padding.Left);
+                    point.Y = (int)(Rect.Y + Rect.Height - r2 / 2 - w2 - Padding.Bottom);
+                    format.LineAlignment = StringAlignment.Center;
+                    break;
                 case ContentAlignment.BottomCenter:
-                point.X = (int)( Rect.X + Rect.Width / 2 );
-                point.Y = (int)( Rect.Y + Rect.Height - r2 / 2 - w2 - Padding.Bottom );
-                format.LineAlignment = StringAlignment.Center;
-                format.Alignment = StringAlignment.Center;
-                break;
+                    point.X = (int)(Rect.X + Rect.Width / 2);
+                    point.Y = (int)(Rect.Y + Rect.Height - r2 / 2 - w2 - Padding.Bottom);
+                    format.LineAlignment = StringAlignment.Center;
+                    format.Alignment = StringAlignment.Center;
+                    break;
                 case ContentAlignment.BottomRight:
-                point.X = (int)( Rect.X + Rect.Width - r2 / 2 - w2 - Padding.Right );
-                point.Y = (int)( Rect.Y + Rect.Height - r2 / 2 - w2 - Padding.Bottom );
-                format.LineAlignment = StringAlignment.Center;
-                format.Alignment = StringAlignment.Far;
-                break;
+                    point.X = (int)(Rect.X + Rect.Width - r2 / 2 - w2 - Padding.Right);
+                    point.Y = (int)(Rect.Y + Rect.Height - r2 / 2 - w2 - Padding.Bottom);
+                    format.LineAlignment = StringAlignment.Center;
+                    format.Alignment = StringAlignment.Far;
+                    break;
                 default:
-                break;
+                    break;
             }
-            using ( Brush brush = new SolidBrush(ForeColor) )
+            using (Brush brush = new SolidBrush(ForeColor))
                 g.DrawString(Text, Font, brush, point, format);
         }
 
@@ -156,11 +156,11 @@ namespace Orien.NetUi {
             this.Region = new Region(GraphPath);
 
             //Draw Back Color
-            if ( IsMouseDown )
-                using ( Brush mouseDownBrush = new SolidBrush(BackDownColor) )
+            if (IsMouseDown)
+                using (Brush mouseDownBrush = new SolidBrush(BackDownColor))
                     e.Graphics.FillPath(mouseDownBrush, GraphPath);
-            else if ( IsMouseOver && !BackOverColor.IsEmpty )
-                using ( Brush overBrush = new SolidBrush(BackOverColor) )
+            else if (IsMouseOver && !BackOverColor.IsEmpty)
+                using (Brush overBrush = new SolidBrush(BackOverColor))
                     e.Graphics.FillPath(overBrush, GraphPath);
             else
                 e.Graphics.FillPath(brush, GraphPath);
@@ -171,10 +171,10 @@ namespace Orien.NetUi {
             GraphicsPath GraphInnerPath;
             Pen pen;
 
-            if ( IsMouseDown ) {
+            if (IsMouseDown) {
                 GraphInnerPath = GetRoundPath(Rect, CornerRadius, BorderThickness);
                 pen = new Pen(BorderOverColor, BorderThickness);
-            } else if ( IsMouseOver ) {
+            } else if (IsMouseOver) {
                 GraphInnerPath = GetRoundPath(Rect, CornerRadius, BorderThickness);
                 pen = new Pen(BorderOverColor, BorderThickness);
             } else {
@@ -184,7 +184,7 @@ namespace Orien.NetUi {
 
 
             pen.Alignment = PenAlignment.Inset;
-            if ( pen.Width > 0 )
+            if (pen.Width > 0)
                 e.Graphics.DrawPath(pen, GraphInnerPath);
             #endregion
 
@@ -206,17 +206,18 @@ namespace Orien.NetUi {
         }
 
         protected override void OnMouseDown(MouseEventArgs e) {
-            //MessageBox.Show("OnMouseDown");
             IsMouseDown = true;
-            base.OnMouseDown(e);
             Invalidate();
+            base.OnMouseDown(e);
+            Capture = true;
         }
 
         protected override void OnMouseUp(MouseEventArgs e) {
-            //MessageBox.Show("OnMouseUp");
             IsMouseDown = false;
-            base.OnMouseDown(e);
             Invalidate();
+            base.OnMouseUp(e);
+            Capture = false;
+            // Change your color or whatever here
         }
     }
 }

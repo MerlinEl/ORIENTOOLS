@@ -1,42 +1,37 @@
 ﻿/*
-   import orien.tools.mcGrid2D;
-   var grid:mcGrid2D = new mcGrid2D(10,10);
-   //trace("rows:"+grid.rows)
-   //trace("columns:"+grid.columns)
-   grid.print();
-   for (var i:int = 0; i< grid.count; i++ ){
+import orien.tools.mcGrid2D;
+import flash.geom.Point;
+var all_rows:Array = [
+						
+	[10, 15, 90, 12, 8,  78, 14, 48, 66, 30],
+	[9,  11, 42, 29, 21, 17, 25, 43, 35, 13],
+	[2,  4,  18, 63, 56, 24, 33, 72, 99, 45],
+	[5,  25, 65, 30, 85, 90, 40, 50, 16, 20],
+	[8,  31, 17, 61, 29, 6,  34, 60, 23, 16],
+	[3,  18, 12, 9,  36, 27, 44, 25, 55, 85],
+	[7,  35, 17, 5,  31, 40, 27, 9,  24, 35],
+	[4,  40, 60, 96, 48, 19, 49, 65, 33, 80],
+	[6,  54, 66, 13, 12, 30, 42, 36, 29, 15],
+	[1,  45, 19, 26, 32, 7,  55, 24, 81, 70]
+]
+var grid:mcGrid2D = new mcGrid2D(10,10);
+for (var col:int = 0; col < grid.columns; col++){
 
-   trace("add item at index:"+i)
-   grid.addItemAt("I'm an item", i);
-   }
+	for (var row:int = 0; row < grid.rows; row++ ){	
+		
+		var val:int = all_rows[col][row];
+		//ftrace("add item[%] at pos[x:%, y:%]",val, row, col)
+		grid.addItemAtPos(val, new Point(row, col));
+	}
+}
 
-   var cell = grid.getItemAt(45);
-   trace("cel 45:"+cell)
+//grid.print();
+grid.printAsGrid();
+
+var cell = grid.getItemAt(45);
+trace("cel 45:"+cell)
  */
 
-/*
-   2D / 1D - mapping is pretty simple. Given x and y,
-   and 2D array sizes width and height,
-   you can calculate the according index i in 1D space (zero-based) by
-
-   i = x + width*y;
-
-   and the reverse operation is
-
-   x = i % width;    // % is the "modulo operator", the remainder of i / width;
-   y = i / width;    // where "/" is an integer division
-
-   You can extend this easily to 3 or more dimensions.
-   For example, for a 3D matrix with dimensions "width", "height" and "depth":
-
-   i = x + width*y + width*height*z;
-
-   and reverse:
-
-   x = i % width;
-   y = (i / width)%height;
-   z = i / (width*height);
- */
 
 package orien.tools {
 	
@@ -44,108 +39,166 @@ package orien.tools {
 	
 	public class mcGrid2D {
 		
-		public var count:int = 0;
-		private var total_columns:int = 10;
-		private var total_rows:int = 10;
-		private var source:Array = new Array();
+		public var DEBUG:Boolean = false;
+		private var _columns:int = 0;
+		private var _rows:int = 0;
+		private var _source:Array = []; //rows array
 		
 		public function mcGrid2D(columns:int, rows:int) {
 			
+			_columns = columns;
+			_rows = rows;
 			var index:int = 0;
-			for (var x:int = 0; x < columns; x++) {
-				
-				var row:Array = new Array();
-				for (var y:int = 0; y < rows; y++) {
+			for (var y:int = 0; y < columns; y++){
+	
+				var row_arr:Array = [];
+				if (DEBUG) ftrace("mcGrid2D > Add ROW[%]", y);
+				for (var x:int = 0; x < rows; x++ ){	
 					
-					var cell:CELL = new CELL(new Point(x, y), index)
-					row.push(cell);
-					//trace("Add cell:" + cell + " at column:" + x + " row:" + y + " index:" + index);
+					var cell:CELL = new CELL(new Point(x, y), index);
+					row_arr.push(cell);
+					if (DEBUG) ftrace("mcGrid2D > Build > %", cell);
 					index++;
 				}
-				source.push(row);
+				_source.push(row_arr);
 			}
-			count = index;
 		}
-		
-		/**
-		 * Add an object in to first empty CELL
-		 * @param	item
-		 */
-		public function addItem(item:Object):void {
-			
-			var first_empty_cell:CELL = getEmptyCell();
-			if (!first_empty_cell) {
-				
-				errorMSG(3);
-				return;
-			}
-			first_empty_cell.addItem(item);
-		}
-		
-		/**
-		 * Search for cell which is empty
-		 * @return empty CELL object
-		 */
-		private function getEmptyCell():CELL {
-			
-			var first_empty_cell:CELL;
-			for each (var arr:Array in source) {
-				for each (var cell:CELL in arr) {
-					if (!cell.item) return cell;
-				}
-			}
-			return first_empty_cell;
-		}
-		
+
 		/**
 		 * Get item from cell if is not empty.
 		 * @param	index
 		 * @return
 		 */
-		public function getItemAt(index:int):* {
+		public function getItemByIndex(index:int):* {
 			
 			if (outOfRange(index)) {
 				errorMSG(1, index);
 				return null;
 			}
-			var cell:CELL = getCellByIndex(index);
-			if (isCellEmpty(cell)) {
+			var pos:Point = indexToPos(index); 
+			var cell:CELL = getCellFrom(pos);
+			if (cell.isEmpty()) {
 				errorMSG(4, index);
 				return null;
 			}
+			if (DEBUG) ftrace("mcGrid2D > getItemAt > index:% got:%", index, cell.index);
 			return cell.item;
 		}
 		
-		public function getAllItems():Array {
+		private function indexToPos(index:int):Point {
 			
-			var all_items:Array = new Array();
-			for each (var arr:Array in source) {
-				for each (var cell:CELL in arr) {
-					if (cell.item) all_items.push(cell.item);
-				}
+			var pos:Point = new Point();
+			if (index < 10){
+			
+				pos.x = index;
+				pos.y = 0;
+			} else {
+				
+				var num_arr:Array = String(index).split("");
+				pos.x = int(num_arr[1]);
+				pos.y = int(num_arr[0]);
 			}
-			return all_items;
+			return pos;
+		}
+		
+		private function getCellFrom(pos:Point):CELL {
+		
+			if (pos.x > _rows || pos.y > _columns){
+				
+				errorMSG(1, pos);
+				return null;
+			}
+			return _source[pos.y][pos.x] as CELL;
 		}
 		
 		/**
-		 * Add an object in specified CELL
-		 * @param	item an object
-		 * @param	index begin from 0 to max count
-		 * @param	replace replace object if exist in same place
+		 * Add an Object at specified position in Grid
+		 * @param	item
+		 * @param	pos
+		 * @param	replace
 		 */
-		public function addItemAt(item:Object, index:int, replace:Boolean = true):void {
+		public function addItemAtPos(item:Object, pos:Point, replace:Boolean = true):void {
 			
-			if (outOfRange(index)) {
-				errorMSG(1, index);
+			if (pos.x > _rows || pos.y > _columns){
+				
+				errorMSG(1, pos);
 				return;
 			}
-			var cell:CELL = getCellByIndex(index);
-			//trace("addItemAt >> " + index + " item:" + item + " cell:" + cell)
-			if (!replace && !isCellEmpty(cell)) {
-				errorMSG(2, index);
+			var cell:CELL = _source[pos.y][pos.x] as CELL;
+			if (!replace && !cell.isEmpty()) {
+				errorMSG(2, pos);
 				return;
 			}
 			cell.addItem(item);
+		}
+		
+		/*public function getRow(column_index:int):Array{
+			
+			if (column_index > _columns){
+				
+				errorMSG(1, column_index);
+				return null;
+			}
+			return _source[column_index] as Array;
+		}*/
+		
+		private function outOfRange(index:int):Boolean {
+			
+			var is_out:Boolean = columns * rows < index;
+			return is_out;
+		}
+	
+		public function get columns():int {
+			
+			return _columns;
+		}
+		
+		public function get rows():int {
+			
+			return _rows;
+		}
+		
+		public function get length():int {
+			
+			return _columns * _rows;
+		}
+		
+		public function print():void {
+			
+			for (var y:int = 0; y < _source.length; y++) {
+				
+				var arr:Array = _source[y];
+				ftrace("mcGrid2D > Get ROW[%]:", y);
+				for each (var cell:CELL in arr) {
+					
+					trace(cell);
+				}
+			}
+		}
+		
+		public function printAsGrid():void{
+			
+			var out:String = "";
+			for (var y:int = 0; y < _source.length; y++) {
+				
+				var arr:Array = _source[y];
+				for each (var cell:CELL in arr) {
+					
+					out += cell.item + "\t";
+				}
+				out += "\n";
+			}
+			ftrace("GRID ITEMS [%]:\n%", length, out);
+		}
+	
+		public function reverseRows():void{
+			
+			_source.reverse();
+		}
+		
+		public function reverseCollumns():void{
+			
+			for each (var row:Array in _source) row.reverse();
 		}
 		
 		private function errorMSG(index:int, value:* = null):void {
@@ -156,7 +209,7 @@ package orien.tools {
 				trace("Index:[" + value + "] is out of range.");
 				break;
 			case 2: 
-				trace("addItemAt Failed! Cell at place:[" + value + "] is not empty. Try another one.");
+				trace("addItemAtPos Failed! Cell at place:[" + value + "] is not empty. Try another one.");
 				break;
 			case 3: 
 				trace("addItem Failed! Grid is full");
@@ -166,58 +219,11 @@ package orien.tools {
 				break;
 			}
 		}
-		
-		private function getCellByIndex(index:int):CELL {
-			
-			if (outOfRange(index)) {
-				errorMSG(1, index);
-				return null;
-			}
-			var column:int = mcMath.mod(index, columns);
-			var row:int = Math.floor(index / rows)
-			//if (total_columns == rows && mcMath.mod(index, rows) != 0) row += 1;
-			return source[column][row];
-		}
-		
-		private function outOfRange(index:int):Boolean {
-			
-			var is_out:Boolean = columns * rows < index;
-			return is_out;
-		}
-		
-		private function isCellEmpty(cell:CELL):Boolean {
-			
-			return cell.item == null;
-		}
-		
-		public function get columns():int {
-			
-			return total_columns;
-		}
-		
-		public function get rows():int {
-			
-			return total_rows;
-		}
-		
-		public function set total(value:int):void {
-			
-			total_rows = value;
-		}
-		
-		public function print():void {
-			
-			for each (var arr:Array in source) {
-				for each (var cell:CELL in arr) {
-					trace("Cell:" + cell + " at:" + cell.pos + " index:" + cell.index);
-				}
-			}
-		}
 	}
 }
 import flash.geom.Point;
 
-class CELL {
+internal class CELL {
 	
 	private var _pos:Point
 	private var _index:int;
@@ -254,4 +260,44 @@ class CELL {
 		
 		return _item;
 	}
+	
+	public function isEmpty():Boolean {
+			
+		return _item == null;
+	}
+	
+	public function toString() {
+		
+		return 'CELL(pos:' + _pos + ' index:' + _index + ' item:' + _item + ')';
+	}
 }
+
+/*
+Not Used Yet | Not Tested
+
+public function addItemAtIndex(item:Object, index:int, replace:Boolean = true):void {
+	
+	if (outOfRange(index)) {
+		errorMSG(1, index);
+		return;
+	}
+	var cell:CELL = getCellByIndex(index);
+	//trace("addItemAt >> " + index + " item:" + item + " cell:" + cell)
+	if (!replace && !cell.isEmpty()) {
+		errorMSG(2, index);
+		return;
+	}
+	cell.addItem(item);
+}
+
+public function getAllItems():Array {
+	
+	var all_items:Array = new Array();
+	for each (var arr:Array in _source) {
+		for each (var cell:CELL in arr) {
+			if (!cell.isEmpty()) all_items.push(cell.item);
+		}
+	}
+	return all_items;
+}
+*/

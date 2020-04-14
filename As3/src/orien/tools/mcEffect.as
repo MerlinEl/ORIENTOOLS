@@ -1,4 +1,6 @@
 ﻿package orien.tools {
+	import com.greensock.TweenLite;
+	import com.greensock.easing.Bounce;
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.filters.ColorMatrixFilter;
@@ -24,6 +26,12 @@
 		 * The value used for the luminance of the Blue Channel.
 		 */
 		public static const B_LUM:Number = 0.0820;
+		
+		
+		static public const red:uint = 0xFF0000;
+		static public const green:uint = 0x00FF40;
+		static public const blue:uint = 0x0000FF;
+		static public const yellow:uint = 0xFFFF00;
 		
 		public function mcEffect() {
 		
@@ -69,6 +77,26 @@
 		public static function clearCTM(obj:DisplayObject):void{
 			//ftrace("clear")
 			obj.transform.colorTransform = new ColorTransform();
+		}
+		
+		/**
+		 * @example
+		import orien.tools.mcEffect;
+		btn_ok.on_up = function(){
+			mcEffect.colorPulse(player_01, mcEffect.red, 0.5);
+		}
+		 * @param	obj
+		 * @param	color
+		 * @param	mul
+		 * @param	duration
+		 */
+		public static function colorPulse(obj:DisplayObject, color:uint, mul:Number, duration:Number = 1):void {
+			
+			tint(obj, color, mul);
+			obj.alpha = 0;
+			TweenLite.to(obj, 1, {alpha:duration, ease:Bounce.easeOut, onComplete:function(){
+				clearCTM(obj);
+			}});
 		}
 		
 		/**

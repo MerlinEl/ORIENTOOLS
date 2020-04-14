@@ -746,6 +746,17 @@
 		}
 		
 		/**
+		 * Convert a String in to nuber ("45°" -> 45)
+		 * @param	angle
+		 * @return
+		 */
+		static public function angleToNumber(str:String):Number{
+			
+			return Number(str.substring(0, str.length - 1));
+		}
+		
+		
+		/**
 		 * Convert a "String number" with commas in to Number ("1,5" -> 1.5)
 		 * @param	num_str
 		 * @return
@@ -817,6 +828,28 @@
 			
 			space.length == 0 ? space = thin_space : null;
 			return num_str.split(space);
+		}
+		
+		/**
+		 * Insert hair spaces in number, like: 1000 == 1 000, 25600, 25 600, etc..
+		 * @param	num_str String Number
+		 * @param	space thin_space
+		 * @return	modified num_string
+		 */
+		static public function formatDecimal(num_str:String, space:String = "", comma:String = ","):String {
+			
+			space.length == 0 ? space = thin_space : null;
+			if (num_str.indexOf(comma) == -1) return num_str; //is not decimal
+			var parts:Array = num_str.split(comma);
+			var unit:String = parts[0]+comma+space;
+			var decimals:String = parts[1];
+			while (decimals.length > 3){
+				
+				unit += decimals.substring(0, 3)+space;
+				decimals = decimals.substring(3);
+			}
+			unit += decimals;
+			return unit;
 		}
 		
 		/**

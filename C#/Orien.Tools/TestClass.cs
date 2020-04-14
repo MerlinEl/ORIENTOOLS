@@ -2,7 +2,7 @@
 
 namespace Orien.Tools {
     public class TestClass {
-        public static void TestFn(string s) {
+        public static void TestFn() {
             //manual comments
             //https://docs.microsoft.com/cs-cz/dotnet/csharp/language-reference/language-specification/documentation-comments
             //manual snippet designer
@@ -16,7 +16,7 @@ namespace Orien.Tools {
 
             //Add Snippet > 2x Tab
             //multi rename Ctrl+rx2
-            int val = mcMath.MinMax(45, 10, 100);
+            //int val = mcMath.MinMax(45, 10, 100);
         }
     }
 }

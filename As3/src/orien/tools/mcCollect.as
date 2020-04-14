@@ -262,6 +262,19 @@ package orien.tools {
 			instance.opaqueBackground = obj.opaqueBackground;
 			return instance;
 		}
+		
+		/**
+		 * Clone an item cnt times
+		 * @param	item
+		 * @param	cnt
+		 * @return
+		 */
+		static public function cloneItem(item:*, cnt:int):Array{
+			
+			var arr:Array = [];
+			for (var i:int = 0; i < cnt; i++) arr[i] = item;
+			return arr;
+		}
 	
 	/*
 	   var p:Point = new Point(e.stageX, e.stageY);

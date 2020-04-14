@@ -11,16 +11,30 @@
 		public function mcMath() {
 		
 		}
-
+		
 		/**
 		 * Round a number to defined decimals.
 		 * @param	num a Number we want to round
 		 * @param	to how many decimals remains
 		 * @return	rounded number
-		 * @example roundTo(4.458, 1) == 4.4
-		 * @example roundTo(4.458, 2) == 4.45
+		 * @example roundTo(4.458, 1) == 4.5
+		 * @example roundTo(4.458, 2) == 4.46
 		 */
-		static public function roundTo(num:Number, to:Number):Number {
+		static public function roundTo(num:Number, to:int):Number {//not round but split! fixed at 9.7.2018 
+			
+			var power:Number = Math.pow(10, to);
+			return Math.round(num * power) / power;
+		}
+		
+		/**
+		 * Trim a number to defined decimals.
+		 * @param	num a Number we want to trim
+		 * @param	to how many decimals remains
+		 * @return	rounded number
+		 * @example trimTo(4.458, 1) == 4.4
+		 * @example trimTo(4.458, 2) == 4.45
+		 */
+		static public function trimTo(num:Number, to:int):Number {
 			
 			var power:Number = Math.pow(10, to);
 			return int(num * power) / power;
@@ -37,11 +51,20 @@
 			return Math.round(num / to) * to;
 		}
 		
-		static public function roundToDecimals(num:Number, to:int = 1):Number {
+		/**
+		 * Round decimal number
+		 * @example mcMath.roundToDecimals(1.521, 2); return: 1.52
+		 * @example mcMath.roundToDecimals(1.521, 2, 1); return: 1.53 //make bad result
+		 * @param	num
+		 * @param	to
+		 * @param	mod add modification to make bad results
+		 * @return	rounded decimal Number
+		 */
+		static public function roundToDecimals(num:Number, to:int = 1, mod:int = 0):Number {
 			
 			var multi:int = Math.pow(10, to);
-			var round_number:Number = Math.round(num * multi); 
-			return round_number/multi;
+			var round_number:Number = Math.round(num * multi) + mod;
+			return round_number / multi;
 		}
 		
 		/**
@@ -92,11 +115,11 @@
 		 * Generate a random number between defined range.
 		 * @param	min_num minimum number
 		 * @param	max_num maximum number
-		 * @param	round_type round Number type: floor, ceil, round.
+		 * @param	round_type round Number type: floor, ceil, round, dozens.
 		 * @param	to_fixed maximum decimal places
 		 * @return	number
 		 */
-		static public function randomRange(min_num:Number, max_num:Number, round_type:String = "floor", to_fixed:int = 0):Number {
+		static public function randomRange(min_num:Number, max_num:Number, round_type:String = "floor", to_fixed:int = 0, to_dozens:int = 0):Number {
 			
 			var random_num:Number = Math.random() * (max_num - min_num + 1);
 			switch (round_type) {
@@ -106,6 +129,12 @@
 				break;
 			case "floor": 
 				random_num = Math.floor(random_num) + min_num;
+				break;
+			case "round": 
+				random_num = Math.round(random_num);
+				break;
+			case "dozens": 
+				random_num = roundToDozen(random_num, to_dozens);
 				break;
 			}
 			return to_fixed == 0 ? random_num : toFixed(random_num, to_fixed);
@@ -121,11 +150,20 @@
 		 * @param	min_num minimum number
 		 * @param	max_num maximum number
 		 * @param	to_fixed maximum decimal places
+		 * @param	decimals_only = true > ignore whole numbers
 		 * @return
 		 */
-		static public function randomRangeDecimal(min_num:Number, max_num:Number, to_fixed:int = 8):Number {
+		static public function randomRangeDecimal(min_num:Number, max_num:Number, to_fixed:int = 8, decimals_only:Boolean = false):Number {
 			
-			return Number((Math.random() * (min_num - max_num) + max_num).toFixed(to_fixed));
+			var num:Number = Number((Math.random() * (min_num - max_num) + max_num).toFixed(to_fixed));
+			if (decimals_only) {
+				
+				while (isWhole(num) && to_fixed > 0) {
+					
+					num = Number((Math.random() * (min_num - max_num) + max_num).toFixed(to_fixed));
+				}
+			}
+			return num;
 		}
 		
 		/**
@@ -166,7 +204,7 @@
 		 * @param	total = total frames
 		 * @return random frame int
 		 */
-		static public function randomFrame(total:int):int{
+		static public function randomFrame(total:int):int {
 			
 			return randomRange(1, total);
 		}
@@ -249,15 +287,21 @@
 			return num;
 		}
 		
+		/*
+		   static public function numberToDecimalInverse(num:Number):Number{
+		
+		   return num / (Math.pow(num, 2)*10); //convert number to decimal with same zeros 100 = 0.001
+		   }*/
+		
 		/**
 		 * Generate an array of unmbers between min | max range. 2017
 		 * Support negative numbers now. 2018
 		 * Added param except. Those Array(numbers) will be skipped. 2018
-		 * @example positive 
+		 * @example positive
 		 * var nums_a:Array = mcMath.numbersInRange(15, 180, "all", 15);
 		 * ftrace("nums_a:%", nums_a)
 		 * @example negative
-		 * var nums_b:Array = mcMath.numbersInRange(-15, -180, "all", -15, , [-90, -180]);
+		 * var nums_b:Array = mcMath.numbersInRange(-15, -180, "all", -15, [-90, -180]);
 		 * ftrace("nums_b:%", nums_b)
 		 * @param	min_num	minimum number
 		 * @param	max_num	maximum number
@@ -300,13 +344,13 @@
 		
 		static public function numbersInRangeDecimal(min_num:Number, max_num:Number, step:Number = 0.1, dec_only:Boolean = false, decimals:int = 2):Array {
 			
-			if (step < 0.1) {
+			if (step < 0.0001) {
 				
 				trace("Error numbersInRangeDecimal, step must be bigger than 0!")
 				return [];
 			}
-			var nums:Array = dec_only ? [] : [min_num];
-			var num:Number = min_num + step;
+			var nums:Array = [];  //dec_only ? [] : [min_num]; do not uncoment!
+			var num:Number = min_num;
 			while (num <= max_num) {
 				
 				if (isWhole(num) && dec_only) {
@@ -318,7 +362,7 @@
 					nums.push(num);
 				}
 				num += step;
-				num = Number(num.toFixed(decimals)); //aded fixer to avoid this: 1.2000000000000002
+				num = toFixed(num, decimals); //aded fixer to avoid this: 1.2000000000000002
 			}
 			return nums;
 		}
@@ -379,6 +423,16 @@
 		}
 		
 		/**
+		 * Check if number is decimal
+		 * @param	val
+		 * @return
+		 */
+		static public function isDecimal(val:Number):Boolean {
+			
+			return int(val) != val;
+		}
+		
+		/**
 		 * Check if given number is even or odd
 		 * @param	num number which we want to check
 		 * @return	bollean: true | false
@@ -386,6 +440,27 @@
 		static public function isEven(val:Number):Boolean { //je li sudé číslo
 			
 			return val % 2 == 0;
+		}
+		
+		/**
+		 * Je to prvočíslo?
+		 * @param	num
+		 * @return
+		 */
+		static public function isPrime(num:int):Boolean {
+			
+			if (num < 2) return false;
+			if (num == 2) return true;
+			if (num % 2 == 0) return false;
+			
+			var max:int = Math.sqrt(num);
+			
+			for (var i:int = 3; i <= max; i += 2) {
+				if (num % i == 0) {
+					return false;
+				}
+			}
+			return true;
 		}
 		
 		static public function mod(val_a:Number, val_b:Number):Number {
@@ -430,6 +505,26 @@
 		}
 		
 		/**
+		 * násobky čísla
+		 * @param	num
+		 * @param	to_max
+		 * @return	all multiples of given number limited by max
+		 */
+		static public function multiplesOfNumber(num:int, to_max:int):Array {
+			
+			var output_arr:Array = [];
+			var multi:int = num;
+			var next:int = 1;
+			do {
+				multi = num * next;
+				output_arr.push(multi);
+				next++;
+				
+			} while (multi < to_max);
+			return output_arr;
+		}
+		
+		/**
 		 * Split number to whole and decimal part
 		 * @param	num
 		 * @return	new Array ( Number(whole), Number(decimal) )
@@ -439,6 +534,12 @@
 			if (num.toString().indexOf(".") == -1) return [num, 0];
 			var str_arr:Array = num.toString().split(".");
 			return [Number(str_arr[0]), Number("0." + str_arr[1])];
+		}
+		
+		static public function decimalsCount(num:Number):int {
+			
+			var decimals:String = String(num - int(num));
+			return decimals == "0" ? 0 : decimals.length - 2; //0.28 | 0. --> -2
 		}
 		
 		static public function getNumArraySum(arr:Array):Number {
@@ -459,20 +560,31 @@
 		//ex: mcMath.getNumLength(434294481.22) return:9
 		//ex: mcMath.getNumLength(-434294481.22) return:9
 		//ex: mcMath.getNumLength(-434294481.22, true) return:11
-		static public function getNumLength(num:Number, count_decimals:Boolean = false):int{
-	
+		static public function getNumLength(num:Number, count_decimals:Boolean = false):int {
+			
 			var count:int = 0;
 			var abs_num:Number = Math.abs(num);
 			if (count_decimals && !isWhole(num)) {
 				
 				count = String(abs_num).length - 1; // -1 remove dot count
-
+				
 			} else {
 				
 				count = Math.ceil(Math.log(abs_num + 1) / Math.LN10);
 			}
 			return count;
 		}
+		
+		/*static public function getLength(num:Number):int { //working Good :) but not need for now thanks to Slai
+		
+		   var len = 1;
+		   if ( num >= 100000000 ) { len += 8; num /= 100000000; }
+		   if ( num >= 10000     ) { len += 4; num /= 10000; }
+		   if ( num >= 100       ) { len += 2; num /= 100; }
+		   if ( num >= 10        ) { len += 1; }
+		   ftrace("len of % is %", i, len)
+		   return len;
+		   }*/
 		
 		//get array numbers from number like 123 == [100, 20, 3]
 		static public function decomposeEachDigit(num:Number):Array {
@@ -693,6 +805,19 @@
 		}
 		
 		/**
+		 * Make dupplicates of input item(cnt);
+		 * @param	item
+		 * @param	cnt
+		 * @return	Array of dupplicates
+		 */
+		static public function cloneItem(item:*, cnt:int = 1):Array {
+			
+			var items:Array = [];
+			for (var i:int = 0; i < cnt; i++) items.push(item);
+			return items;
+		}
+		
+		/**
 		 * Add replace decimals from one number to another 1.25, 56.3 == 56.25;
 		 * @param	num_a
 		 * @param	num_b
@@ -702,6 +827,14 @@
 			var numa_arr:Array = splitDecimals(num_a);
 			var numb_arr:Array = splitDecimals(num_b);
 			return numb_arr[0] + numa_arr[1];
+		}
+		
+		static public function convertTodecimal(num:Number, fixed_to:int = 0):Number {
+			
+			var num_len:int = getNumLength(num);
+			var result:Number = num / Math.pow(10, num_len);
+			if (fixed_to) result = toFixed(result, fixed_to);
+			return result;
 		}
 		
 		/**
