@@ -5,6 +5,52 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using System.Windows.Forms;
 
+/**
+private readonly mcRadialProgressBar prog_bar = new mcRadialProgressBar();
+//Progressbar setup
+prog_bar.Anchor = AnchorStyles.None;
+prog_bar.BackColor = Color.Transparent;
+prog_bar.Font = new Font("Impact", 30F, FontStyle.Regular, GraphicsUnit.Point, 178);
+prog_bar.ForeColor = Color.FromArgb(215, 247, 122);
+prog_bar.InnerColor = mcUiGlobal.TRANSPARENT_COLOR; //inner circle color
+prog_bar.InnerMargin = 0;
+prog_bar.InnerWidth = -1;
+prog_bar.Size = new Size(248, 248); //perimeter
+prog_bar.Location = mcMath.GetBoundsCenter(Bounds, prog_bar.Bounds);
+prog_bar.Name = "progBar";
+prog_bar.OuterColor = Color.Gray; //progress background color
+prog_bar.OuterMargin = -25;
+prog_bar.OuterWidth = 26;
+prog_bar.ProgressColor = Color.FromArgb(0, 255, 0);
+prog_bar.ProgressWidth = 20; //circle thickness
+prog_bar.TabIndex = 8;
+prog_bar.Text = "0%";
+prog_bar.TextMargin = new Padding(0, -5, 0, 0);
+prog_bar.Value = 0;
+prog_bar.Minimum = 0;
+prog_bar.Maximum = 100;
+
+public void progressTo(int val) {
+
+    int percent = mcMath.minMax(val, 1, 100); //min-max val correction
+    System.Threading.Thread.Sleep(2);
+    prog_bar.Value = percent;
+    prog_bar.Text = percent.ToString() + "%";
+    prog_bar.Update();
+    //Console.WriteLine("progress:" + percent.ToString());
+    if ( percent == 100 ) { //when is finished
+        Console.WriteLine("progress done with:" + percent.ToString());
+        if ( NeedConfirmToClose ) {
+            if ( ShowConfirmButtonOnDone ) showOkButton(true);
+        } else Close();
+    }
+}
+public void Reset() {
+    prog_bar.Value = 0;
+    prog_bar.Text = "0%";
+    btn_ok.Visible = false;
+}   
+*/
 namespace Orien.NetUi {
     /// <summary>
     ///     The circular progress bar windows form control
@@ -29,7 +75,6 @@ namespace Orien.NetUi {
                 ControlStyles.OptimizedDoubleBuffer |
                 ControlStyles.ResizeRedraw, true);
             StartAngle = 270;
-
             // Child class should be responsible for handling this values at the constructor
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
             BackColor = Color.Transparent;
@@ -37,21 +82,16 @@ namespace Orien.NetUi {
             DoubleBuffered = true;
             Font = new Font(Font.FontFamily, 72, FontStyle.Bold);
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
-
             OuterMargin = -25;
             OuterWidth = 26;
             OuterColor = Color.Gray;
-
             ProgressWidth = 25;
             ProgressColor = Color.FromArgb(255, 128, 0);
-
             InnerMargin = 2;
             InnerWidth = -1;
             InnerColor = Color.FromArgb(224, 224, 224);
-
             TextMargin = new Padding(8, 8, 0, 0);
             Value = 68;
-
             Size = new Size(320, 320);
         }
 
@@ -129,17 +169,11 @@ namespace Orien.NetUi {
         public Padding TextMargin { get; set; }
 
         private static PointF AddPoint(PointF p, int v) {
-            p.X += v;
-            p.Y += v;
-
-            return p;
+            p.X += v; p.Y += v; return p;
         }
 
         private static SizeF AddSize(SizeF s, int v) {
-            s.Height += v;
-            s.Width += v;
-
-            return s;
+            s.Height += v; s.Width += v; return s;
         }
 
         private static Rectangle ToRectangle(RectangleF rect) {
@@ -158,15 +192,9 @@ namespace Orien.NetUi {
         /// <param name="e">A <see cref="T:System.Windows.Forms.PaintEventArgs" /> that contains the event data. </param>
         protected override void OnPaint(PaintEventArgs e) {
             try {
-
-                if ( _backBrush == null ) {
-                    RecreateBackgroundBrush();
-                }
-
+                if ( _backBrush == null ) { RecreateBackgroundBrush();}
                 StartPaint(e.Graphics);
-            } catch {
-                // ignored
-            }
+            } catch {}
         }
 
         /// <inheritdoc />
@@ -307,6 +335,7 @@ namespace Orien.NetUi {
                         }
                     }
 
+                    //Draw Text Label 
                     if ( Text == string.Empty ) {
                         return;
                     }
@@ -333,7 +362,7 @@ namespace Orien.NetUi {
                         stringFormat);
                 }
             } catch {
-                // Console.WriteLine("mcRadialProgressBar > catch");
+                //Console.WriteLine("mcRadialProgressBar > catch");
                 // ignored
             }
         }

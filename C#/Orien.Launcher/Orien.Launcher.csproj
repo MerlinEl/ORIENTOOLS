@@ -66,7 +66,9 @@
   <ItemGroup>
     <Content Include="info\CircProgb.txt" />
     <Content Include="info\Csharp_to_Max.txt" />
+    <Content Include="info\mcRadialProgressBar.txt" />
     <Content Include="info\mcRadialProgressBar_animated.txt" />
+    <Content Include="info\TimerThread_01.txt" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

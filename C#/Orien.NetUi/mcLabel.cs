@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Orien.Tools;
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Threading;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace Orien.NetUi {
@@ -12,6 +15,10 @@ namespace Orien.NetUi {
         public int Diminisher { get; set; } = 1;
         public float BorderThickness { get; set; } = 2;
         public Color BorderColor { get; set; } = Color.Black;
+        private System.Threading.Timer DotTimer;
+        private static string _Text;
+        private bool _Autosize;
+        private static int Dot_Counter = 0;
         public mcLabel() {
 
             DoubleBuffered = true;
@@ -30,6 +37,31 @@ namespace Orien.NetUi {
 
             }
         }
+
+        public void StartAnimateDots() {
+
+            /*if ( DotTimer == null ) {
+
+                _Text = Text;
+                _Autosize = false;
+                TimerCallback cb = new TimerCallback(AnimateText);
+                DotTimer = new System.Threading.Timer(cb, Text, 4000, 500);
+
+            } else {
+         
+                Text = _Text;
+                _Autosize = AutoSize;
+                DotTimer.Dispose();
+            }*/
+        }
+
+        /*private static void AnimateText(object obj) { 
+
+            //Thread.Sleep(1000);
+            Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
+            Dot_Counter = Dot_Counter < 3 ? Dot_Counter + 1 : 0; //repeat numbers in range [1 - 3]
+            if ( obj is TextBox ) obj = _Text + mcString.Multiply(".", Dot_Counter);
+        }*/
 
         private void UpdateSize(string value) {
 

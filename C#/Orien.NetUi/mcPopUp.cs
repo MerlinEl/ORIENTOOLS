@@ -20,7 +20,7 @@ namespace Orien.NetUi {
             // Ui variables
             private readonly mcButton btn_ok = new mcButton();
             private readonly mcLabel lbl_title = new mcLabel();
-            private readonly mcRadialProgressBar prog_bar = new mcRadialProgressBar();
+            private readonly mcProgressBarCircular prog_bar = new mcProgressBarCircular();
 
             /// <summary>
             /// Create Radial ProgressBar with given title
@@ -50,26 +50,20 @@ namespace Orien.NetUi {
 
                 //Progressbar setup
                 prog_bar.Anchor = AnchorStyles.None;
-                prog_bar.BackColor = Color.Transparent;
                 prog_bar.Font = new Font("Impact", 30F, FontStyle.Regular, GraphicsUnit.Point, 178);
                 prog_bar.ForeColor = Color.FromArgb(215, 247, 122);
-                prog_bar.InnerColor = mcUiGlobal.TRANSPARENT_COLOR; //inner circle color
-                prog_bar.InnerMargin = 0;
-                prog_bar.InnerWidth = -1;
+                prog_bar.BackColor = Color.Transparent; //center circle transparent color
+                prog_bar.FillWidth = 22;
+                prog_bar.FillColorEnd = Color.FromArgb(253, 227, 43);
+                prog_bar.FillColorStart = Color.FromArgb(0, 189, 53);
+                prog_bar.CenterLineColor = Color.FromArgb(78, 139, 126);
+                prog_bar.BorderLineColor = Color.FromArgb(241, 252, 46);
+                prog_bar.BorderLineWidth = 4;
                 prog_bar.Size = new Size(248, 248); //perimeter
                 prog_bar.Location = mcMath.GetBoundsCenter(Bounds, prog_bar.Bounds);
                 prog_bar.Name = "progBar";
-                prog_bar.OuterColor = Color.Gray; //progress background color
-                prog_bar.OuterMargin = -25;
-                prog_bar.OuterWidth = 26;
-                prog_bar.ProgressColor = Color.FromArgb(0, 255, 0);
-                prog_bar.ProgressWidth = 20; //circle thickness
-                prog_bar.TabIndex = 8;
-                prog_bar.Text = "0%";
-                prog_bar.TextMargin = new Padding(0, -5, 0, 0);
                 prog_bar.Value = 0;
-                prog_bar.Minimum = 0;
-                prog_bar.Maximum = 100;
+                prog_bar.ProgressShape = mcProgressBarCircular._ProgressShape.Round; //make fill rounded ends
 
                 // Label Title setup
                 lbl_title.TextColor = Color.FromArgb(200, 200, 220);
@@ -117,9 +111,8 @@ namespace Orien.NetUi {
             public void progressTo(int val) {
 
                 int percent = mcMath.minMax(val, 1, 100); //min-max val correction
-                System.Threading.Thread.Sleep(2);
+                //System.Threading.Thread.Sleep(1);
                 prog_bar.Value = percent;
-                prog_bar.Text = percent.ToString() + "%";
                 prog_bar.Update();
                 //Console.WriteLine("progress:" + percent.ToString());
                 if ( percent == 100 ) { //when is finished
@@ -130,8 +123,8 @@ namespace Orien.NetUi {
                 }
             }
             public void Reset() {
+                lbl_title.Text = progb_title;
                 prog_bar.Value = 0;
-                prog_bar.Text = "0%";
                 btn_ok.Visible = false;
             }
 
@@ -139,6 +132,9 @@ namespace Orien.NetUi {
             public void onClick(object sender, EventArgs e) {
 
                 Reset();
+                // add animated dots at behind label text (..., .., .)
+                lbl_title.StartAnimateDots();
+                // simulate progress process
                 float total_steps = 500;
                 for ( int i = 0; i <= total_steps; i++ ) {
                     double percent = 100.0 / total_steps * i;

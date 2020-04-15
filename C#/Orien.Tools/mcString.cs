@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Orien.Tools {
@@ -6,6 +7,11 @@ namespace Orien.Tools {
         public static int LastIndexOf(string str, string find_str) => str.LastIndexOf(find_str);
         public static string CondenseTabsAndNewLines(string str) => Regex.Replace(str, @"\s\s+", "");
         public static string PackString(string[] str_arr, string delimiter) => string.Join(delimiter, str_arr);
+        /// <summary>
+        /// Repeat sting n times 
+        /// Example >  mcString.Multiply("<item>a</item>", 2) => "<item>a</item><item>a</item>"
+        /// </summary>
+        public static string Multiply(string str, int cnt) => String.Concat(Enumerable.Repeat(str, cnt));
         public static void ExtensionsTest() {
 
         }

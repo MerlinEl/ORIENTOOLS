@@ -1,0 +1,30 @@
+﻿        public void AnimateDots() {
+
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += (sender, args) => StartWorker();
+            worker.RunWorkerCompleted += (sender, args) => StopWorker();
+            worker.RunWorkerAsync();
+        }
+
+        private void AnimateText(object sender, EventArgs e) {
+
+            Dot_Counter = Dot_Counter < 3 ? Dot_Counter + 1 : 0; //repeat numbers in range [1 - 3]
+            Text = _Text + mcString.Multiply(".", Dot_Counter);
+        }
+
+        private void StartWorker() {
+
+            if ( DotTimer != null ) StopWorker();
+            _Text = Text;
+            DotTimer = new Timer();
+            DotTimer.Interval = 500;
+            DotTimer.Tick += new EventHandler(AnimateText);
+            DotTimer.Start();
+        }
+
+        void StopWorker() {
+
+            DotTimer.Stop();
+            DotTimer.Dispose();
+            Text = _Text;
+        }
