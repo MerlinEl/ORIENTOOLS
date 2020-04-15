@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="mcArray.cs" />
+    <Compile Include="mcCrypt.cs" />
     <Compile Include="mcDynObj2.cs" />
     <Compile Include="mcDynObj.cs" />
     <Compile Include="mcEvent.cs" />
