@@ -129,18 +129,33 @@ namespace Orien.NetUi {
             }
 
             // Debug
+
+            int Total_Steps = 500;
+            int Current_Step = 0;
             public void onClick(object sender, EventArgs e) {
 
-                Reset();
-                // add animated dots at behind label text (..., .., .)
-                lbl_title.StartAnimateDots();
+                if ( Current_Step == 0 ) {
+
+                    lbl_title.StartAnimateDots(); // start label animation [., .., ...]
+
+                } else if ( Current_Step >= Total_Steps ) {
+
+                    Current_Step = 0;
+                    Reset();
+                }
                 // simulate progress process
-                float total_steps = 500;
+                Current_Step += 1;
+                double percent = 100.0 / Total_Steps * Current_Step;
+                progressTo((int)percent);
+            }
+            /*public void RunProgress() {
+
+              float total_steps = 500;
                 for ( int i = 0; i <= total_steps; i++ ) {
                     double percent = 100.0 / total_steps * i;
                     progressTo((int)percent);
                 }
-            }
+            }*/
         }
     }
 }

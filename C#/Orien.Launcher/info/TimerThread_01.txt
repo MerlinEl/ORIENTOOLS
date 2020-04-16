@@ -28,3 +28,34 @@
             DotTimer.Dispose();
             Text = _Text;
         }
+
+
+
+
+
+
+
+		       public void StartAnimateDots() {
+
+            /*if ( DotTimer == null ) {
+
+                _Text = Text;
+                _Autosize = false;
+                TimerCallback cb = new TimerCallback(AnimateText);
+                DotTimer = new System.Threading.Timer(cb, Text, 4000, 500);
+
+            } else {
+         
+                Text = _Text;
+                _Autosize = AutoSize;
+                DotTimer.Dispose();
+            }*/
+        }
+
+        /*private static void AnimateText(object obj) { 
+
+            //Thread.Sleep(1000);
+            Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
+            Dot_Counter = Dot_Counter < 3 ? Dot_Counter + 1 : 0; //repeat numbers in range [1 - 3]
+            if ( obj is TextBox ) obj = _Text + mcString.Multiply(".", Dot_Counter);
+        }*/

@@ -2,8 +2,6 @@
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Threading;
-using System.Timers;
 using System.Windows.Forms;
 
 namespace Orien.NetUi {
@@ -15,9 +13,9 @@ namespace Orien.NetUi {
         public int Diminisher { get; set; } = 1;
         public float BorderThickness { get; set; } = 2;
         public Color BorderColor { get; set; } = Color.Black;
-        private System.Threading.Timer DotTimer;
+        private Timer DotTimer;
         private static string _Text;
-        private bool _Autosize;
+        //private bool _Autosize;
         private static int Dot_Counter = 0;
         public mcLabel() {
 
@@ -34,38 +32,40 @@ namespace Orien.NetUi {
 
                 base.Text = value;
                 UpdateSize(value);
-
             }
         }
 
         public void StartAnimateDots() {
 
-            /*if ( DotTimer == null ) {
-
-                _Text = Text;
-                _Autosize = false;
-                TimerCallback cb = new TimerCallback(AnimateText);
-                DotTimer = new System.Threading.Timer(cb, Text, 4000, 500);
-
-            } else {
-         
-                Text = _Text;
-                _Autosize = AutoSize;
-                DotTimer.Dispose();
-            }*/
+            Console.WriteLine("Thread StartAnimateDots was executed");
+            if ( DotTimer != null ) StopAnimateDots();
+            _Text = Text;
+            DotTimer = new Timer {
+                Interval = 500
+            };
+            DotTimer.Tick += new EventHandler(AnimateText);
+            DotTimer.Start();
         }
 
-        /*private static void AnimateText(object obj) { 
+        private void StopAnimateDots() {
+            if ( DotTimer != null ) {
 
-            //Thread.Sleep(1000);
-            Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
+                DotTimer.Stop();
+                DotTimer.Dispose();
+                Text = _Text;
+            }
+        }
+
+        private void AnimateText(object sender, EventArgs e) {
+            Console.WriteLine("Thread AnimateText > Dot_Counter:"+ Dot_Counter.ToString());
             Dot_Counter = Dot_Counter < 3 ? Dot_Counter + 1 : 0; //repeat numbers in range [1 - 3]
-            if ( obj is TextBox ) obj = _Text + mcString.Multiply(".", Dot_Counter);
-        }*/
+            Text = _Text + mcString.Multiply(".", Dot_Counter);
+            Update();
+        }
 
         private void UpdateSize(string value) {
 
-            Console.WriteLine("Label UpdateSize..");
+            //Console.WriteLine("Label UpdateSize..");
             Graphics g = Graphics.FromHwnd(this.Handle);
             SizeF sz = g.MeasureString(value, Font);
             Width = (int)sz.Width;
