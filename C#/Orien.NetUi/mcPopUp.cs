@@ -1,6 +1,8 @@
 ﻿using Orien.Tools;
 using System;
+using System.ComponentModel;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Orien.NetUi {
@@ -108,54 +110,148 @@ namespace Orien.NetUi {
             /// 
             /// </summary>
             /// <param name="val">percentage values between 1-100</param>
-            public void progressTo(int val) {
+            public void ProgressTo(int val) {
 
                 int percent = mcMath.minMax(val, 1, 100); //min-max val correction
                 //System.Threading.Thread.Sleep(1);
                 prog_bar.Value = percent;
                 prog_bar.Update();
-                //Console.WriteLine("progress:" + percent.ToString());
+                //Console.WriteLine("Thread ProgressTo > Percent:" + percent.ToString());
                 if ( percent == 100 ) { //when is finished
-                    Console.WriteLine("progress done with:" + percent.ToString());
+                    Console.WriteLine("Thread ProgressTo > Done At:" + percent.ToString());
                     if ( NeedConfirmToClose ) {
                         if ( ShowConfirmButtonOnDone ) showOkButton(true);
                     } else Close();
                 }
+            }
+            public void AnimateText(int val) {
+                //Console.WriteLine("Thread AnimateText > Dot_Counter:" + val.ToString());
+                lbl_title.Text = progb_title + mcString.Multiply(".", val);
+                lbl_title.Update();
             }
             public void Reset() {
                 lbl_title.Text = progb_title;
                 prog_bar.Value = 0;
                 btn_ok.Visible = false;
             }
-
             // Debug
-
             int Total_Steps = 500;
-            int Current_Step = 0;
+            bool Simulation_In_Progress = false;
+            BackgroundWorker Progress_Worker;
+            BackgroundWorker Animate_Worker;
             public void onClick(object sender, EventArgs e) {
 
-                if ( Current_Step == 0 ) {
+                if ( !Simulation_In_Progress ) {
 
-                    lbl_title.StartAnimateDots(); // start label animation [., .., ...]
+                    Simulation_In_Progress = true;
 
-                } else if ( Current_Step >= Total_Steps ) {
+                    // simulate progress
+                    Progress_Worker = new BackgroundWorker();
+                    Progress_Worker.WorkerReportsProgress = true;
+                    Progress_Worker.WorkerSupportsCancellation = true;
+                    Progress_Worker.DoWork += new DoWorkEventHandler(backgroundWorker1_DoWork);
+                    Progress_Worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(backgroundWorker1_RunWorkerCompleted);
+                    Progress_Worker.ProgressChanged += new ProgressChangedEventHandler(backgroundWorker1_ProgressChanged);
+                    Progress_Worker.RunWorkerAsync(0);
 
-                    Current_Step = 0;
+                    // animate label dots           
+                    Animate_Worker = new BackgroundWorker();
+                    Animate_Worker.WorkerReportsProgress = true;
+                    Animate_Worker.WorkerSupportsCancellation = true;
+                    Animate_Worker.DoWork += new DoWorkEventHandler(backgroundWorker2_DoWork);
+                    Animate_Worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(backgroundWorker2_RunWorkerCompleted);
+                    Animate_Worker.ProgressChanged += new ProgressChangedEventHandler(backgroundWorker2_ProgressChanged);
+                    Animate_Worker.RunWorkerAsync(0);
+                    //if ( !Animate_Worker.IsBusy ) Animate_Worker.RunWorkerAsync();
+
+                } else {
+                    Progress_Worker.CancelAsync();
+                    Animate_Worker.CancelAsync();
+                    Progress_Worker.Dispose();
+                    Animate_Worker.Dispose();
+                    Simulation_In_Progress = false;
                     Reset();
                 }
-                // simulate progress process
-                Current_Step += 1;
-                double percent = 100.0 / Total_Steps * Current_Step;
-                progressTo((int)percent);
             }
-            /*public void RunProgress() {
 
-              float total_steps = 500;
-                for ( int i = 0; i <= total_steps; i++ ) {
-                    double percent = 100.0 / total_steps * i;
-                    progressTo((int)percent);
+            private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e) {
+                BackgroundWorker worker = sender as BackgroundWorker; // Get the BackgroundWorker that raised this event.
+                int n = (int)e.Argument;
+                if ( n > Total_Steps ) {
+                    throw new ArgumentException("value must be < " + Total_Steps.ToString(), "n");
                 }
-            }*/
+                long result = 0;
+                if ( worker.CancellationPending ) {
+
+                    e.Cancel = true;
+
+                } else {
+                    do {
+                        n++;
+                        int percentComplete = (int)( 100.0 / Total_Steps * n );
+                        result = percentComplete;
+                        Thread.Sleep(10);
+                        worker.ReportProgress(percentComplete);
+                    } while ( n <= Total_Steps );
+                }
+                // Assign value to the result (This is will be available in RunWorkerCompleted eventhandler)
+                e.Result = result;
+            }
+
+            private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e) {
+                BackgroundWorker worker = sender as BackgroundWorker; // Get the BackgroundWorker that raised this event.
+                int n = (int)e.Argument;
+                long result = n;
+                if ( worker.CancellationPending ) {
+
+                    e.Cancel = true;
+
+                } else {
+                    do {
+                        n = n < 3 ? n + 1 : 0; //progress or reset
+                        Thread.Sleep(500);
+                        // Report progress as a percentage of the total task.
+                        worker.ReportProgress(n);
+                    } while ( Simulation_In_Progress );
+                }
+                // Assign value to the result (This is will be available in RunWorkerCompleted eventhandler)
+                e.Result = result;
+            }
+
+            // This event handler updates the progress bar.
+            private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e) {
+                ProgressTo(e.ProgressPercentage);
+            }
+            // This event handler updates the animated label.
+            private void backgroundWorker2_ProgressChanged(object sender, ProgressChangedEventArgs e) {
+                AnimateText(e.ProgressPercentage);
+            }
+
+            private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
+                // First, handle the case where an exception was thrown.
+                if ( e.Error != null ) {
+                    MessageBox.Show(e.Error.Message);
+                } else if ( e.Cancelled ) {
+                    Simulation_In_Progress = false;
+                    // Next, handle the case where the user canceled the operation.
+                } else {
+                    Simulation_In_Progress = false;
+                    // Finally, handle the case where the operation succeeded.
+                }
+            }
+
+            private void backgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
+                // First, handle the case where an exception was thrown.
+                if ( e.Error != null ) {
+                    MessageBox.Show(e.Error.Message);
+                } else if ( e.Cancelled ) {
+                    Simulation_In_Progress = false;
+                    // Next, handle the case where the user canceled the operation.
+                } else {
+                    Simulation_In_Progress = false;
+                    // Finally, handle the case where the operation succeeded.
+                }
+            }
         }
     }
 }
