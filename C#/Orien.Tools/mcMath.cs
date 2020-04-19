@@ -47,6 +47,21 @@ namespace Orien.Tools {
             return new Point(center_x, center_y);
         }
         /// <summary>
+        /// Fit proportioally size1 in to size2
+        /// </summary>
+        /// <param name="size1">src</param>
+        /// <param name="size2">trgt</param>
+        /// <param name="offset">margins</param>
+        /// <returns>new Size</returns>
+        public static Size FitSizeProportionally(Size size1, Size size2, Size offset = new Size()) {
+            Size new_size = new Size();
+            int diff = size2.Width / size1.Width;
+            new_size.Width = size2.Width - offset.Width;
+            new_size.Height = size2.Height * diff - offset.Height;
+            return new_size;
+        }
+
+        /// <summary>
         /// Keep given val in min - max Range
         /// </summary>
         /// <param name="val">input value</param>

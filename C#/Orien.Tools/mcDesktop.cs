@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace Orien.Tools {
@@ -48,6 +49,19 @@ namespace Orien.Tools {
             }
             return true;
         }
+
+        public static void RunFile(string fpath) {
+            if (File.Exists(fpath)) {
+                Process proc = new Process();
+                proc.StartInfo.FileName = fpath;
+                proc.StartInfo.Arguments = "-v -s -a";
+                proc.Start();
+                proc.WaitForExit();
+                var exitCode = proc.ExitCode;
+                proc.Close();
+            }
+        }
+
         /// <summary>
         /// Check if directory is exists, if not try to create one.
         /// </summary>

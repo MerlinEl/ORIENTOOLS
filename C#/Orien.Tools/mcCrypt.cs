@@ -1,51 +1,80 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 
 namespace Orien.Tools {
     public class mcCrypt {
 
-        CultureInfo cultures = new CultureInfo("cs-CZ"); // creating object of CultureInfo
-        private string eng_pattern_default = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        private string eng_pattern_mixed = "R81GXF5QDHKB4NZMJSAWUVTPCO293Y0I7LE6";
+        //CultureInfo cultures = new CultureInfo("cs-CZ"); // creating object of CultureInfo
+        private static char[] eng_pattern_default = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".ToCharArray();
+        private static char[] eng_pattern_mixed = "R81GXF5QDHKB4NZMJSAWUVTPCO293Y0I7LE6".ToCharArray();
+        /// <summary>
+        /// Encode string in to number pattern
+        /// Example > mcCrypt.EncodeToNumPattern("Český jazyk 2");
+        ///         > "268*101*115*107*253*32*106*97*122*121*107*32*50"
+        /// </summary>
+        public static string EncodeToNumPattern(string str) {
 
-        public static List<string> test_chars = new List<string>(new string[]{
-
-            "268*101*115*107*253*32*106*97*122*121*107*32*50",
-            "268*101*115*107*253*32*106*97*122*121*107*32*51",
-            "268*101*115*107*253*32*74*97*122*121*107*32*52",
-            "381*105*118*225*32*65*98*101*99*101*100*97*32*45*110*112",
-            "77*97*116*101*109*97*116*105*107*97*32*49*48*53*32*49*48*54"
-        });
-
-        public static List<string> test_names = new List<string>(new string[]{
-
-            "Český jazyk 2",
-            "Český jazyk 3",
-            "Český Jazyk 4",
-            "Živá Abeceda -np",
-            "Matematika 105 106"
-        });
-        //using Linq:
-        public static string EncodeToCharCode(string str) {
-
-
-            uint[] result = Enumerable
-            .Range(0, str.Length)
-            .Select(index => Convert.ToUInt32(str[index])) //conver sting number into equivalent 32 bit unsigned integer.
-            .ToArray();
+            uint[] result = str.Select(s => Convert.ToUInt32(s)).ToArray();
             return string.Join("*", result); //result.Select(b => $"*{b:X2}")
         }
-        //using Linq:
-        public static string DecodeFromCharCode(string str) {
+        /// <summary>
+        /// Decode number pattern in to string
+        /// Example > mcCrypt.DecodeFromNumPattern("48*54*47*50*48*47*50*48*49*56");
+        ///         > "06/20/2018"
+        /// </summary>
+        public static string DecodeFromNumPattern(string str) {
 
-            string[] str_arr = str.Split('*'); //parse string in to numbers
-            char[] result = Enumerable
-                .Range(0, str_arr.Length)
-                .Select(index => Convert.ToChar(Int32.Parse(str_arr[index])))
+            char[] result = str.Split('*')
+                .Select(s => Convert.ToChar(Int32.Parse(s)))
                 .ToArray();
             return string.Join("", result);
+        }
+        public static string DecodeKey(string str) {
+
+            string[] result = str.Select(ch => {
+
+                int char_index = mcString.IndexOfChar(eng_pattern_default, ch); //get char number from pttern
+                return eng_pattern_mixed[char_index].ToString(); //get characeter equivalent as integer 
+            })
+            .ToArray();
+            return string.Join("", result);
+        }
+        public static string[] UnmixEncodeKey(string[] shuffled_arr, int block_length = 4) {
+
+            string mixer = shuffled_arr[shuffled_arr.Length - 1];
+            int[] mixer_array = DecodeKey(mixer).ToCharArray() // 1,2,3,4 or 4,3,2,1 or 2,3,1,4...
+                                .Select(ch => Int32.Parse(ch.ToString()))
+                                .ToArray();
+            //Console.WriteLine("UnmixEncodeKey > mixer:{0} arr:{1}", mixer, mixer_array.IntArrayToString());
+            // unshuffle blocks according mixer
+            // prepare blocks as multistring slots
+            List<string[]> result_input = new List<string[]> {
+
+                new string[block_length],
+                new string[block_length],
+                new string[block_length]
+            };
+            for (var i = 0; i < result_input.Count; i++) { //for all blocks except last one
+
+                int num = mixer_array[i];
+                string in_block = shuffled_arr[i];
+                result_input[0][num] = in_block[0].ToString();
+                result_input[1][num] = in_block[1].ToString();
+                result_input[2][num] = in_block[2].ToString();
+                if (i == 0) { //insert last char (one time)
+
+                    num = mixer_array[mixer_array.Length - 1];
+                    //replace strings
+                    result_input[0][num] = shuffled_arr[0][3].ToString();
+                    result_input[1][num] = shuffled_arr[1][3].ToString();
+                    result_input[2][num] = shuffled_arr[2][3].ToString();
+                }
+            }
+            // condense string blocks
+            var result = new List<string> ( result_input.Select(s => String.Join("", s)) );
+            result.Add(shuffled_arr[shuffled_arr.Length - 1]); //insert unshuffled encoded mixer
+            return result.ToArray();
         }
     }
 }

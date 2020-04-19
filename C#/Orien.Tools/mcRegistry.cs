@@ -6,10 +6,16 @@ using System.Text.RegularExpressions;
 
 namespace Orien.Tools {
     public class mcRegistry {
+        /// <summary>
+        /// Get Registry Value from given Path
+        /// </summary>
+        /// <example>
+        /// string install_date = mcRegistry.ReadValue(@"Software\Unicorn\Encoded_Book_Name", "date");
+        /// </example>
+        /// <param name="key_path"></param>
+        /// <param name="key_name"></param>
+        /// <returns>String Value</returns>
         public static string ReadValue(string key_path, string key_name) {
-            //private static string TEST_REG_PATH1 = @"Software\Unicorn\268*101*115*107*253*32*106*97*122*121*107*32*50";
-            //private static string TEST_REG_PATH2 = @"HKLM\Software\Wow6432Node\Microsoft\Office";
-            //private static string TEST_KEY_NAME1 = "licence";
             RegistryKey root_key;
             if (Environment.Is64BitOperatingSystem)
                 root_key = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64);

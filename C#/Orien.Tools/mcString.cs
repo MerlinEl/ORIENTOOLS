@@ -12,24 +12,51 @@ namespace Orien.Tools {
         /// Example >  mcString.Multiply("<item>a</item>", 2) => "<item>a</item><item>a</item>"
         /// </summary>
         public static string Multiply(string str, int cnt) => String.Concat(Enumerable.Repeat(str, cnt));
-        public static string FilterStars(string str) => string.Join("", str.Split('*')); //filter stars from string
-        public static void ExtensionsTest() {
+        /// <summary>
+        /// Repeat sting n times 
+        /// Example >  mcString.MultiplyToArray("XXXX", 2) => {"XXXX", "XXXX"}
+        /// </summary>
+        public static string[] MultiplyAsArray(string str, int cnt) => Enumerable.Repeat(str, cnt).ToArray();
+        public static string FilterStars(string str) => string.Join("", str.Split('*')); //rename to FilterChars(string str, char character)
+        public static int IndexOfChar(char[] array, char ch) {
 
+            for (int i = 0; i < array.Length; i++) {
+                
+                if (array[i] == ch) return i;
+            }
+            return -1;
         }
+
+        /*internal static int GetCharAt(char[] char_arr, int index) {
+            
+            from ch in char_arr
+            where ch == 
+        }*/
     }
-    /// <summary>
-    /// Replace Extension > replace all occurences(separators) in string
-    /// char[] separators = new char[]{' ',';',',','\r','\t','\n'};
-    /// string s = "this;is,\ra\t\n\n\ntest";
-    /// s = s.Replace(separators, "\n");
-    /// </summary>
+    // Test
     public static class ExtensionMethods {
-        public static string Replace(this string s, char[] separators, string new_str) {
+        /// <summary>
+        /// Replace Extension > replace all occurences(separators) in string
+        /// char[] separators = new char[]{' ',';',',','\r','\t','\n'};
+        /// string s = "this;is,\ra\t\n\n\ntest";
+        /// s = s.Replace(separators, "\n");
+        /// </summary>
+        /*public static string Replace(this string s, char[] separators, string new_str) {
             string[] arr;
 
             arr = s.Split(separators, StringSplitOptions.RemoveEmptyEntries);
             return String.Join(new_str, arr);
-        }
+        }*/
+        //filter stars from string
+        //// str - the source string
+        //// index- the start location to replace at (0-based)
+        //// length - the number of characters to be removed before inserting
+        //// replace - the string that is replacing characters
+        /// Example > "0123456789".ReplaceAt(7, 5, "Hello") > "0123Hello456789"
+        /*public static string ReplaceAt(this string str, int index, int length, string replace) {
+            return str.Remove(index, Math.Min(length, str.Length - index))
+                        .Insert(index, replace);
+        }*/
     }
 }
 
