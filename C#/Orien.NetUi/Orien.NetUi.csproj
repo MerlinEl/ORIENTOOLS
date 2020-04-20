@@ -51,6 +51,9 @@
     <Compile Include="mcButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="mcPopUpProgressBar.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="mcProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -73,6 +76,9 @@
       <Project>{44E5920E-191F-4EF8-B153-A31518E23C29}</Project>
       <Name>Orien.Tools</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Backup\mcPopUp_01.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -39,10 +39,9 @@ namespace Orien.Launcher
 
         public static Form TestRadialProgressBar()
         {
-
-            mcPopUp.ProgBar progb = new mcPopUp.ProgBar("Processing geometry calculations", true, true, true);
+            Form progBar = mcPopup.Create(mcPopup.WindowType.E_Progress, "Processing geometry calculations", "");
             //progb.Show();
-            return progb;
+            return progBar;
         }
 
         public static void CreateTestForm()

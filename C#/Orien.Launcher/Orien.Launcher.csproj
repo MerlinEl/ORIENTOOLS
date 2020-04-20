@@ -72,4 +72,12 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(ProjectDir)bin\Debug\Orien.Tools.dll" "$(SolutionDir)..\..\..\Micra\Micra4\App\Assembly" /Y /I
+xcopy "$(ProjectDir)bin\Debug\Orien.NetUi.dll" "$(SolutionDir)..\..\..\Micra\Micra4\App\Assembly" /Y /I</PostBuildEvent>
+  </PropertyGroup>
 </Project>

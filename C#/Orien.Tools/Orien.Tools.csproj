@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\..\Work\NovaSkola\IUcManager\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\Orien.Launcher\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,11 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\..\..\Work\NovaSkola\IUcManager\IUcManager\mcDate.cs">
-      <Link>mcDate.cs</Link>
-    </Compile>
     <Compile Include="mcArray.cs" />
     <Compile Include="mcCrypt.cs" />
+    <Compile Include="mcDate.cs" />
     <Compile Include="mcDynObj2.cs" />
     <Compile Include="mcDynObj.cs" />
     <Compile Include="mcEvent.cs" />
@@ -67,10 +65,10 @@
     <Compile Include="TestClass.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <Folder Include="Backup\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Backup\" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
