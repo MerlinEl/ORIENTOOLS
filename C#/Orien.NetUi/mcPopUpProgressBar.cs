@@ -19,7 +19,7 @@ namespace Orien.NetUi {
         private readonly mcButton btn_ok = new mcButton();
         private readonly mcLabel lbl_title = new mcLabel();
         private readonly mcProgressBarCircular prog_bar = new mcProgressBarCircular();
-
+        public mcPopUpProgressBar() { }
         /// <summary>
         /// Create Radial ProgressBar with given title
         /// </summary>
@@ -42,6 +42,7 @@ namespace Orien.NetUi {
             //Form setup
             Point form_center = new Point(form_size.Width / 2, form_size.Height / 2);
             Size = form_size;
+            FormBorderStyle = FormBorderStyle.None; // Remove the title bar in Form
             BackColor = mcUiGlobal.TRANSPARENT_COLOR;
             AllowTransparency = true;
             TransparencyKey = mcUiGlobal.TRANSPARENT_COLOR;
@@ -74,6 +75,7 @@ namespace Orien.NetUi {
             lbl_title.CornerRadius = lbl_title.Height;
             Point lbl_offset = new Point(0, lbl_title.Height + prog_bar.Height / 2); // offset label
             lbl_title.Location = mcMath.GetBoundsCenter(prog_bar.Bounds, lbl_title.Bounds, lbl_offset);
+            lbl_title.MouseDown += new MouseEventHandler(onTitleMouseDown);
 
             //Button OK setup
             btn_ok.Size = new Size(40, 40);
@@ -99,6 +101,21 @@ namespace Orien.NetUi {
 
             //Add controls in to form
             Controls.AddRange(new Control[] { btn_ok, prog_bar, lbl_title });
+        }
+        // On left button, let the user drag the form.
+        private void onTitleMouseDown(object sender, MouseEventArgs e) {
+            if ( e.Button == MouseButtons.Left ) {
+                // Release the mouse capture started by the mouse down.
+                lbl_title.Capture = false;
+
+                // Create and send a WM_NCLBUTTONDOWN message.
+                const int WM_NCLBUTTONDOWN = 0x00A1;
+                const int HTCAPTION = 2;
+                Message msg =
+                    Message.Create(this.Handle, WM_NCLBUTTONDOWN,
+                        new IntPtr(HTCAPTION), IntPtr.Zero);
+                this.DefWndProc(ref msg);
+            }
         }
         private void onButtonOkClick(object sender, MouseEventArgs e) => Close();
         public void showOkButton(bool val) => btn_ok.Visible = val;
