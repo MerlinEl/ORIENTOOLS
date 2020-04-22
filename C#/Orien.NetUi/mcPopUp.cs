@@ -29,8 +29,6 @@ namespace Orien.NetUi {
             E_Input = 5, // window with text message and YES NO buttons and Edit Field
             E_Progress = 6  // window with text message and Circular Progressbar
         }
-        public static object GetTypes() => Enum.ToObject(typeof(WindowType) , 0);
-        public static object GetOptions() => Enum.ToObject(typeof(Options), 0);
         public static Form Create(string msg, string title) { //default confirm box
 
             return GetWindow(msg, title, WindowType.E_Default, new Options()); // use default options
@@ -40,6 +38,8 @@ namespace Orien.NetUi {
             //Array.CreateInstance(typeof(Int32),1, 2)
             return GetWindow(msg, "", type, options);
         }
+        public static object GetTypes() => Enum.ToObject(typeof(WindowType), 0);
+        public static object GetOptions() => Enum.ToObject(typeof(Options), 0);
         /*public static Form Create(
             WindowType type,
             string msg = "",
