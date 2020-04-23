@@ -54,6 +54,7 @@
     <Compile Include="mcEvent.cs" />
     <Compile Include="mcEventDispatcher.cs" />
     <Compile Include="mcDesktop.cs" />
+    <Compile Include="mcGetCs.cs" />
     <Compile Include="mcMath.cs" />
     <Compile Include="mcNet.cs" />
     <Compile Include="mcNum.cs" />

@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Dynamic;
 using System.Windows.Forms;
+using Orien.Launcher.Properties;
 using Orien.NetUi;
 using Orien.Tools;
 
@@ -43,7 +44,32 @@ namespace Orien.Launcher
             options.ConfirmToClose = true;
             Form progBar = mcPopup.Create("Processing geometry calculations", "", mcPopup.WindowType.E_Progress, options);
             //progb.Show();
+            mcImageToolTip myToolTip1 = new mcImageToolTip();
+            myToolTip1.AutoSize = false;
+            myToolTip1.Size  = new Size(400, 128);
+            myToolTip1.ToolTipTitle = "Button Tooltip";
+            //myToolTip1.IsBalloon = false;
+            myToolTip1.SetFont("Verdana", 12, FontStyle.Bold, mcGetCs.NewColor(0, 32, 64));
+            myToolTip1.BorderColor = mcGetCs.NewColor(1, 247, 46);
+            myToolTip1.SetToolTip(progBar, "Button 1. ToolTip with Image");
+            progBar.Tag = Resources.tltp_flatten_01;
+
             return progBar;
+
+
+
+            /*
+            ToolTip buttonToolTip = newToolTip();  
+            buttonToolTip.ToolTipTitle = "Button Tooltip";  
+            buttonToolTip.UseFading = true;  
+            buttonToolTip.UseAnimation = true;  
+            buttonToolTip.IsBalloon = true;  
+            buttonToolTip.ShowAlways = true;  
+            buttonToolTip.AutoPopDelay = 5000;  
+            buttonToolTip.InitialDelay = 1000;  
+            buttonToolTip.ReshowDelay = 500;  
+            buttonToolTip.SetToolTip(button1, "Click me to execute.");  
+            */
         }
 
         public static void CreateTestForm()
