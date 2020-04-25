@@ -46,22 +46,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="mcArray.cs" />
-    <Compile Include="mcCrypt.cs" />
-    <Compile Include="mcDate.cs" />
-    <Compile Include="mcDynObj2.cs" />
-    <Compile Include="mcDynObj.cs" />
-    <Compile Include="mcEvent.cs" />
-    <Compile Include="mcEventDispatcher.cs" />
-    <Compile Include="mcDesktop.cs" />
-    <Compile Include="mcGetCs.cs" />
-    <Compile Include="mcMath.cs" />
-    <Compile Include="mcNet.cs" />
-    <Compile Include="mcNum.cs" />
-    <Compile Include="mcRegistry.cs" />
-    <Compile Include="mcString.cs" />
-    <Compile Include="mcThreadHelper.cs" />
-    <Compile Include="mcXML.cs" />
+    <Compile Include="McArray.cs" />
+    <Compile Include="McCrypt.cs" />
+    <Compile Include="McDate.cs" />
+    <Compile Include="McDynObj2.cs" />
+    <Compile Include="McDynObj.cs" />
+    <Compile Include="McEvent.cs" />
+    <Compile Include="McEventDispatcher.cs" />
+    <Compile Include="McDesktop.cs" />
+    <Compile Include="McGetCs.cs" />
+    <Compile Include="McLinq.cs" />
+    <Compile Include="McMath.cs" />
+    <Compile Include="McNet.cs" />
+    <Compile Include="McNum.cs" />
+    <Compile Include="McRegistry.cs" />
+    <Compile Include="McString.cs" />
+    <Compile Include="McThreadedExecuter.cs" />
+    <Compile Include="McThreadHelper.cs" />
+    <Compile Include="McXML.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestClass.cs" />
   </ItemGroup>

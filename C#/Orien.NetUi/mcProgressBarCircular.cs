@@ -5,15 +5,15 @@ using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace Orien.NetUi {
-    class mcProgressBarCircular : Control {
+    class McProgressBarCircular : Control {
         #region Enums
 
-        public enum _ProgressShape {
+        public enum ProgressBarShape {
             Round,
             Flat
         }
 
-        public enum _TextMode {
+        public enum ProgressTextType {
             None,
             Value,
             Percentage,
@@ -35,14 +35,14 @@ namespace Orien.NetUi {
         private Color _CenterLineColor = Color.Silver;
         private Color _BorderLineColor = Color.Gold;
         private LinearGradientMode _GradientMode = LinearGradientMode.ForwardDiagonal;
-        private _ProgressShape ProgressShapeVal;
-        private _TextMode ProgressTextMode;
+        private ProgressBarShape ProgressShapeVal;
+        private ProgressTextType ProgressTextMode;
 
         #endregion
 
         #region Contructor
 
-        public mcProgressBarCircular() {
+        public McProgressBarCircular() {
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             SetStyle(ControlStyles.Opaque, true);
             this.BackColor = SystemColors.Control;
@@ -60,8 +60,8 @@ namespace Orien.NetUi {
             this.BorderLineColor = Color.DimGray;
 
             Value = 57;
-            ProgressShape = _ProgressShape.Flat;
-            TextMode = _TextMode.Percentage;
+            ProgressShape = ProgressBarShape.Flat;
+            TextMode = ProgressTextType.Percentage;
         }
 
         #endregion
@@ -165,7 +165,7 @@ namespace Orien.NetUi {
 
 
         [Description("Gets or Sets the Shape of the terminals of the progress bar."), Category("Appearance")]
-        public _ProgressShape ProgressShape {
+        public ProgressBarShape ProgressShape {
             get { return ProgressShapeVal; }
             set {
                 ProgressShapeVal = value;
@@ -174,7 +174,7 @@ namespace Orien.NetUi {
         }
 
         [Description("Gets or Sets the Mode as the Text is displayed inside the Progress bar."), Category("Behavior")]
-        public _TextMode TextMode {
+        public ProgressTextType TextMode {
             get { return ProgressTextMode; }
             set {
                 ProgressTextMode = value;
@@ -266,15 +266,15 @@ namespace Orien.NetUi {
                     #region Draw the Progress Text
 
                     switch ( this.TextMode ) {
-                        case _TextMode.None:
+                        case ProgressTextType.None:
                         this.Text = string.Empty;
                         break;
 
-                        case _TextMode.Value:
+                        case ProgressTextType.Value:
                         this.Text = _Value.ToString();
                         break;
 
-                        case _TextMode.Percentage:
+                        case ProgressTextType.Percentage:
                         this.Text = Convert.ToString(Convert.ToInt32(( 100 / _Maximum ) * _Value)) + " %";
                         break;
 
@@ -322,12 +322,12 @@ namespace Orien.NetUi {
 
             using ( Pen pen = new Pen(brush, thickness) ) {
                 switch ( this.ProgressShapeVal ) {
-                    case _ProgressShape.Round:
+                    case ProgressBarShape.Round:
                     pen.StartCap = LineCap.Round;
                     pen.EndCap = LineCap.Round;
                     break;
 
-                    case _ProgressShape.Flat:
+                    case ProgressBarShape.Flat:
                     pen.StartCap = LineCap.Flat;
                     pen.EndCap = LineCap.Flat;
                     break;
@@ -348,7 +348,7 @@ namespace Orien.NetUi {
         /// <param name = "centerX"> Center of the Circle, on the X axis </param>
         /// <param name = "centerY"> Center of the Circle, on the Y axis </param>
         /// <param name = "radius"> Radius of the Circle </param>
-        private void FillCircle(Graphics g, Brush brush, float centerX, float centerY, float radius) {
+        /*private void FillCircle(Graphics g, Brush brush, float centerX, float centerY, float radius) {
             g.InterpolationMode = InterpolationMode.HighQualityBilinear;
             g.CompositingQuality = CompositingQuality.HighQuality;
             g.PixelOffsetMode = PixelOffsetMode.HighQuality;
@@ -358,7 +358,7 @@ namespace Orien.NetUi {
                 g.FillEllipse(brush, centerX - radius, centerY - radius,
                           radius + radius, radius + radius);
             }
-        }
+        }*/
 
         #endregion
     }

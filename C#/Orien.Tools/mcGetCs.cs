@@ -2,7 +2,7 @@
 using System.Drawing;
 
 namespace Orien.Tools {
-    public class mcGetCs {
+    public class McGetCs {
 
         public static object FontStyles() => Enum.ToObject(typeof(FontStyle), 0);
         public static Font NewFont(string family, float size, FontStyle style) => new Font(family, size, style);

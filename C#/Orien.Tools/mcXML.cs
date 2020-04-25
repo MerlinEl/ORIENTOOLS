@@ -3,7 +3,7 @@ using System.IO;
 using System.Xml;
 
 namespace Orien.Tools {
-    class mcXML {
+    class McXML {
         readonly XmlDocument doc;
         public string url = "";
         public bool loaded = false;
@@ -12,7 +12,7 @@ namespace Orien.Tools {
         /// Open or Create XML file
         /// </summary>
         /// <param name="xmlPath">XML file path</param>
-        public mcXML(string xmlPath) {
+        public McXML(string xmlPath) {
 
             url = xmlPath;
             doc = new XmlDocument();

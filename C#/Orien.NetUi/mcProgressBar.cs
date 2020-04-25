@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 
 namespace Orien.NetUi {
-    class mcProgressBar : ProgressBar {
+    class McProgressBar : ProgressBar {
         private static readonly StringFormat sfCenter = new StringFormat() {
             Alignment = StringAlignment.Center,
             LineAlignment = StringAlignment.Center
@@ -12,7 +12,7 @@ namespace Orien.NetUi {
         /// <summary>
         /// ProgressBar with percent Label implemented
         /// </summary>
-        public mcProgressBar() { SetStyle(ControlStyles.AllPaintingInWmPaint, true); }
+        public McProgressBar() { SetStyle(ControlStyles.AllPaintingInWmPaint, true); }
         protected override void OnCreateControl() {
             progressString = null;
             base.OnCreateControl();

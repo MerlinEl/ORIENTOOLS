@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 
 namespace Orien.Tools {
-    public class mcThreadHelper {
+    public class McThreadHelper {
         delegate void SetTextCallback(Form f, TextBox ctrl, string text, bool append);
         public void SetText(Form form, TextBox ctrl, string text, bool append = true) {
             // InvokeRequired required compares the thread ID of the 

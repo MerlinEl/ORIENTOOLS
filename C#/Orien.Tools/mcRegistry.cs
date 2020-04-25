@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Orien.Tools {
-    public class mcRegistry {
+    public class McRegistry {
         /// <summary>
         /// Get Registry Value from given Path
         /// </summary>
         /// <example>
-        /// string install_date = mcRegistry.ReadValue(@"Software\Unicorn\Encoded_Book_Name", "date");
+        /// string install_date = McRegistry.ReadValue(@"Software\Unicorn\Encoded_Book_Name", "date");
         /// </example>
         /// <param name="key_path"></param>
         /// <param name="key_name"></param>
@@ -31,7 +31,7 @@ namespace Orien.Tools {
         /// </summary>
         /// <param name="key_path"></param>
         /// <returns>string array of folder names</returns>
-        /// <example>mcRegistry.GetKeys(@"Software\Unicorn");
+        /// <example>McRegistry.GetKeys(@"Software\Unicorn");
         public static string[] GetFolders(string key_path) {
 
             RegistryKey root_key;
@@ -56,7 +56,7 @@ namespace Orien.Tools {
             return key_names;
         }
         /// <summary>
-        /// mcRegistry.PrintContent(@"Software\Unicorn");
+        /// McRegistry.PrintContent(@"Software\Unicorn");
         /// </summary>
         /// <param name="key_path"></param>
         public static void PrintContent(string key_path) {
@@ -81,11 +81,11 @@ namespace Orien.Tools {
 
         /*public static bool WriteValue(string path, string key) {
 
-        string path = @"Software\Microsoft\Office"
-RegKey regkey = Registry.LocalMachine.OpenSubKey(path);
+            string path = @"Software\Microsoft\Office"
+            RegKey regkey = Registry.LocalMachine.OpenSubKey(path);
 
         }*/
-        const string PARENT_KEY_PATH = @"SOFTWARE\Unicorn\268*101*115*107*253*32*106*97*122*121*107*32*50";
+        /*const string PARENT_KEY_PATH = @"SOFTWARE\Unicorn\268*101*115*107*253*32*106*97*122*121*107*32*50";
         const string SUB_KEY_NAME = @"C:|Program Files (x86)|Microsoft SDKs|Windows|v8.1|E1234567|Microsoft.VisualStudio.TestPlatform.UnitTestFramework.AppContainer{0:0000}.dll"; // 14.45s ; total chars=178 ; key name chars=134
         private static void CreateSubKeys(RegistryKey regHive, int count) {
             // create sub-keys
@@ -136,7 +136,7 @@ RegKey regkey = Registry.LocalMachine.OpenSubKey(path);
             string pattern = DateTimeFormatInfo.CurrentInfo.LongTimePattern;
             pattern = Regex.Replace(pattern, "(:ss|:s)", "$1.fff");
             return timestamp.ToShortDateString() + " " + timestamp.ToString(pattern);
-        }
+        }*/
     }
 }
 

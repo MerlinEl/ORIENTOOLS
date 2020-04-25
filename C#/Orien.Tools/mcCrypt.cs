@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Orien.Tools {
-    public class mcCrypt {
+    public class McCrypt {
 
         //CultureInfo cultures = new CultureInfo("cs-CZ"); // creating object of CultureInfo
-        private static char[] eng_pattern_default = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".ToCharArray();
-        private static char[] eng_pattern_mixed = "R81GXF5QDHKB4NZMJSAWUVTPCO293Y0I7LE6".ToCharArray();
+        private static readonly char[] eng_pattern_default = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".ToCharArray();
+        private static readonly char[] eng_pattern_mixed = "R81GXF5QDHKB4NZMJSAWUVTPCO293Y0I7LE6".ToCharArray();
         /// <summary>
         /// Encode string in to number pattern
         /// Example > mcCrypt.EncodeToNumPattern("Český jazyk 2");
@@ -34,7 +34,7 @@ namespace Orien.Tools {
 
             string[] result = str.Select(ch => {
 
-                int char_index = mcString.IndexOfChar(eng_pattern_default, ch); //get char number from pttern
+                int char_index = McString.IndexOfChar(eng_pattern_default, ch); //get char number from pttern
                 return eng_pattern_mixed[char_index].ToString(); //get characeter equivalent as integer 
             })
             .ToArray();
@@ -72,12 +72,43 @@ namespace Orien.Tools {
                 }
             }
             // condense string blocks
-            var result = new List<string> ( result_input.Select(s => String.Join("", s)) );
+            var result = result_input.CondenseStrings();
+            //var result = new List<string>(result_input.Select(s => String.Join("", s)));
             result.Add(shuffled_arr[shuffled_arr.Length - 1]); //insert unshuffled encoded mixer
             return result.ToArray();
         }
     }
 }
+
+
+/*
+    List<string[]> result_input = new List<string[]> {
+
+    new string[block_length],
+    new string[block_length],
+    new string[block_length]
+};
+for (var i = 0; i < result_input.Count; i++) { //for all blocks except last one
+
+    int num = mixer_array[i];
+    string in_block = shuffled_arr[i];
+    result_input[0][num] = in_block[0].ToString();
+    result_input[1][num] = in_block[1].ToString();
+    result_input[2][num] = in_block[2].ToString();
+    if (i == 0) { //insert last char (one time)
+
+        num = mixer_array[mixer_array.Length - 1];
+        //replace strings
+        result_input[0][num] = shuffled_arr[0][3].ToString();
+        result_input[1][num] = shuffled_arr[1][3].ToString();
+        result_input[2][num] = shuffled_arr[2][3].ToString();
+    }
+}
+// condense string blocks
+var result = new List<string> ( result_input.Select(s => String.Join("", s)) );
+result.Add(shuffled_arr[shuffled_arr.Length - 1]); //insert unshuffled encoded mixer
+return result.ToArray();
+*/
 
 
 

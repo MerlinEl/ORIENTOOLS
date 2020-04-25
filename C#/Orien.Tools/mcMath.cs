@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 //--------------------------------------------------------------------------------//
-//                                mcMath by Orien 2020                            //
+//                                McMath by Orien 2020                            //
 //--------------------------------------------------------------------------------//
 /*
 *@Used Structures
@@ -12,7 +12,7 @@ using System.Drawing;
 *
 */
 namespace Orien.Tools {
-    public class mcMath {
+    public class McMath {
         /// <summary>
         /// Keep given value between min - max range
         /// </summary>
@@ -21,9 +21,9 @@ namespace Orien.Tools {
         /// <param name="max">int maximum value</param>
         /// <returns>int min, max or value</returns>
         /// <example>
-        /// mcMath.minMax 100	1	50	--> 50
-        /// mcMath.minMax -1	1	50	--> 1
-        /// mcMath.minMax 100	1	200	--> 100
+        /// McMath.minMax 100	1	50	--> 50
+        /// McMath.minMax -1	1	50	--> 1
+        /// McMath.minMax 100	1	200	--> 100
         /// </example>
         public static int MinMax(int value, int min, int max) {
 
@@ -31,6 +31,7 @@ namespace Orien.Tools {
             val = Math.Min(val, max); //max
             return val;
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -38,7 +39,7 @@ namespace Orien.Tools {
         /// <param name="bounds2"></param>
         /// <param name="archonPoint">Archon Point of bounds2</param>
         /// <returns></returns>
-        public static Point GetBoundsCenter(Rectangle bounds1, Rectangle bounds2, Point offset = new Point(), string archonPoint = "left") {
+        public static Point GetBoundsCenter(Rectangle bounds1, Rectangle bounds2, Point offset = new Point()) { //, string archonPoint = "left"
 
             int center_x = bounds1.X + (bounds1.Width / 2);
             int center_y = bounds1.Y + (bounds1.Height / 2);
@@ -59,20 +60,6 @@ namespace Orien.Tools {
             new_size.Width = size2.Width - offset.Width;
             new_size.Height = size2.Height * diff - offset.Height;
             return new_size;
-        }
-
-        /// <summary>
-        /// Keep given val in min - max Range
-        /// </summary>
-        /// <param name="val">input value</param>
-        /// <param name="val_min">maximum range</param>
-        /// <param name="val_max">minimum range</param>
-        /// <returns></returns>
-        public static int minMax(int val, int val_min, int val_max) {
-
-            val = Math.Max(val, val_min); //get larger value
-            val = Math.Min(val, val_max); //get smaller value
-            return val;
         }
     }
 }

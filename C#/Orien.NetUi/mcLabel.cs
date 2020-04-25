@@ -5,7 +5,7 @@ using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace Orien.NetUi {
-    public class mcLabel : Label {
+    public class McLabel : Label {
         public Color FillColor { get; set; } = Color.Gray;
         public Color TextColor { get; set; } = Color.White;
         public Color TransparentColor { get; set; } = Color.FromArgb(0, 0, 50, 50);
@@ -17,7 +17,7 @@ namespace Orien.NetUi {
         private static string _Text;
         //private bool _Autosize;
         private static int Dot_Counter = 0;
-        public mcLabel() {
+        public McLabel() {
 
             DoubleBuffered = true;
             AutoSize = true;
@@ -59,7 +59,7 @@ namespace Orien.NetUi {
         private void AnimateText(object sender, EventArgs e) {
             Console.WriteLine("Thread AnimateText > Dot_Counter:"+ Dot_Counter.ToString());
             Dot_Counter = Dot_Counter < 3 ? Dot_Counter + 1 : 0; //repeat numbers in range [1 - 3]
-            Text = _Text + mcString.Multiply(".", Dot_Counter);
+            Text = _Text + McString.Multiply(".", Dot_Counter);
             Update();
         }
 

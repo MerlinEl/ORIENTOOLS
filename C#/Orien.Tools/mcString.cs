@@ -3,18 +3,18 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Orien.Tools {
-    public class mcString {
+    public class McString {
         public static int LastIndexOf(string str, string find_str) => str.LastIndexOf(find_str);
         public static string CondenseTabsAndNewLines(string str) => Regex.Replace(str, @"\s\s+", "");
         public static string PackString(string[] str_arr, string delimiter) => string.Join(delimiter, str_arr);
         /// <summary>
         /// Repeat sting n times 
-        /// Example >  mcString.Multiply("<item>a</item>", 2) => "<item>a</item><item>a</item>"
+        /// Example >  McString.Multiply("<item>a</item>", 2) => "<item>a</item><item>a</item>"
         /// </summary>
         public static string Multiply(string str, int cnt) => String.Concat(Enumerable.Repeat(str, cnt));
         /// <summary>
         /// Repeat sting n times 
-        /// Example >  mcString.MultiplyToArray("XXXX", 2) => {"XXXX", "XXXX"}
+        /// Example >  McString.MultiplyToArray("XXXX", 2) => {"XXXX", "XXXX"}
         /// </summary>
         public static string[] MultiplyAsArray(string str, int cnt) => Enumerable.Repeat(str, cnt).ToArray();
         public static string FilterStars(string str) => string.Join("", str.Split('*')); //rename to FilterChars(string str, char character)

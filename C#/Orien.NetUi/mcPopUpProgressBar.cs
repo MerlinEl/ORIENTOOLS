@@ -6,20 +6,20 @@ using System.Threading;
 using System.Windows.Forms;
 
 namespace Orien.NetUi {
-    public class mcPopUpProgressBar : Form {
+    public class McPopUpProgressBar : Form {
 
         // Private Variables
-        private bool Debug = false;
+        private readonly bool Debug = false;
         private Size form_size = new Size(800, 600);
         private readonly string progb_title = "";
         private readonly bool NeedConfirmToClose = false;
         private readonly bool ShowConfirmButtonOnDone = false;
 
         // Ui variables
-        private readonly mcButton btn_ok = new mcButton();
-        private readonly mcLabel lbl_title = new mcLabel();
-        private readonly mcProgressBarCircular prog_bar = new mcProgressBarCircular();
-        public mcPopUpProgressBar() { }
+        private readonly McButton btn_ok = new McButton();
+        private readonly McLabel lbl_title = new McLabel();
+        private readonly McProgressBarCircular prog_bar = new McProgressBarCircular();
+        public McPopUpProgressBar() { }
         /// <summary>
         /// Create Radial ProgressBar with given title
         /// </summary>
@@ -31,21 +31,22 @@ namespace Orien.NetUi {
         /// progb.Show();
         /// progb.progressTo(percent); // range [ 1 - 100 ]
         /// </usage>
-        public mcPopUpProgressBar(string title, bool confirmToClose = false, bool showButtonOnDone = false, bool debug = false) {
+        public McPopUpProgressBar(string title, bool confirmToClose = false, bool showButtonOnDone = false, bool debug = false) {
 
             //init
             NeedConfirmToClose = confirmToClose;
             ShowConfirmButtonOnDone = showButtonOnDone;
             progb_title = title;
             Debug = debug;
+            Console.WriteLine("McPopUpProgressBar > Debug Mode:{0}", Debug);
 
             //Form setup
             Point form_center = new Point(form_size.Width / 2, form_size.Height / 2);
             Size = form_size;
             FormBorderStyle = FormBorderStyle.None; // Remove the title bar in Form
-            BackColor = mcUiGlobal.TRANSPARENT_COLOR;
+            BackColor = McUiGlobal.TRANSPARENT_COLOR;
             AllowTransparency = true;
-            TransparencyKey = mcUiGlobal.TRANSPARENT_COLOR;
+            TransparencyKey = McUiGlobal.TRANSPARENT_COLOR;
 
             //Progressbar setup
             prog_bar.Anchor = AnchorStyles.None;
@@ -59,10 +60,10 @@ namespace Orien.NetUi {
             prog_bar.BorderLineColor = Color.FromArgb(241, 252, 46);
             prog_bar.BorderLineWidth = 4;
             prog_bar.Size = new Size(248, 248); //perimeter
-            prog_bar.Location = mcMath.GetBoundsCenter(Bounds, prog_bar.Bounds);
+            prog_bar.Location = McMath.GetBoundsCenter(Bounds, prog_bar.Bounds);
             prog_bar.Name = "progBar";
             prog_bar.Value = 0;
-            prog_bar.ProgressShape = mcProgressBarCircular._ProgressShape.Round; //make fill rounded ends
+            prog_bar.ProgressShape = McProgressBarCircular.ProgressBarShape.Round; //make fill rounded ends
 
             // Label Title setup
             lbl_title.TextColor = Color.FromArgb(200, 200, 220);
@@ -74,8 +75,8 @@ namespace Orien.NetUi {
             lbl_title.Padding = new Padding(4); //grow text background bit
             lbl_title.CornerRadius = lbl_title.Height;
             Point lbl_offset = new Point(0, lbl_title.Height + prog_bar.Height / 2); // offset label
-            lbl_title.Location = mcMath.GetBoundsCenter(prog_bar.Bounds, lbl_title.Bounds, lbl_offset);
-            lbl_title.MouseDown += new MouseEventHandler(onTitleMouseDown);
+            lbl_title.Location = McMath.GetBoundsCenter(prog_bar.Bounds, lbl_title.Bounds, lbl_offset);
+            lbl_title.MouseDown += new MouseEventHandler(OnTitleMouseDown);
 
             //Button OK setup
             btn_ok.Size = new Size(40, 40);
@@ -91,11 +92,11 @@ namespace Orien.NetUi {
             btn_ok.Text = "OK";
             btn_ok.Visible = false;
             Point btn_offset = new Point(0, -50);
-            btn_ok.Location = mcMath.GetBoundsCenter(prog_bar.Bounds, btn_ok.Bounds, btn_offset); // offset button
+            btn_ok.Location = McMath.GetBoundsCenter(prog_bar.Bounds, btn_ok.Bounds, btn_offset); // offset button
 
             // Add event handlers 
-            btn_ok.MouseUp += new MouseEventHandler(onButtonOkClick);
-            if ( debug ) prog_bar.Click += new EventHandler(onClick);
+            btn_ok.MouseUp += new MouseEventHandler(OnButtonOkClick);
+            if ( debug ) prog_bar.Click += new EventHandler(OnClick);
 
             //if ( debug ) prog_bar.Click += new EventHandler(onClick);
 
@@ -103,7 +104,7 @@ namespace Orien.NetUi {
             Controls.AddRange(new Control[] { btn_ok, prog_bar, lbl_title });
         }
         // On left button, let the user drag the form.
-        private void onTitleMouseDown(object sender, MouseEventArgs e) {
+        private void OnTitleMouseDown(object sender, MouseEventArgs e) {
             if ( e.Button == MouseButtons.Left ) {
                 // Release the mouse capture started by the mouse down.
                 lbl_title.Capture = false;
@@ -117,15 +118,15 @@ namespace Orien.NetUi {
                 this.DefWndProc(ref msg);
             }
         }
-        private void onButtonOkClick(object sender, MouseEventArgs e) => Close();
-        public void showOkButton(bool val) => btn_ok.Visible = val;
+        private void OnButtonOkClick(object sender, MouseEventArgs e) => Close();
+        public void ShowOkButton(bool val) => btn_ok.Visible = val;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="val">percentage values between 1-100</param>
         public void ProgressTo(int val) {
 
-            int percent = mcMath.minMax(val, 1, 100); //min-max val correction
+            int percent = McMath.MinMax(val, 1, 100); //min-max val correction
                                                       //System.Threading.Thread.Sleep(1);
             prog_bar.Value = percent;
             prog_bar.Update();
@@ -133,13 +134,13 @@ namespace Orien.NetUi {
             if ( percent == 100 ) { //when is finished
                 Console.WriteLine("Thread ProgressTo > Done At:" + percent.ToString());
                 if ( NeedConfirmToClose ) {
-                    if ( ShowConfirmButtonOnDone ) showOkButton(true);
+                    if ( ShowConfirmButtonOnDone ) ShowOkButton(true);
                 } else Close();
             }
         }
         public void AnimateText(int val) {
             //Console.WriteLine("Thread AnimateText > Dot_Counter:" + val.ToString());
-            lbl_title.Text = progb_title + mcString.Multiply(".", val);
+            lbl_title.Text = progb_title + McString.Multiply(".", val);
             lbl_title.Update();
         }
         public void Reset() {
@@ -147,33 +148,36 @@ namespace Orien.NetUi {
             prog_bar.Value = 0;
             btn_ok.Visible = false;
         }
+
         // Debug
-        int Total_Steps = 500;
+        readonly int Total_Steps = 500;
         bool Simulation_In_Progress = false;
         BackgroundWorker Progress_Worker;
         BackgroundWorker Animate_Worker;
-        public void onClick(object sender, EventArgs e) {
+        public void OnClick(object sender, EventArgs e) {
 
             if ( !Simulation_In_Progress ) {
 
                 Simulation_In_Progress = true;
 
                 // simulate progress
-                Progress_Worker = new BackgroundWorker();
-                Progress_Worker.WorkerReportsProgress = true;
-                Progress_Worker.WorkerSupportsCancellation = true;
-                Progress_Worker.DoWork += new DoWorkEventHandler(backgroundWorker1_DoWork);
-                Progress_Worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(backgroundWorker1_RunWorkerCompleted);
-                Progress_Worker.ProgressChanged += new ProgressChangedEventHandler(backgroundWorker1_ProgressChanged);
+                Progress_Worker = new BackgroundWorker {
+                    WorkerReportsProgress = true,
+                    WorkerSupportsCancellation = true
+                };
+                Progress_Worker.DoWork += new DoWorkEventHandler(BackgroundWorker1_DoWork);
+                Progress_Worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BackgroundWorker1_RunWorkerCompleted);
+                Progress_Worker.ProgressChanged += new ProgressChangedEventHandler(RackgroundWorker1_ProgressChanged);
                 Progress_Worker.RunWorkerAsync(0);
 
                 // animate label dots           
-                Animate_Worker = new BackgroundWorker();
-                Animate_Worker.WorkerReportsProgress = true;
-                Animate_Worker.WorkerSupportsCancellation = true;
-                Animate_Worker.DoWork += new DoWorkEventHandler(backgroundWorker2_DoWork);
-                Animate_Worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(backgroundWorker2_RunWorkerCompleted);
-                Animate_Worker.ProgressChanged += new ProgressChangedEventHandler(backgroundWorker2_ProgressChanged);
+                Animate_Worker = new BackgroundWorker {
+                    WorkerReportsProgress = true,
+                    WorkerSupportsCancellation = true
+                };
+                Animate_Worker.DoWork += new DoWorkEventHandler(BackgroundWorker2_DoWork);
+                Animate_Worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BackgroundWorker2_RunWorkerCompleted);
+                Animate_Worker.ProgressChanged += new ProgressChangedEventHandler(BackgroundWorker2_ProgressChanged);
                 Animate_Worker.RunWorkerAsync(0);
                 //if ( !Animate_Worker.IsBusy ) Animate_Worker.RunWorkerAsync();
 
@@ -187,7 +191,7 @@ namespace Orien.NetUi {
             }
         }
 
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e) {
+        private void BackgroundWorker1_DoWork(object sender, DoWorkEventArgs e) {
             BackgroundWorker worker = sender as BackgroundWorker; // Get the BackgroundWorker that raised this event.
             int n = (int)e.Argument;
             if ( n > Total_Steps ) {
@@ -211,7 +215,7 @@ namespace Orien.NetUi {
             e.Result = result;
         }
 
-        private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e) {
+        private void BackgroundWorker2_DoWork(object sender, DoWorkEventArgs e) {
             BackgroundWorker worker = sender as BackgroundWorker; // Get the BackgroundWorker that raised this event.
             int n = (int)e.Argument;
             long result = n;
@@ -232,15 +236,15 @@ namespace Orien.NetUi {
         }
 
         // This event handler updates the progress bar.
-        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e) {
+        private void RackgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e) {
             ProgressTo(e.ProgressPercentage);
         }
         // This event handler updates the animated label.
-        private void backgroundWorker2_ProgressChanged(object sender, ProgressChangedEventArgs e) {
+        private void BackgroundWorker2_ProgressChanged(object sender, ProgressChangedEventArgs e) {
             AnimateText(e.ProgressPercentage);
         }
 
-        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
+        private void BackgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
             // First, handle the case where an exception was thrown.
             if ( e.Error != null ) {
                 MessageBox.Show(e.Error.Message);
@@ -253,7 +257,7 @@ namespace Orien.NetUi {
             }
         }
 
-        private void backgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
+        private void BackgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
             // First, handle the case where an exception was thrown.
             if ( e.Error != null ) {
                 MessageBox.Show(e.Error.Message);

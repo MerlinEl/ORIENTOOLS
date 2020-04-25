@@ -3,7 +3,7 @@ using System.Dynamic;
 
 namespace Orien.Tools {
 
-    public class mcDynObj : DynamicObject {
+    public class McDynObj : DynamicObject {
         // The inner dictionary.
         readonly Dictionary<string, object> dictionary = new Dictionary<string, object>();
         // This property returns the number of elements
@@ -70,7 +70,7 @@ namespace Orien.Tools {
 
 /*
 dotNet.loadAssembly (micra.AssemblyDir + "Orien.Tools.dll") --load dll in to memory
-cls = dotNet.getType "Orien.Tools.mcDynObj"
+cls = dotNet.getType "Orien.Tools.McDynObj"
 inst = (dotNetClass "System.Activator").CreateInstance cls --create class instance 
 
 ---------------------------------------------------------

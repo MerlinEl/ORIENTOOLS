@@ -8,15 +8,15 @@ namespace Orien.Tools {
             //manual snippet designer
             //https://github.com/mmanela/SnippetDesigner
 
-            mcXML doc = new mcXML("c:/temp/text_01.xml");
+            McXML doc = new McXML("c:/temp/text_01.xml");
             Console.WriteLine("XML body:", doc.Body);
 
-            int result = mcMath.MinMax(20, 1, 100);
+            int result = McMath.MinMax(20, 1, 100);
             Console.WriteLine("Min Max result:", result);
 
             //Add Snippet > 2x Tab
             //multi rename Ctrl+rx2
-            //int val = mcMath.MinMax(45, 10, 100);
+            //int val = McMath.MinMax(45, 10, 100);
         }
     }
 }

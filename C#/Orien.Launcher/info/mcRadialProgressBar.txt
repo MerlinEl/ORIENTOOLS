@@ -16,7 +16,7 @@ prog_bar.InnerColor = mcUiGlobal.TRANSPARENT_COLOR; //inner circle color
 prog_bar.InnerMargin = 0;
 prog_bar.InnerWidth = -1;
 prog_bar.Size = new Size(248, 248); //perimeter
-prog_bar.Location = mcMath.GetBoundsCenter(Bounds, prog_bar.Bounds);
+prog_bar.Location = McMath.GetBoundsCenter(Bounds, prog_bar.Bounds);
 prog_bar.Name = "progBar";
 prog_bar.OuterColor = Color.Gray; //progress background color
 prog_bar.OuterMargin = -25;
@@ -32,7 +32,7 @@ prog_bar.Maximum = 100;
 
 public void progressTo(int val) {
 
-    int percent = mcMath.minMax(val, 1, 100); //min-max val correction
+    int percent = McMath.minMax(val, 1, 100); //min-max val correction
     System.Threading.Thread.Sleep(2);
     prog_bar.Value = percent;
     prog_bar.Text = percent.ToString() + "%";

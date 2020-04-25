@@ -1,5 +1,5 @@
 ﻿namespace Orien.Tools {
-    class mcNum {
+    class McNum {
 
     }
 }

@@ -2,8 +2,8 @@
 using System.Dynamic;
 namespace Orien.Tools {
 
-    public class mcDynObj2 {
-        private Dictionary<string, object> _dict = new Dictionary<string, object>();
+    public class McDynObj2 {
+        private readonly Dictionary<string, object> _dict = new Dictionary<string, object>();
 
         public object GetProperty(string name) {
             return _dict[name];

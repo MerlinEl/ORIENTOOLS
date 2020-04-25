@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace Orien.NetUi {
 
-    public class mcPopup {
+    public class McPopup {
         public const string Awesome = "Awesome";
         /*private static string _msg;
         private static string _title;
@@ -74,7 +74,7 @@ namespace Orien.NetUi {
                 case WindowType.E_Input:
                 break;
                 case WindowType.E_Progress:
-                    form = new mcPopUpProgressBar(msg, options.ConfirmToClose, options.ShowButtonOnDone, true); //turn off last bool(Debug)
+                    form = new McPopUpProgressBar(msg, options.ConfirmToClose, options.ShowButtonOnDone, true); //turn off last bool(Debug)
                 break;
             }
             return form;

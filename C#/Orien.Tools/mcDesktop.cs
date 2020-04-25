@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 
 namespace Orien.Tools {
-    public class mcDesktop {
+    public class McDesktop {
         // Load all suffixes in an array  
         private static readonly string[] suffixes = { "Bytes", "KB", "MB", "GB", "TB", "PB" };
         // That will return (normally) C:\
@@ -12,6 +12,7 @@ namespace Orien.Tools {
             Environment.GetFolderPath(Environment.SpecialFolder.System)
         );
         public static bool DirectoryExists(string path) => Directory.Exists(path);
+        public static bool FileExists(string fpath) => File.Exists(fpath);
         /// <summary>
         /// Get current user directory
         /// </summary>
@@ -50,16 +51,20 @@ namespace Orien.Tools {
             return true;
         }
 
-        public static void RunFile(string fpath) {
-            if (File.Exists(fpath)) {
-                Process proc = new Process();
-                proc.StartInfo.FileName = fpath;
-                proc.StartInfo.Arguments = "-v -s -a";
-                proc.Start();
-                proc.WaitForExit();
-                var exitCode = proc.ExitCode;
-                proc.Close();
-            }
+        public static void ShowInExporer(string dir) {
+            if (DirectoryExists(dir)) Process.Start(dir);
+        }
+        // Todo implement back response to prevent double run
+        public static int RunFile(string fpath) {
+            if (!File.Exists(fpath)) return 0;
+            Process proc = new Process();
+            proc.StartInfo.FileName = fpath;
+            proc.StartInfo.Arguments = "-v -s -a";
+            proc.Start();
+            proc.WaitForExit();
+            var exitCode = proc.ExitCode;
+            proc.Close();
+            return exitCode;
         }
 
         /// <summary>
@@ -99,3 +104,17 @@ namespace Orien.Tools {
 
     }
 }
+
+/*
+ * Instaled antivirus check
+// SELECT * FROM AntiVirusProduct
+// SELECT * FROM FirewallProduct
+// SELECT * FROM AntiSpywareProduct
+ManagementObjectSearcher wmiData = new ManagementObjectSearcher(@"root\SecurityCenter2", "SELECT * FROM AntiVirusProduct");
+ManagementObjectCollection data = wmiData.Get();
+
+foreach (ManagementObject virusChecker in data)
+{
+    var virusCheckerName = virusChecker["displayName"];
+}
+ */

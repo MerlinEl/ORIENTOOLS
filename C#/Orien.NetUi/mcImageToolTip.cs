@@ -58,7 +58,7 @@ namespace Orien.NetUi {
     /// <summary>
     /// mcImageToolTip to create tooltips with Image.
     /// </summary>
-    public class mcImageToolTip : ToolTip {
+    public class McImageToolTip : ToolTip {
         #region Constants
 
         private const int TOOLTIP_WIDTH = 400;
@@ -73,7 +73,7 @@ namespace Orien.NetUi {
 
         private static Color _borderColor = Color.Red;
         private static Font _font = new Font("Arial", 8);
-        private StringFormat _textFormat = new StringFormat();
+        private readonly StringFormat _textFormat = new StringFormat();
         private Rectangle _imageRectangle = new Rectangle();
         private Rectangle _textRectangle = new Rectangle();
         private Rectangle _toolTipRectangle = new Rectangle();
@@ -227,7 +227,7 @@ namespace Orien.NetUi {
         /// <summary>
         /// Constructor to create instance of mcImageToolTip class that can display Thumbnails/Images in it.
         /// </summary>
-        public mcImageToolTip() {
+        public McImageToolTip() {
             try {
                 this.OwnerDraw = true;
 
@@ -308,11 +308,15 @@ namespace Orien.NetUi {
                 e.Graphics.FillRectangle(_backColorBrush, _imageRectangle);
 
                 Control parent = e.AssociatedControl;
-                Image toolTipImage = parent.Tag as Image;
-                if ( toolTipImage != null ) {
+                if (parent.Tag is Image toolTipImage) {
+
                     _imageRectangle.Width = _internalImageWidth;
-                    _textRectangle = new Rectangle(_imageRectangle.Right, _imageRectangle.Top,
-                        ( _toolTipRectangle.Width - _imageRectangle.Right - BORDER_THICKNESS ), _imageRectangle.Height);
+                    _textRectangle = new Rectangle(
+                        _imageRectangle.Right, 
+                        _imageRectangle.Top,
+                        (_toolTipRectangle.Width - _imageRectangle.Right - BORDER_THICKNESS), 
+                        _imageRectangle.Height
+                    );
                     _textRectangle.Location = new Point(_imageRectangle.Right, _imageRectangle.Top);
 
                     e.Graphics.FillRectangle(_backColorBrush, _textRectangle);
@@ -342,8 +346,7 @@ namespace Orien.NetUi {
                     } else {
                         Size oldSize = e.ToolTipSize;
                         Control parent = e.AssociatedControl;
-                        Image toolTipImage = parent.Tag as Image;
-                        if ( toolTipImage != null ) {
+                        if (parent.Tag is Image toolTipImage) {
                             _internalImageWidth = oldSize.Height;
                             oldSize.Width += _internalImageWidth + PADDING;
                         } else {

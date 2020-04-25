@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 namespace Orien.Tools {
-    public class mcArray {
+    public class McArray {
 
         public static void AddItem<T>(List<T> list, T item, bool unique = false) {
 

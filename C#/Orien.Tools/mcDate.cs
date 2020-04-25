@@ -2,7 +2,7 @@
 using System.Globalization;
 
 namespace Orien.Tools {
-    public class mcDate {
+    public class McDate {
         /// <summary>
         /// Convert string to date object
         /// Example > mcDate.FromString( 02/25/2000 )

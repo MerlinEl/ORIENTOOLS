@@ -48,27 +48,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="mcButton.cs">
+    <Compile Include="McButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="mcImageToolTip.cs">
+    <Compile Include="McImageToolTip.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="mcPopUpProgressBar.cs">
+    <Compile Include="McPopUpProgressBar.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="mcProgressBar.cs">
+    <Compile Include="McProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="mcProgressBarCircular.cs">
+    <Compile Include="McProgressBarCircular.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="mcThreadHelper.cs" />
-    <Compile Include="mcUiGlobal.cs" />
-    <Compile Include="mcLabel.cs">
+    <Compile Include="McUiGlobal.cs" />
+    <Compile Include="McLabel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="mcPopUp.cs" />
+    <Compile Include="McPopup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
