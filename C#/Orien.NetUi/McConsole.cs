@@ -101,6 +101,7 @@ namespace Orien.NetUi {
 
                     case CMD.Help: ShowCommands(); break;
                     case CMD.Hide: form.Hide(); break;
+                    case CMD.Close: this.Close(); break;
                     case CMD.Clear: CurrentTextRichBox.Text = ""; break;
                     default: Log("\nCommand: ( " + cmd + " ) is not recognized."); break;
                 }
@@ -141,12 +142,13 @@ namespace Orien.NetUi {
         private TabPage AddTab(string tabName) {
 
             TabPage tp = new TabPage(tabName);
-            RichTextBox rtb = new RichTextBox();
-            rtb.AcceptsTab = true;
-            //rtb.TabStop = true;
-            rtb.Dock = DockStyle.Fill;
-            rtb.Name = "rtb";
-            rtb.Text = "...";
+            RichTextBox rtb = new RichTextBox {
+                AcceptsTab = true,
+                //rtb.TabStop = true;
+                Dock = DockStyle.Fill,
+                Name = "rtb",
+                Text = "..."
+            };
             tp.Controls.Add(rtb);
             this.mainTab.TabPages.Add(tp);
             return tp;
@@ -188,7 +190,11 @@ namespace Orien.NetUi {
         private void OnConsoleKeyUp(object sender, KeyEventArgs e) {
 
             if (autoCompleteBox.Visible) {
-                if (e.KeyCode == Keys.Up) {
+                if (e.KeyCode == Keys.Escape) {
+
+                    autoCompleteBox.Hide();
+
+                } else if (e.KeyCode == Keys.Up) {
 
                     autoCompleteBox.SelectPrevItem();
 
@@ -212,9 +218,14 @@ namespace Orien.NetUi {
         #endregion
 
         #region Menu Events
-        private void OnExitToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void OnexitToolStripMenuItem_Click(object sender, EventArgs e) {
 
             this.Close();
+        }
+
+        private void OnshowHelpToolStripMenuItem_Click(object sender, EventArgs e) {
+
+            Log("\nTODO :-) ...........");
         }
 
         private void OnclearCurrentTabToolStripMenuItem1_Click(object sender, EventArgs e) {
@@ -232,7 +243,7 @@ namespace Orien.NetUi {
             // Determine whether the user selected a file name from the saveFileDialog.
             saveFileDialog.ShowDialog();
         }
-        private void aboutMcConsoleToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void OnaboutMcConsoleToolStripMenuItem_Click(object sender, EventArgs e) {
             McConsoleAbout f = new McConsoleAbout {
                 StartPosition = FormStartPosition.Manual
             };

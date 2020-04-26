@@ -32,8 +32,8 @@ namespace Orien.NetUi {
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.mainTab = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.autoCompleteBox = new System.Windows.Forms.ListBox();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.mainMenu.SuspendLayout();
             this.mainTab.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -54,8 +54,8 @@ namespace Orien.NetUi {
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveAsToolStripMenuItem,
-            this.clearAllTabsToolStripMenuItem1,
             this.clearCurrentTabToolStripMenuItem1,
+            this.clearAllTabsToolStripMenuItem1,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
@@ -64,26 +64,30 @@ namespace Orien.NetUi {
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveAsToolStripMenuItem.Text = "Save As...";
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.OnsaveAsToolStripMenuItem_Click);
             // 
             // clearAllTabsToolStripMenuItem1
             // 
             this.clearAllTabsToolStripMenuItem1.Name = "clearAllTabsToolStripMenuItem1";
-            this.clearAllTabsToolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
+            this.clearAllTabsToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.clearAllTabsToolStripMenuItem1.Text = "Clear All";
+            this.clearAllTabsToolStripMenuItem1.Click += new System.EventHandler(this.OnclearAllTabsToolStripMenuItem1_Click);
             // 
             // clearCurrentTabToolStripMenuItem1
             // 
             this.clearCurrentTabToolStripMenuItem1.Name = "clearCurrentTabToolStripMenuItem1";
-            this.clearCurrentTabToolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
+            this.clearCurrentTabToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.clearCurrentTabToolStripMenuItem1.Text = "Clear Current";
+            this.clearCurrentTabToolStripMenuItem1.Click += new System.EventHandler(this.OnclearCurrentTabToolStripMenuItem1_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.OnexitToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -99,12 +103,14 @@ namespace Orien.NetUi {
             this.showHelpToolStripMenuItem.Name = "showHelpToolStripMenuItem";
             this.showHelpToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.showHelpToolStripMenuItem.Text = "View Help";
+            this.showHelpToolStripMenuItem.Click += new System.EventHandler(this.OnshowHelpToolStripMenuItem_Click);
             // 
             // aboutMcConsoleToolStripMenuItem
             // 
             this.aboutMcConsoleToolStripMenuItem.Name = "aboutMcConsoleToolStripMenuItem";
             this.aboutMcConsoleToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.aboutMcConsoleToolStripMenuItem.Text = "About";
+            this.aboutMcConsoleToolStripMenuItem.Click += new System.EventHandler(this.OnaboutMcConsoleToolStripMenuItem_Click);
             // 
             // mainTab
             // 
@@ -128,6 +134,15 @@ namespace Orien.NetUi {
             this.tabPage1.Text = "General";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // autoCompleteBox
+            // 
+            this.autoCompleteBox.FormattingEnabled = true;
+            this.autoCompleteBox.Location = new System.Drawing.Point(8, 30);
+            this.autoCompleteBox.Name = "autoCompleteBox";
+            this.autoCompleteBox.Size = new System.Drawing.Size(179, 277);
+            this.autoCompleteBox.TabIndex = 6;
+            this.autoCompleteBox.Visible = false;
+            // 
             // richTextBox1
             // 
             this.richTextBox1.AcceptsTab = true;
@@ -139,15 +154,6 @@ namespace Orien.NetUi {
             this.richTextBox1.Text = "";
             this.richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnConsoleKeyDown);
             this.richTextBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnConsoleKeyUp);
-            // 
-            // autoCompleteBox
-            // 
-            this.autoCompleteBox.FormattingEnabled = true;
-            this.autoCompleteBox.Location = new System.Drawing.Point(8, 30);
-            this.autoCompleteBox.Name = "autoCompleteBox";
-            this.autoCompleteBox.Size = new System.Drawing.Size(179, 277);
-            this.autoCompleteBox.TabIndex = 6;
-            this.autoCompleteBox.Visible = false;
             // 
             // McConsole
             // 
