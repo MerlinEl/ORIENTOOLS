@@ -9,7 +9,7 @@
    Language        : C#
 
    Description     : Implementation of mcImageToolTip
- 
+
    Copyright (C) ravikant.cse@gmail.com 2006-2010 All Rights Reserved
 
    URL             : https://www.codeproject.com/Articles/42050/ToolTip-With-Image-C
@@ -37,7 +37,7 @@ propertyGrid1.PropertySort = PropertySort.Alphabetical;
 test_form = dotNetObject "MaxCustomControls.MaxForm"
 test_btn = dotNetObject "button"
 test_btn.text = "Tooltip Test"
-test_tptp = mcDotnet.loadAssembly "Orien.NetUi.dll" "Orien.NetUi.mcImageTooltip" 
+test_tptp = mcDotnet.loadAssembly "Orien.NetUi.dll" "Orien.NetUi.mcImageTooltip"
 test_tptp.AutoSize = false
 test_tptp.Size 400 128
 test_tptp.SetToolTip test_btn "Button 1. ToolTip with Image"
@@ -45,7 +45,6 @@ test_btn.Tag = (dotNetClass "Drawing.Image").FromFile  (micra.ImagesPath + "Tool
 test_form.controls.add test_btn
 mcDotnet.dShow test_form
 */
-
 
 using System;
 using System.ComponentModel;
@@ -55,10 +54,12 @@ using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace Orien.NetUi {
+
     /// <summary>
     /// mcImageToolTip to create tooltips with Image.
     /// </summary>
     public class McImageToolTip : ToolTip {
+
         #region Constants
 
         private const int TOOLTIP_WIDTH = 400;
@@ -67,7 +68,7 @@ namespace Orien.NetUi {
         private const int PADDING = 6;
         private const int DEFAULT_IMAGE_WIDTH = 15;
 
-        #endregion
+        #endregion Constants
 
         #region Fields
 
@@ -83,7 +84,8 @@ namespace Orien.NetUi {
         private Size _size = new Size(TOOLTIP_WIDTH, TOOLTIP_HEIGHT);
         private int _internalImageWidth = DEFAULT_IMAGE_WIDTH;
         private bool _autoSize = true;
-        #endregion
+
+        #endregion Fields
 
         #region Properties
 
@@ -99,7 +101,7 @@ namespace Orien.NetUi {
                 return base.OwnerDraw;
             }
             set {
-                if ( value ) {
+                if (value) {
                     this.ToolTipIcon = ToolTipIcon.None;
                     this.ToolTipTitle = string.Empty;
                 }
@@ -118,7 +120,7 @@ namespace Orien.NetUi {
                 return base.ToolTipIcon;
             }
             set {
-                if ( !OwnerDraw ) {
+                if (!OwnerDraw) {
                     base.ToolTipIcon = value;
                 }
             }
@@ -134,7 +136,7 @@ namespace Orien.NetUi {
                 return base.ToolTipTitle;
             }
             set {
-                if ( !OwnerDraw ) {
+                if (!OwnerDraw) {
                     base.ToolTipTitle = value;
                 }
             }
@@ -181,7 +183,7 @@ namespace Orien.NetUi {
             get { return _autoSize; }
             set {
                 _autoSize = value;
-                if ( _autoSize ) {
+                if (_autoSize) {
                     _textFormat.Trimming = StringTrimming.None;
                 } else {
                     _textFormat.Trimming = StringTrimming.EllipsisCharacter;
@@ -197,7 +199,7 @@ namespace Orien.NetUi {
         public Size Size {
             get { return _size; }
             set {
-                if ( !_autoSize ) {
+                if (!_autoSize) {
                     _size = value;
                     _toolTipRectangle.Size = _size;
                 }
@@ -220,7 +222,7 @@ namespace Orien.NetUi {
             }
         }
 
-        #endregion
+        #endregion Properties
 
         #region Constructor
 
@@ -238,28 +240,27 @@ namespace Orien.NetUi {
 
                 this.Popup += new PopupEventHandler(CustomizedToolTip_Popup);
                 this.Draw += new DrawToolTipEventHandler(CustomizedToolTip_Draw);
-            } catch ( Exception ex ) {
+            } catch (Exception ex) {
                 string logMessage = "Exception in mcImageToolTip.mcImageToolTip () " + ex.ToString();
                 Trace.TraceError(logMessage);
                 throw;
             }
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Implementation for 3DsMax
 
         public void SetFont(string family, float size, FontStyle style, Color color) {
-
             ForeColor = color;
             _font = new Font(family, size, style);
         }
 
-        #endregion
+        #endregion Implementation for 3DsMax
 
         #region Methods
 
-        /// <summary> 
+        /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -267,27 +268,27 @@ namespace Orien.NetUi {
             try {
                 //Dispose of the disposable objects.
                 try {
-                    if ( disposing ) {
-                        if ( _font != null ) {
+                    if (disposing) {
+                        if (_font != null) {
                             _font.Dispose();
                         }
-                        if ( _textBrush != null ) {
+                        if (_textBrush != null) {
                             _textBrush.Dispose();
                         }
-                        if ( _backColorBrush != null ) {
+                        if (_backColorBrush != null) {
                             _backColorBrush.Dispose();
                         }
-                        if ( _borderBrush != null ) {
+                        if (_borderBrush != null) {
                             _borderBrush.Dispose();
                         }
-                        if ( _textFormat != null ) {
+                        if (_textFormat != null) {
                             _textFormat.Dispose();
                         }
                     }
                 } finally {
                     base.Dispose(disposing);
                 }
-            } catch ( Exception ex ) {
+            } catch (Exception ex) {
                 string logMessage = "Exception in mcImageToolTip.Dispose (bool) " + ex.ToString();
                 Trace.TraceError(logMessage);
                 throw;
@@ -299,7 +300,7 @@ namespace Orien.NetUi {
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">e</param>
-        void CustomizedToolTip_Draw(object sender, DrawToolTipEventArgs e) {
+        private void CustomizedToolTip_Draw(object sender, DrawToolTipEventArgs e) {
             try {
                 e.Graphics.CompositingQuality = CompositingQuality.HighQuality;
                 _toolTipRectangle.Size = e.Bounds.Size;
@@ -309,12 +310,11 @@ namespace Orien.NetUi {
 
                 Control parent = e.AssociatedControl;
                 if (parent.Tag is Image toolTipImage) {
-
                     _imageRectangle.Width = _internalImageWidth;
                     _textRectangle = new Rectangle(
-                        _imageRectangle.Right, 
+                        _imageRectangle.Right,
                         _imageRectangle.Top,
-                        (_toolTipRectangle.Width - _imageRectangle.Right - BORDER_THICKNESS), 
+                        (_toolTipRectangle.Width - _imageRectangle.Right - BORDER_THICKNESS),
                         _imageRectangle.Height
                     );
                     _textRectangle.Location = new Point(_imageRectangle.Right, _imageRectangle.Top);
@@ -325,7 +325,7 @@ namespace Orien.NetUi {
                 } else {
                     e.Graphics.DrawString(e.ToolTipText, _font, _textBrush, _imageRectangle, _textFormat);
                 }
-            } catch ( Exception ex ) {
+            } catch (Exception ex) {
                 string logMessage = "Exception in mcImageToolTip.BlindHeaderToolTip_Draw (object, DrawToolTipEventArgs) " + ex.ToString();
                 Trace.TraceError(logMessage);
                 throw;
@@ -337,10 +337,10 @@ namespace Orien.NetUi {
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">e</param>
-        void CustomizedToolTip_Popup(object sender, PopupEventArgs e) {
+        private void CustomizedToolTip_Popup(object sender, PopupEventArgs e) {
             try {
-                if ( OwnerDraw ) {
-                    if ( !_autoSize ) {
+                if (OwnerDraw) {
+                    if (!_autoSize) {
                         e.ToolTipSize = _size;
                         _internalImageWidth = _size.Height;
                     } else {
@@ -355,13 +355,13 @@ namespace Orien.NetUi {
                         e.ToolTipSize = oldSize;
                     }
                 }
-            } catch ( Exception ex ) {
+            } catch (Exception ex) {
                 string logMessage = "Exception in mcImageToolTip.CustomizedToolTip_Popup (object, PopupEventArgs) " + ex.ToString();
                 Trace.TraceError(logMessage);
                 throw;
             }
         }
 
-        #endregion
+        #endregion Methods
     }
 }

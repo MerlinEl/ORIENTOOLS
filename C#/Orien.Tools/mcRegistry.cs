@@ -1,8 +1,5 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Globalization;
-using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace Orien.Tools {
     public class McRegistry {
@@ -17,12 +14,17 @@ namespace Orien.Tools {
         /// <returns>String Value</returns>
         public static string ReadValue(string key_path, string key_name) {
             RegistryKey root_key;
-            if (Environment.Is64BitOperatingSystem)
+            if (Environment.Is64BitOperatingSystem) {
                 root_key = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64);
-            else
+            } else {
                 root_key = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32);
+            }
+
             RegistryKey sub_key = root_key.OpenSubKey(key_path, RegistryKeyPermissionCheck.ReadSubTree);
-            if (sub_key == null) return "";
+            if (sub_key == null) {
+                return "";
+            }
+
             object val = sub_key.GetValue(key_name);
             return (val == null) ? "" : val.ToString();
         }
@@ -35,22 +37,26 @@ namespace Orien.Tools {
         public static string[] GetFolders(string key_path) {
 
             RegistryKey root_key;
-            if (Environment.Is64BitOperatingSystem)
+            if (Environment.Is64BitOperatingSystem) {
                 root_key = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64);
-            else
+            } else {
                 root_key = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32);
+            }
+
             RegistryKey sub_key = root_key.OpenSubKey(key_path, RegistryKeyPermissionCheck.ReadSubTree);
             string[] key_names = new string[] { };
-            if (sub_key == null) return key_names;
+            if (sub_key == null) {
+                return key_names;
+            }
             /*foreach (string keyname in sub_key.GetSubKeyNames()) {
-                try {
-                    using (RegistryKey key = sub_key.OpenSubKey(keyname)) {
-                        Console.WriteLine("Registry key found : {0} contains {1} values", key.Name, key.ValueCount);
-                        key_names.Append(key.Name);
-                    }
-                } catch (System.Security.SecurityException) {
-                }
-            }*/
+   try {
+       using (RegistryKey key = sub_key.OpenSubKey(keyname)) {
+           Console.WriteLine("Registry key found : {0} contains {1} values", key.Name, key.ValueCount);
+           key_names.Append(key.Name);
+       }
+   } catch (System.Security.SecurityException) {
+   }
+}*/
             //ReadSubKeys(root_key, @"Software\Unicorn");
             key_names = sub_key.GetSubKeyNames();
             return key_names;
@@ -62,12 +68,17 @@ namespace Orien.Tools {
         public static void PrintContent(string key_path) {
 
             RegistryKey root_key;
-            if (Environment.Is64BitOperatingSystem)
+            if (Environment.Is64BitOperatingSystem) {
                 root_key = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64);
-            else
+            } else {
                 root_key = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32);
+            }
+
             RegistryKey sub_key = root_key.OpenSubKey(key_path, RegistryKeyPermissionCheck.ReadSubTree);
-            if (sub_key == null) return;
+            if (sub_key == null) {
+                return;
+            }
+
             foreach (string keyname in sub_key.GetSubKeyNames()) {
                 try {
                     using (RegistryKey key = sub_key.OpenSubKey(keyname)) {

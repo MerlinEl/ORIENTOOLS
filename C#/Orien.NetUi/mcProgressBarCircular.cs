@@ -73,8 +73,10 @@ namespace Orien.NetUi {
         public long Value {
             get { return _Value; }
             set {
-                if ( value > _Maximum )
+                if (value > _Maximum) {
                     value = _Maximum;
+                }
+
                 _Value = value;
                 Invalidate();
             }
@@ -84,8 +86,10 @@ namespace Orien.NetUi {
         public long Maximum {
             get { return _Maximum; }
             set {
-                if ( value < 1 )
+                if (value < 1) {
                     value = 1;
+                }
+
                 _Maximum = value;
                 Invalidate();
             }
@@ -227,8 +231,8 @@ namespace Orien.NetUi {
 
         protected override void OnPaint(PaintEventArgs e) {
             base.OnPaint(e);
-            using ( Bitmap bitmap = new Bitmap(this.Width, this.Height) ) {
-                using ( Graphics graphics = Graphics.FromImage(bitmap) ) {
+            using (Bitmap bitmap = new Bitmap(this.Width, this.Height)) {
+                using (Graphics graphics = Graphics.FromImage(bitmap)) {
                     graphics.InterpolationMode = InterpolationMode.HighQualityBilinear;
                     graphics.CompositingQuality = CompositingQuality.HighQuality;
                     graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
@@ -239,51 +243,51 @@ namespace Orien.NetUi {
                     PaintTransparentBackground(this, e);
 
                     // Draw the inner white circle:
-                    using ( Brush mBackColor = new SolidBrush(this.BackColor) ) {
+                    using (Brush mBackColor = new SolidBrush(this.BackColor)) {
                         graphics.FillEllipse(mBackColor,
                                 18, 18,
-                                ( this.Width - 0x30 ) + 12,
-                                ( this.Height - 0x30 ) + 12);
+                                (this.Width - 0x30) + 12,
+                                (this.Height - 0x30) + 12);
                     }
 
                     // Draw the thin gray line in the middle:
-                    using ( Pen pen2 = new Pen(CenterLineColor, this.CenterLineWidth) ) {
+                    using (Pen pen2 = new Pen(CenterLineColor, this.CenterLineWidth)) {
                         graphics.DrawEllipse(pen2,
                             18, 18,
-                          ( this.Width - 0x30 ) + 12,
-                          ( this.Height - 0x30 ) + 12);
+                          (this.Width - 0x30) + 12,
+                          (this.Height - 0x30) + 12);
                     }
 
                     // Draw the Progressbar Border
-                    FillArc(graphics, new SolidBrush(_BorderLineColor) , this.FillWidth + _BorderLineWitdh, this._Value);
+                    FillArc(graphics, new SolidBrush(_BorderLineColor), this.FillWidth + _BorderLineWitdh, this._Value);
 
                     // Draw the Progressbar Gradient Fill
-                    using ( LinearGradientBrush brush = new LinearGradientBrush(ClientRectangle, _FillColorEnd, _FillColorStart, GradientMode) ) {
+                    using (LinearGradientBrush brush = new LinearGradientBrush(ClientRectangle, _FillColorEnd, _FillColorStart, GradientMode)) {
 
                         FillArc(graphics, brush, this.FillWidth, this._Value);
                     }
 
                     #region Draw the Progress Text
 
-                    switch ( this.TextMode ) {
+                    switch (this.TextMode) {
                         case ProgressTextType.None:
-                        this.Text = string.Empty;
-                        break;
+                            this.Text = string.Empty;
+                            break;
 
                         case ProgressTextType.Value:
-                        this.Text = _Value.ToString();
-                        break;
+                            this.Text = _Value.ToString();
+                            break;
 
                         case ProgressTextType.Percentage:
-                        this.Text = Convert.ToString(Convert.ToInt32(( 100 / _Maximum ) * _Value)) + " %";
-                        break;
+                            this.Text = Convert.ToString(Convert.ToInt32((100 / _Maximum) * _Value)) + " %";
+                            break;
 
                         default:
-                        break;
+                            break;
                     }
 
-                    if ( this.Text != string.Empty ) {
-                        using ( Brush FontColor = new SolidBrush(this.ForeColor) ) {
+                    if (this.Text != string.Empty) {
+                        using (Brush FontColor = new SolidBrush(this.ForeColor)) {
                             int ShadowOffset = 2;
                             SizeF MS = graphics.MeasureString(this.Text, this.Font);
                             SolidBrush shadowBrush = new SolidBrush(Color.FromArgb(100, this.ForeColor));
@@ -312,32 +316,33 @@ namespace Orien.NetUi {
         }
 
         private static void PaintTransparentBackground(Control c, PaintEventArgs e) {
-            if ( c.Parent == null || !Application.RenderWithVisualStyles )
+            if (c.Parent == null || !Application.RenderWithVisualStyles) {
                 return;
+            }
 
             ButtonRenderer.DrawParentBackground(e.Graphics, c.ClientRectangle, c);
         }
 
         private void FillArc(Graphics graphics, Brush brush, float thickness, long value) {
 
-            using ( Pen pen = new Pen(brush, thickness) ) {
-                switch ( this.ProgressShapeVal ) {
+            using (Pen pen = new Pen(brush, thickness)) {
+                switch (this.ProgressShapeVal) {
                     case ProgressBarShape.Round:
-                    pen.StartCap = LineCap.Round;
-                    pen.EndCap = LineCap.Round;
-                    break;
+                        pen.StartCap = LineCap.Round;
+                        pen.EndCap = LineCap.Round;
+                        break;
 
                     case ProgressBarShape.Flat:
-                    pen.StartCap = LineCap.Flat;
-                    pen.EndCap = LineCap.Flat;
-                    break;
+                        pen.StartCap = LineCap.Flat;
+                        pen.EndCap = LineCap.Flat;
+                        break;
                 }
                 graphics.DrawArc(pen,
                    0x12, 0x12,
-                   ( this.Width - 0x23 ) - 2,
-                   ( this.Height - 0x23 ) - 2,
+                   (this.Width - 0x23) - 2,
+                   (this.Height - 0x23) - 2,
                    -90,
-                   (int)Math.Round((double)( ( 360.0 / ( (double)this._Maximum ) ) * value )));
+                   (int)Math.Round((360.0 / _Maximum) * value));
             }
         }
 

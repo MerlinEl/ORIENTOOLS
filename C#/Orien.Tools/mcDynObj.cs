@@ -44,9 +44,9 @@ namespace Orien.Tools {
 
 
     public class SetMemberBinderChild : SetMemberBinder {
-        
-        public SetMemberBinderChild(string name, bool ignoreCase):base(name, ignoreCase) {
-            
+
+        public SetMemberBinderChild(string name, bool ignoreCase) : base(name, ignoreCase) {
+
         }
 
         public override DynamicMetaObject FallbackSetMember(DynamicMetaObject target, DynamicMetaObject value, DynamicMetaObject errorSuggestion) {

@@ -38,7 +38,9 @@ namespace Orien.NetUi {
                 return corner_radius;
             }
             set {
-                if (corner_radius == value) return;
+                if (corner_radius == value) {
+                    return;
+                }
                 //b_radius = Math.Min(Math.Min(Height, Width), value);
                 corner_radius = value;
                 Invalidate();
@@ -131,8 +133,9 @@ namespace Orien.NetUi {
                 default:
                     break;
             }
-            using (Brush brush = new SolidBrush(ForeColor))
+            using (Brush brush = new SolidBrush(ForeColor)) {
                 g.DrawString(Text, Font, brush, point, format);
+            }
         }
         protected override void OnPaint(PaintEventArgs e) {
             //e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
@@ -150,14 +153,17 @@ namespace Orien.NetUi {
             this.Region = new Region(GraphPath);
 
             //Draw Back Color
-            if (IsMouseDown)
-                using (Brush mouseDownBrush = new SolidBrush(BackDownColor))
+            if (IsMouseDown) {
+                using (Brush mouseDownBrush = new SolidBrush(BackDownColor)) {
                     e.Graphics.FillPath(mouseDownBrush, GraphPath);
-            else if (IsMouseOver && !BackOverColor.IsEmpty)
-                using (Brush overBrush = new SolidBrush(BackOverColor))
+                }
+            } else if (IsMouseOver && !BackOverColor.IsEmpty) {
+                using (Brush overBrush = new SolidBrush(BackOverColor)) {
                     e.Graphics.FillPath(overBrush, GraphPath);
-            else
+                }
+            } else {
                 e.Graphics.FillPath(brush, GraphPath);
+            }
 
             //Draw Border
             #region DrawBorder
@@ -178,8 +184,9 @@ namespace Orien.NetUi {
 
 
             pen.Alignment = PenAlignment.Inset;
-            if (pen.Width > 0)
+            if (pen.Width > 0) {
                 e.Graphics.DrawPath(pen, GraphInnerPath);
+            }
             #endregion
 
             //Draw Text

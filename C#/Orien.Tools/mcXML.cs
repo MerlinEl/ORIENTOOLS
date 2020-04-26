@@ -33,9 +33,15 @@ namespace Orien.Tools {
         *   nodePath  "/ACTIONS/Object/Clone_2"
         */
         public MaxXmlNode GetNode(string nodePath) {
-            if (nodePath.Length == 0) return null;
+            if (nodePath.Length == 0) {
+                return null;
+            }
+
             XmlNode target_node = doc.DocumentElement.SelectSingleNode(nodePath);
-            if (target_node == null) return null;
+            if (target_node == null) {
+                return null;
+            }
+
             return (new MaxXmlNode(doc, target_node, nodePath));
         }
         /**
@@ -44,9 +50,15 @@ namespace Orien.Tools {
         */
         public List<MaxXmlNode> GetNodes(string nodePath) {
 
-            if (nodePath.Length == 0) return new List<MaxXmlNode>();
+            if (nodePath.Length == 0) {
+                return new List<MaxXmlNode>();
+            }
+
             XmlNode target_node = doc.DocumentElement.SelectSingleNode(nodePath);
-            if (target_node == null) return new List<MaxXmlNode>();
+            if (target_node == null) {
+                return new List<MaxXmlNode>();
+            }
+
             XmlNodeList nodes = target_node.ChildNodes;
             List<MaxXmlNode> nodes_list = new List<MaxXmlNode>();
             foreach (XmlNode n in nodes) {
@@ -72,9 +84,15 @@ namespace Orien.Tools {
         *   nodePath   "/Names/Name" 
         */
         public List<MaxXmlNode> GetNodesByName(string nodePath) {
-            if(nodePath.Length == 0) return new List<MaxXmlNode>();
+            if (nodePath.Length == 0) {
+                return new List<MaxXmlNode>();
+            }
+
             XmlNodeList nodes = doc.DocumentElement.SelectNodes(nodePath);
-            if (nodes == null) return new List<MaxXmlNode>();
+            if (nodes == null) {
+                return new List<MaxXmlNode>();
+            }
+
             var nodes_list = new List<MaxXmlNode>();
             foreach (XmlNode n in nodes) {
                 nodes_list.Add(new MaxXmlNode(doc, n, nodePath));
@@ -88,7 +106,10 @@ namespace Orien.Tools {
         *   find one person in xml
         */
         public MaxXmlNode FindNodeByName(string nodePath, string nodeName) {
-            if (nodePath.Length == 0) return null;
+            if (nodePath.Length == 0) {
+                return null;
+            }
+
             XmlNodeList nodes = doc.DocumentElement.SelectNodes(nodePath);
             //List<MaxXmlNode> nodes_list = new List<MaxXmlNode>();
             MaxXmlNode max_node = null;

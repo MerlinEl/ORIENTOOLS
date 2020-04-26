@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -21,12 +22,18 @@ namespace Orien.Tools {
         public static int IndexOfChar(char[] array, char ch) {
 
             for (int i = 0; i < array.Length; i++) {
-                
-                if (array[i] == ch) return i;
+
+                if (array[i] == ch) {
+                    return i;
+                }
             }
             return -1;
         }
-
+        public static bool Contains(string src_str, string find_str, bool ignoreCase = false) { //not used
+            StringComparison type = ignoreCase ?
+                StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+            return src_str.IndexOf(find_str, type) >= 0;
+        }
         /*internal static int GetCharAt(char[] char_arr, int index) {
             
             from ch in char_arr
@@ -34,7 +41,18 @@ namespace Orien.Tools {
         }*/
     }
     // Test
-    public static class ExtensionMethods {
+    public static class McStringExtensions {
+        public static bool StartsWith(this string src_str, string find_str, bool ignoreCase = false) {
+            StringComparison type = ignoreCase ?
+                StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+            return src_str.StartsWith(find_str, type);
+        }
+        public static string Join(this string[] rows, string separator) {
+            return String.Join(separator, rows);
+        }
+        public static string Join(this List<string> rows, string separator) {
+            return String.Join(separator, rows);
+        }
         /// <summary>
         /// Replace Extension > replace all occurences(separators) in string
         /// char[] separators = new char[]{' ',';',',','\r','\t','\n'};

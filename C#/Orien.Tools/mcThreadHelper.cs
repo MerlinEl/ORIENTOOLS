@@ -7,7 +7,10 @@ namespace Orien.Tools {
             // InvokeRequired required compares the thread ID of the 
             // calling thread to the thread ID of the creating thread. 
             // If these threads are different, it returns true. 
-            if (ctrl == null) return;
+            if (ctrl == null) {
+                return;
+            }
+
             if (ctrl.InvokeRequired) {
                 SetTextCallback d = new SetTextCallback(SetText);
                 form.Invoke(d, new object[] { form, ctrl, text });

@@ -38,7 +38,10 @@ namespace Orien.NetUi {
         public void StartAnimateDots() {
 
             Console.WriteLine("Thread StartAnimateDots was executed");
-            if ( DotTimer != null ) StopAnimateDots();
+            if (DotTimer != null) {
+                StopAnimateDots();
+            }
+
             _Text = Text;
             DotTimer = new Timer {
                 Interval = 500
@@ -48,7 +51,7 @@ namespace Orien.NetUi {
         }
 
         private void StopAnimateDots() {
-            if ( DotTimer != null ) {
+            if (DotTimer != null) {
 
                 DotTimer.Stop();
                 DotTimer.Dispose();
@@ -57,7 +60,7 @@ namespace Orien.NetUi {
         }
 
         private void AnimateText(object sender, EventArgs e) {
-            Console.WriteLine("Thread AnimateText > Dot_Counter:"+ Dot_Counter.ToString());
+            Console.WriteLine("Thread AnimateText > Dot_Counter:" + Dot_Counter.ToString());
             Dot_Counter = Dot_Counter < 3 ? Dot_Counter + 1 : 0; //repeat numbers in range [1 - 3]
             Text = _Text + McString.Multiply(".", Dot_Counter);
             Update();
@@ -96,12 +99,16 @@ namespace Orien.NetUi {
         protected override void OnPaint(PaintEventArgs e) {
 
             base.OnPaint(e);
-            using ( GraphicsPath graphicsPath = GetRoundRectangle(this.ClientRectangle) ) {
+            using (GraphicsPath graphicsPath = GetRoundRectangle(this.ClientRectangle)) {
                 e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-                using ( SolidBrush solidBrush = new SolidBrush(FillColor) )
+                using (SolidBrush solidBrush = new SolidBrush(FillColor)) {
                     e.Graphics.FillPath(solidBrush, graphicsPath);
-                using ( Pen pen = new Pen(BorderColor, BorderThickness) )
+                }
+
+                using (Pen pen = new Pen(BorderColor, BorderThickness)) {
                     e.Graphics.DrawPath(pen, graphicsPath);
+                }
+
                 TextRenderer.DrawText(e.Graphics, this.Text, this.Font, this.ClientRectangle, TextColor);
             }
         }

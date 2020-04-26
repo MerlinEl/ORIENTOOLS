@@ -56,4 +56,11 @@ namespace Orien.Tools {
             return result;
         }
     }
+    public static class McNetExtensions {
+        // NTESTED
+        /*public static bool IsValidMail(this string str) {
+            Regex reg = new Regex(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
+            return reg.IsMatch(str);
+        }*/
+    }
 }

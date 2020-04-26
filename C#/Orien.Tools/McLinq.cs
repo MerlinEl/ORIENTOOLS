@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Orien.Tools {
-    class McLinq {
+    public class McLinq {
     }
-    static class McLinqExtensions {
+    public static class McLinqExtensions {
         /// <summary>
         /// Join all string arrays inside a List (Transmutation from array2D to simple array)
-        /// var list = new List<string[]> { new[] {"He", "l", "o"}, new[] {"b","oy"} };
-        /// list.CondenseStrings()
+        /// var list2d = new List<string[]> { new[] {"He", "l", "o"}, new[] {"b","oy"} };
+        /// var list1d = list2d.CondenseStrings()
+        /// foreach (string s in list1d) Console.WriteLine("string:{0}", s);
+        /// string:Helo
+        /// string:boy
         /// -> 
         /// </summary>
         public static List<string> CondenseStrings(this List<string[]> items) {

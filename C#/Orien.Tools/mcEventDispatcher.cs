@@ -41,7 +41,9 @@ namespace Orien.Tools {
             McEvent evt = REGISTRED_EVENTS.Find(delegate (McEvent i) {
                 return i.eventType == event_type;
             });
-            if (evt != null) evt.Dispatch(event_args);
+            if (evt != null) {
+                evt.Dispatch(event_args);
+            }
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Orien.Tools {
         );
         public static string SizeToString(Int64 bytes) {
             int counter = 0;
-            decimal number = (decimal)bytes;
+            decimal number = bytes;
             while (Math.Round(number / 1024) >= 1) {
                 number /= 1024;
                 counter++;
@@ -31,7 +31,10 @@ namespace Orien.Tools {
         }
 
         public static long GetFileSize(string fpath) {
-            if (!File.Exists(fpath)) return 0;
+            if (!File.Exists(fpath)) {
+                return 0;
+            }
+
             try {
                 FileInfo fileInfo = new FileInfo(fpath);
                 return fileInfo.Length;
@@ -52,17 +55,25 @@ namespace Orien.Tools {
         }
 
         public static void ShowInExporer(string dir) {
-            if (DirectoryExists(dir)) Process.Start(dir);
+            if (DirectoryExists(dir)) {
+                Process.Start(dir);
+            }
         }
         // Todo implement back response to prevent double run
-        public static int RunFile(string fpath) {
-            if (!File.Exists(fpath)) return 0;
+        public static int RunFile(string fpath, bool waitForExit = false) {
+            int exitCode = 0;
+            if (!File.Exists(fpath)) {
+                return 0;
+            }
+
             Process proc = new Process();
             proc.StartInfo.FileName = fpath;
             proc.StartInfo.Arguments = "-v -s -a";
             proc.Start();
-            proc.WaitForExit();
-            var exitCode = proc.ExitCode;
+            if (waitForExit) {
+                proc.WaitForExit();
+                exitCode = proc.ExitCode;
+            }
             proc.Close();
             return exitCode;
         }

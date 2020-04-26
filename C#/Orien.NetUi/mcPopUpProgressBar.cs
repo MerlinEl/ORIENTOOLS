@@ -96,7 +96,9 @@ namespace Orien.NetUi {
 
             // Add event handlers 
             btn_ok.MouseUp += new MouseEventHandler(OnButtonOkClick);
-            if ( debug ) prog_bar.Click += new EventHandler(OnClick);
+            if (debug) {
+                prog_bar.Click += new EventHandler(OnClick);
+            }
 
             //if ( debug ) prog_bar.Click += new EventHandler(onClick);
 
@@ -105,7 +107,7 @@ namespace Orien.NetUi {
         }
         // On left button, let the user drag the form.
         private void OnTitleMouseDown(object sender, MouseEventArgs e) {
-            if ( e.Button == MouseButtons.Left ) {
+            if (e.Button == MouseButtons.Left) {
                 // Release the mouse capture started by the mouse down.
                 lbl_title.Capture = false;
 
@@ -131,11 +133,15 @@ namespace Orien.NetUi {
             prog_bar.Value = percent;
             prog_bar.Update();
             //Console.WriteLine("Thread ProgressTo > Percent:" + percent.ToString());
-            if ( percent == 100 ) { //when is finished
+            if (percent == 100) { //when is finished
                 Console.WriteLine("Thread ProgressTo > Done At:" + percent.ToString());
-                if ( NeedConfirmToClose ) {
-                    if ( ShowConfirmButtonOnDone ) ShowOkButton(true);
-                } else Close();
+                if (NeedConfirmToClose) {
+                    if (ShowConfirmButtonOnDone) {
+                        ShowOkButton(true);
+                    }
+                } else {
+                    Close();
+                }
             }
         }
         public void AnimateText(int val) {
@@ -156,7 +162,7 @@ namespace Orien.NetUi {
         BackgroundWorker Animate_Worker;
         public void OnClick(object sender, EventArgs e) {
 
-            if ( !Simulation_In_Progress ) {
+            if (!Simulation_In_Progress) {
 
                 Simulation_In_Progress = true;
 
@@ -194,22 +200,22 @@ namespace Orien.NetUi {
         private void BackgroundWorker1_DoWork(object sender, DoWorkEventArgs e) {
             BackgroundWorker worker = sender as BackgroundWorker; // Get the BackgroundWorker that raised this event.
             int n = (int)e.Argument;
-            if ( n > Total_Steps ) {
+            if (n > Total_Steps) {
                 throw new ArgumentException("value must be < " + Total_Steps.ToString(), "n");
             }
             long result = 0;
-            if ( worker.CancellationPending ) {
+            if (worker.CancellationPending) {
 
                 e.Cancel = true;
 
             } else {
                 do {
                     n++;
-                    int percentComplete = (int)( 100.0 / Total_Steps * n );
+                    int percentComplete = (int)(100.0 / Total_Steps * n);
                     result = percentComplete;
                     Thread.Sleep(10);
                     worker.ReportProgress(percentComplete);
-                } while ( n <= Total_Steps );
+                } while (n <= Total_Steps);
             }
             // Assign value to the result (This is will be available in RunWorkerCompleted eventhandler)
             e.Result = result;
@@ -219,7 +225,7 @@ namespace Orien.NetUi {
             BackgroundWorker worker = sender as BackgroundWorker; // Get the BackgroundWorker that raised this event.
             int n = (int)e.Argument;
             long result = n;
-            if ( worker.CancellationPending ) {
+            if (worker.CancellationPending) {
 
                 e.Cancel = true;
 
@@ -229,7 +235,7 @@ namespace Orien.NetUi {
                     Thread.Sleep(500);
                     // Report progress as a percentage of the total task.
                     worker.ReportProgress(n);
-                } while ( Simulation_In_Progress );
+                } while (Simulation_In_Progress);
             }
             // Assign value to the result (This is will be available in RunWorkerCompleted eventhandler)
             e.Result = result;
@@ -246,9 +252,9 @@ namespace Orien.NetUi {
 
         private void BackgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
             // First, handle the case where an exception was thrown.
-            if ( e.Error != null ) {
+            if (e.Error != null) {
                 MessageBox.Show(e.Error.Message);
-            } else if ( e.Cancelled ) {
+            } else if (e.Cancelled) {
                 Simulation_In_Progress = false;
                 // Next, handle the case where the user canceled the operation.
             } else {
@@ -259,9 +265,9 @@ namespace Orien.NetUi {
 
         private void BackgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
             // First, handle the case where an exception was thrown.
-            if ( e.Error != null ) {
+            if (e.Error != null) {
                 MessageBox.Show(e.Error.Message);
-            } else if ( e.Cancelled ) {
+            } else if (e.Cancelled) {
                 Simulation_In_Progress = false;
                 // Next, handle the case where the user canceled the operation.
             } else {
