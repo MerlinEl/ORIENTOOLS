@@ -18,9 +18,11 @@ namespace Orien.NetUi {
         }
 
         #region Constructor
-
-        public McConsole(Form parent = null) {
-            if ( parent != null ) {
+        public McConsole() {
+            InitializeComponent();
+        }
+        public McConsole(Form parent) {
+            if (parent != null) {
                 form = this;
                 this.Owner = parent;
                 parent.FormClosed += new FormClosedEventHandler(OnOwnerClosed);
@@ -33,12 +35,12 @@ namespace Orien.NetUi {
         #endregion
 
         #region Public Methods
+        public void Log(string msg) => Log(msg, "Console", null);
+        public void Log(string msg, string tabName) => Log(msg, tabName, null);
+        public void Log(string msg, string tabName, params object[] args) {
 
-        public void Log(string msg, string tabName = "Console") => Log(msg, tabName, null);
-        public void Log(string msg, string tabName = "Console", params object[] args) {
-
-            if ( args != null ) msg = string.Format(msg, args);
-            if ( tabName == "Console" ) {
+            if (args != null) msg = string.Format(msg, args);
+            if (tabName == "Console") {
 
                 GetCurrentTabPage().GetTextBox().AppendText(msg);
 
@@ -57,11 +59,11 @@ namespace Orien.NetUi {
         private void AutocompleteCheck() {
 
             string word = GetCommand();
-            if ( word == null ) return;
+            if (word == null) return;
             string[] list = Enum.GetNames(typeof(CMD));
             // search word in enum list (ignoreCase = true)
             List<string> localList = list.Where(z => z.StartsWith(word, true)).ToList();
-            if ( localList.Any() && !string.IsNullOrEmpty(word) ) {
+            if (localList.Any() && !string.IsNullOrEmpty(word)) {
                 Console.WriteLine("Items found:{0}\n", localList.Join("\n\t"));
                 AutoCompleteBox.DataSource = localList;
                 AutoCompleteBox.Show();
@@ -76,13 +78,13 @@ namespace Orien.NetUi {
 
         internal string GetCommand() {
 
-            if ( CurrentRichTextBox != null && CurrentRichTextBox.Lines.Any() ) {
+            if (CurrentRichTextBox != null && CurrentRichTextBox.Lines.Any()) {
                 string lastLine = CurrentRichTextBox.Lines[CurrentRichTextBox.Lines.Length - 1];
-                if ( lastLine.Length == 0 ) {
+                if (lastLine.Length == 0) {
                     return null;
                 }
 
-                if ( lastLine[0] == ':' ) {
+                if (lastLine[0] == ':') {
                     return lastLine.TrimStart(':');
                 }
                 //string lastword = lastLine.Split(' ').Last();
@@ -91,13 +93,13 @@ namespace Orien.NetUi {
         }
 
         private void RunCmd(string cmd) {
-            if ( cmd.Length == 0 ) {
+            if (cmd.Length == 0) {
                 return;
             }
 
-            if ( Enum.TryParse(cmd, true, out CMD n) ) { //parse the enum with ignoreCase flag 
+            if (Enum.TryParse(cmd, true, out CMD n)) { //parse the enum with ignoreCase flag 
                 Console.WriteLine("n:{0}", n);
-                switch ( n ) {
+                switch (n) {
 
                     case CMD.Help: ShowCommands(); break;
                     case CMD.Hide: form.Hide(); break;
@@ -112,7 +114,7 @@ namespace Orien.NetUi {
 
         private void ShowCommands() {
             Log("\nCommands List:");
-            foreach ( string s in Enum.GetNames(typeof(CMD)) ) {
+            foreach (string s in Enum.GetNames(typeof(CMD))) {
                 Log("\t" + s);
             }
         }
@@ -125,8 +127,8 @@ namespace Orien.NetUi {
 
         private TabPage GetTab(string tabName) {
 
-            foreach ( TabPage tab in this.MainTab.TabPages ) {
-                if ( tabName.Equals(tab.Name) ) {
+            foreach (TabPage tab in this.MainTab.TabPages) {
+                if (tabName.Equals(tab.Name)) {
                     return tab;
                 }
             }
@@ -160,7 +162,7 @@ namespace Orien.NetUi {
         private void RemoveTab(string tabName) {
 
             TabPage tp = GetTab(tabName);
-            if ( tp != null ) MainTab.TabPages.Remove(tp);
+            if (tp != null) MainTab.TabPages.Remove(tp);
         }
 
         private void ClearTabs() { //remove all except first one
@@ -175,9 +177,9 @@ namespace Orien.NetUi {
         #region UI Events
 
         private void OnTitleMouseDown(object sender, MouseEventArgs e) {
-            if ( e.Button == MouseButtons.Left ) {
+            if (e.Button == MouseButtons.Left) {
                 // Release the mouse capture started by the mouse down.
-                ( sender as MenuStrip ).Capture = false;
+                (sender as MenuStrip).Capture = false;
 
                 // Create and send a WM_NCLBUTTONDOWN message.
                 const int WM_NCLBUTTONDOWN = 0x00A1;
@@ -194,7 +196,7 @@ namespace Orien.NetUi {
         }
 
         private void BtnMax_Click(object sender, EventArgs e) {
-            form.WindowState = form.WindowState == FormWindowState.Maximized ? 
+            form.WindowState = form.WindowState == FormWindowState.Maximized ?
                 FormWindowState.Normal : FormWindowState.Maximized;
         }
 
@@ -208,10 +210,10 @@ namespace Orien.NetUi {
 
         private void OnConsoleKeyDown(object sender, KeyEventArgs e) {
 
-            if ( e.KeyCode == Keys.Enter ) {
+            if (e.KeyCode == Keys.Enter) {
                 string cmd = GetCommand();
-                if ( cmd != null ) RunCmd(cmd);
-            } else if ( e.KeyCode == Keys.Tab && AutoCompleteBox.Visible ) {
+                if (cmd != null) RunCmd(cmd);
+            } else if (e.KeyCode == Keys.Tab && AutoCompleteBox.Visible) {
 
                 e.SuppressKeyPress = true; //prevent tab to be inserted in textbox
                 CurrentRichTextBox.ReplaceLastLine(AutoCompleteBox.SelectedItem.ToString());
@@ -220,20 +222,20 @@ namespace Orien.NetUi {
 
         private void OnConsoleKeyUp(object sender, KeyEventArgs e) {
 
-            if ( AutoCompleteBox.Visible ) {
-                if ( e.KeyCode == Keys.Escape ) {
+            if (AutoCompleteBox.Visible) {
+                if (e.KeyCode == Keys.Escape) {
 
                     AutoCompleteBox.Hide();
 
-                } else if ( e.KeyCode == Keys.Up ) {
+                } else if (e.KeyCode == Keys.Up) {
 
                     AutoCompleteBox.SelectPrevItem();
 
-                } else if ( e.KeyCode == Keys.Down ) {
+                } else if (e.KeyCode == Keys.Down) {
 
                     AutoCompleteBox.SelectNextItem();
 
-                } else if ( e.KeyCode == Keys.Tab ) {
+                } else if (e.KeyCode == Keys.Tab) {
 
                     AutoCompleteBox.Hide();
                 }
@@ -270,7 +272,7 @@ namespace Orien.NetUi {
         }
         private void OnclearAllTabsToolStripMenuItem1_Click(object sender, EventArgs e) {
 
-            foreach ( TabPage tp in MainTab.TabPages ) tp.GetTextBox().Clear();
+            foreach (TabPage tp in MainTab.TabPages) tp.GetTextBox().Clear();
         }
 
         private void OncopyCurrentToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -307,7 +309,7 @@ namespace Orien.NetUi {
 
         internal static Point GetCaretPoint(this RichTextBox tb) {
             int start = tb.SelectionStart;
-            if ( start == tb.TextLength )
+            if (start == tb.TextLength)
                 start--;
             return tb.GetPositionFromCharIndex(start);
         }
@@ -315,7 +317,7 @@ namespace Orien.NetUi {
         internal static int GetLineHeight(this RichTextBox tb, string word) {
 
             int textHeight;
-            using ( Graphics g = tb.CreateGraphics() ) {
+            using (Graphics g = tb.CreateGraphics()) {
                 textHeight = TextRenderer.MeasureText(g, word, tb.Font).Height;
             }
             return textHeight;
@@ -326,7 +328,7 @@ namespace Orien.NetUi {
             int index = tb.SelectionStart;
             int lineNumber = tb.GetLineFromCharIndex(index);
             int first = tb.GetFirstCharIndexFromLine(lineNumber);
-            if ( first < 0 ) return false;
+            if (first < 0) return false;
             int last = tb.GetFirstCharIndexFromLine(lineNumber + 1);
             tb.Select(first,
                 last < 0 ? int.MaxValue : last - first - Environment.NewLine.Length);
@@ -344,7 +346,7 @@ namespace Orien.NetUi {
         internal static bool SelectNextItem(this ListBox lbx) {
 
             int next = lbx.SelectedIndex + 1;
-            if ( next < lbx.Items.Count ) {
+            if (next < lbx.Items.Count) {
 
                 lbx.SelectedIndex = next;
                 return true;
@@ -354,7 +356,7 @@ namespace Orien.NetUi {
         internal static bool SelectPrevItem(this ListBox lbx) {
 
             int prev = lbx.SelectedIndex - 1;
-            if ( prev >= 0 ) {
+            if (prev >= 0) {
 
                 lbx.SelectedIndex = prev; return true;
             };
@@ -369,7 +371,7 @@ namespace Orien.NetUi {
     internal static class TabExtensions {
 
         internal static RichTextBox GetTextBox(this TabPage tp) {
-            foreach ( Control c in tp.Controls ) if ( c is RichTextBox ) return c as RichTextBox;
+            foreach (Control c in tp.Controls) if (c is RichTextBox) return c as RichTextBox;
             return null;
         }
         internal static void AppendText(this TabPage tp, string str) {

@@ -1,0 +1,56 @@
+/* CSS Styles for Frontend pages */
+.hidden {
+	display: none;
+}
+
+.aelia_eu_vat_assistant.checkout_field .title {
+	font-size: 100%;
+	margin: 0;
+}
+
+#vat_number_field .validation_result .icon {
+	font-family: WooCommerce;
+	speak: none;
+	font-weight: 400;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	margin-right: 7px;
+	font-style: normal;
+}
+
+#vat_number_field .validation_result .icon {
+	margin-left: 4px;
+}
+
+#vat_number_field .validation_result .valid {
+	color: green;
+}
+
+#vat_number_field .validation_result .valid .icon:before {
+	content: "\e015";
+	color: green;
+}
+
+#vat_number_field .validation_result .invalid {
+	color: red;
+}
+
+#vat_number_field .validation_result .invalid .icon:before {
+	content: "\e016";
+}
+
+#customer_location_self_certified_field {
+	margin-top: 10px;
+	padding: 4px;
+	border: 1px dashed #ccc;
+}
+
+#customer_location_self_certified_field label {
+	line-height: normal;
+}
+
+#customer_location_self_certified_field #customer_location_self_certified-description {
+	display: block !important;
+}

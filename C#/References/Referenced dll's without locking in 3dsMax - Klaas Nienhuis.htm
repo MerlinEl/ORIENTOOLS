@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#" class="wf-proximanova-n7-active wf-proximanova-i7-active wf-proximanova-n1-active wf-proximanova-i1-active wf-proximanova-n6-active wf-proximanova-i6-active wf-proximanova-n4-active wf-proximanova-i4-active wf-proximanova-n3-active wf-proximanova-i3-active wf-active" lang="en-US"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="http://www.klaasnienhuis.nl/WordPress/xmlrpc.php">
+
+<link href="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/font-awesome.css" rel="stylesheet">
+
+<script type="text/javascript" async="" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/recaptcha__en.js"></script><script>window._wca = window._wca || [];</script>
+
+<!-- This site is optimized with the Yoast SEO plugin v4.6 - https://yoast.com/wordpress/plugins/seo/ -->
+<title>Referenced dll's without locking in 3dsMax - Klaas Nienhuis</title>
+<meta name="description" content="Use multiple dependent C# dll's in 3dsMax. Embed libraries in one single file. Make distribution easier. No need to restart 3dsMax to speed up development.">
+<meta name="robots" content="noodp">
+<link rel="canonical" href="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/a.htm">
+<link rel="publisher" href="https://plus.google.com/+KlaasNienhuis/posts">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Referenced dll's without locking in 3dsMax - Klaas Nienhuis">
+<meta property="og:description" content="Use multiple dependent C# dll's in 3dsMax. Embed libraries in one single file. Make distribution easier. No need to restart 3dsMax to speed up development.">
+<meta property="og:url" content="http://www.klaasnienhuis.nl/2015/12/referenced-dlls-without-locking-in-3dsmax/">
+<meta property="og:site_name" content="Klaas Nienhuis">
+<meta property="article:section" content="3dsmax">
+<meta property="article:published_time" content="2015-12-20T16:01:49+00:00">
+<meta property="article:modified_time" content="2015-12-20T16:08:40+00:00">
+<meta property="og:updated_time" content="2015-12-20T16:08:40+00:00">
+<meta property="og:image" content="http://www.klaasnienhuis.nl/WordPress/wp-content/uploads/2015/12/ReferenceAssembly_2015-12-20_1814.png">
+<meta property="og:image:width" content="359">
+<meta property="og:image:height" content="299">
+<!-- / Yoast SEO plugin. -->
+
+<link rel="dns-prefetch" href="http://s0.wp.com/">
+<link rel="dns-prefetch" href="http://www.google.com/">
+<link rel="dns-prefetch" href="http://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="Klaas Nienhuis » Feed" href="http://www.klaasnienhuis.nl/feed/">
+<link rel="alternate" type="application/rss+xml" title="Klaas Nienhuis » Comments Feed" href="http://www.klaasnienhuis.nl/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="Klaas Nienhuis » Referenced dll’s without locking in 3dsMax Comments Feed" href="http://www.klaasnienhuis.nl/2015/12/referenced-dlls-without-locking-in-3dsmax/feed/">
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/svg\/","svgExt":".svg","source":{"concatemoji":"http:\/\/www.klaasnienhuis.nl\/WordPress\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.13"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56760,9792,65039],[55358,56760,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/wp-emoji-release.js" type="text/javascript" defer="defer"></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="contact-form-7-css" href="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/styles.css" type="text/css" media="all">
+<link rel="stylesheet" id="wc-aelia-eu-vat-assistant-frontend-css" href="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/frontend.css" type="text/css" media="all">
+<link rel="stylesheet" id="woocommerce-layout-css" href="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/woocommerce-layout.css" type="text/css" media="all">
+<style id="woocommerce-layout-inline-css" type="text/css">
+
+	.infinite-scroll .woocommerce-pagination {
+		display: none;
+	}
+</style>
+<link rel="stylesheet" id="woocommerce-smallscreen-css" href="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/woocommerce-smallscreen.css" type="text/css" media="only screen and (max-width: 768px)">
+<link rel="stylesheet" id="woocommerce-general-css" href="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/woocommerce.css" type="text/css" media="all">
+<style id="woocommerce-inline-inline-css" type="text/css">
+.woocommerce form .form-row .required { visibility: visible; }
+</style>
+<link rel="stylesheet" id="wordpress-popular-posts-css-css" href="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/wpp.css" type="text/css" media="all">
+<link rel="stylesheet" id="klaas-nienhuis-style-css" href="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="prism-css" href="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/prism.css" type="text/css" media="all">
+<link rel="stylesheet" id="social-logos-css" href="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/social-logos.css" type="text/css" media="all">
+<link rel="stylesheet" id="jetpack_css-css" href="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/jetpack.css" type="text/css" media="all">
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/jquery.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/jquery-migrate.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpp_params = {"sampling_active":"0","sampling_rate":"100","ajax_url":"http:\/\/www.klaasnienhuis.nl\/wp-json\/wordpress-popular-posts\/v1\/popular-posts\/","ID":"3326","token":"b452fc3ecd","debug":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/wpp-4.js"></script>
+<link rel="https://api.w.org/" href="http://www.klaasnienhuis.nl/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.klaasnienhuis.nl/WordPress/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.klaasnienhuis.nl/WordPress/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 4.9.13">
+<meta name="generator" content="WooCommerce 3.5.6">
+<link rel="shortlink" href="https://wp.me/p4AqtF-RE">
+<link rel="alternate" type="application/json+oembed" href="http://www.klaasnienhuis.nl/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.klaasnienhuis.nl%2F2015%2F12%2Freferenced-dlls-without-locking-in-3dsmax%2F">
+<link rel="alternate" type="text/xml+oembed" href="http://www.klaasnienhuis.nl/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.klaasnienhuis.nl%2F2015%2F12%2Freferenced-dlls-without-locking-in-3dsmax%2F&amp;format=xml">
+<script type="text/javascript" data-cfasync="false">var _mmunch = {'front': false, 'page': false, 'post': false, 'category': false, 'author': false, 'search': false, 'attachment': false, 'tag': false};_mmunch['post'] = true; _mmunch['postData'] = {"ID":3326,"post_name":"referenced-dlls-without-locking-in-3dsmax","post_title":"Referenced dll's without locking in 3dsMax","post_type":"post","post_author":"2","post_status":"publish"}; _mmunch['postCategories'] = [{"term_id":83,"name":"3dsmax","slug":"3dsmax-blog","term_group":0,"term_taxonomy_id":83,"taxonomy":"category","description":"","parent":2,"count":17,"filter":"raw","cat_ID":83,"category_count":17,"category_description":"","cat_name":"3dsmax","category_nicename":"3dsmax-blog","category_parent":2},{"term_id":2,"name":"Blog","slug":"blog","term_group":0,"term_taxonomy_id":2,"taxonomy":"category","description":"","parent":0,"count":72,"filter":"raw","cat_ID":2,"category_count":72,"category_description":"","cat_name":"Blog","category_nicename":"blog","category_parent":0},{"term_id":24,"name":"maxscript","slug":"maxscript-blog","term_group":0,"term_taxonomy_id":24,"taxonomy":"category","description":"","parent":2,"count":27,"filter":"raw","cat_ID":24,"category_count":27,"category_description":"","cat_name":"maxscript","category_nicename":"maxscript-blog","category_parent":2}]; _mmunch['postTags'] = false; _mmunch['postAuthor'] = {"name":"Klaas Nienhuis","ID":2};</script><script data-cfasync="false" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/site.js" id="mailmunch-script" data-plugin="mc_mm" data-mailmunch-site-id="476374" async=""></script>
+<link rel="dns-prefetch" href="http://v0.wordpress.com/">
+	<noscript><style>.woocommerce-product-gallery{ opacity: 1 !important; }</style></noscript>
+	<script async="" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/s-202018.js"></script>
+
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/oql3xjo.js"></script>
+<style type="text/css">.tk-proxima-nova{font-family:"proxima-nova",sans-serif;}</style><style type="text/css">@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/9b1c6c/00000000000000000001499c/21/l?subset_id=2&fvd=n7&v=3) format("woff2"),url(https://use.typekit.net/af/9b1c6c/00000000000000000001499c/21/d?subset_id=2&fvd=n7&v=3) format("woff"),url(https://use.typekit.net/af/9b1c6c/00000000000000000001499c/21/a?subset_id=2&fvd=n7&v=3) format("opentype");font-weight:700;font-style:normal;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/4b77d9/0000000000000000000148a9/21/l?subset_id=2&fvd=i7&v=3) format("woff2"),url(https://use.typekit.net/af/4b77d9/0000000000000000000148a9/21/d?subset_id=2&fvd=i7&v=3) format("woff"),url(https://use.typekit.net/af/4b77d9/0000000000000000000148a9/21/a?subset_id=2&fvd=i7&v=3) format("opentype");font-weight:700;font-style:italic;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/420eb5/0000000000000000000148a0/21/l?subset_id=2&fvd=n1&v=3) format("woff2"),url(https://use.typekit.net/af/420eb5/0000000000000000000148a0/21/d?subset_id=2&fvd=n1&v=3) format("woff"),url(https://use.typekit.net/af/420eb5/0000000000000000000148a0/21/a?subset_id=2&fvd=n1&v=3) format("opentype");font-weight:100;font-style:normal;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/ca1fec/0000000000000000000148a1/21/l?subset_id=2&fvd=i1&v=3) format("woff2"),url(https://use.typekit.net/af/ca1fec/0000000000000000000148a1/21/d?subset_id=2&fvd=i1&v=3) format("woff"),url(https://use.typekit.net/af/ca1fec/0000000000000000000148a1/21/a?subset_id=2&fvd=i1&v=3) format("opentype");font-weight:100;font-style:italic;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/0e8ca9/0000000000000000000148a6/21/l?subset_id=2&fvd=n6&v=3) format("woff2"),url(https://use.typekit.net/af/0e8ca9/0000000000000000000148a6/21/d?subset_id=2&fvd=n6&v=3) format("woff"),url(https://use.typekit.net/af/0e8ca9/0000000000000000000148a6/21/a?subset_id=2&fvd=n6&v=3) format("opentype");font-weight:600;font-style:normal;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/9e7b27/0000000000000000000148a7/21/l?subset_id=2&fvd=i6&v=3) format("woff2"),url(https://use.typekit.net/af/9e7b27/0000000000000000000148a7/21/d?subset_id=2&fvd=i6&v=3) format("woff"),url(https://use.typekit.net/af/9e7b27/0000000000000000000148a7/21/a?subset_id=2&fvd=i6&v=3) format("opentype");font-weight:600;font-style:italic;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/651407/0000000000000000000148a4/21/l?subset_id=2&fvd=n4&v=3) format("woff2"),url(https://use.typekit.net/af/651407/0000000000000000000148a4/21/d?subset_id=2&fvd=n4&v=3) format("woff"),url(https://use.typekit.net/af/651407/0000000000000000000148a4/21/a?subset_id=2&fvd=n4&v=3) format("opentype");font-weight:400;font-style:normal;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/222d96/0000000000000000000148a5/21/l?subset_id=2&fvd=i4&v=3) format("woff2"),url(https://use.typekit.net/af/222d96/0000000000000000000148a5/21/d?subset_id=2&fvd=i4&v=3) format("woff"),url(https://use.typekit.net/af/222d96/0000000000000000000148a5/21/a?subset_id=2&fvd=i4&v=3) format("opentype");font-weight:400;font-style:italic;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/04aaaa/0000000000000000000148a2/21/l?subset_id=2&fvd=n3&v=3) format("woff2"),url(https://use.typekit.net/af/04aaaa/0000000000000000000148a2/21/d?subset_id=2&fvd=n3&v=3) format("woff"),url(https://use.typekit.net/af/04aaaa/0000000000000000000148a2/21/a?subset_id=2&fvd=n3&v=3) format("opentype");font-weight:300;font-style:normal;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/022bf4/0000000000000000000148a3/21/l?subset_id=2&fvd=i3&v=3) format("woff2"),url(https://use.typekit.net/af/022bf4/0000000000000000000148a3/21/d?subset_id=2&fvd=i3&v=3) format("woff"),url(https://use.typekit.net/af/022bf4/0000000000000000000148a3/21/a?subset_id=2&fvd=i3&v=3) format("opentype");font-weight:300;font-style:italic;}</style><script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+<link rel="stylesheet" type="text/css" href="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/styles_002.css"></head>
+
+<body class="post-template-default single single-post postid-3326 single-format-standard woocommerce-js group-blog"><div class="mailmunch-scrollbox mailmunch-scrollbox-171bd14cf31bde5" style="position: fixed; bottom: 0px; right: 0px; z-index: 999999; line-height: 0px; transition: bottom 0.4s ease 0s; opacity: 1; display: block;"><iframe class="mailmunch-scrollbox-iframe mailmunch-scrollbox-iframe-171bd14cf31bde5" title="Sign up 1" scrolling="no" allowtransparency="true" style="background: transparent none repeat scroll 0% 0%; border: 0px none; width: 100%; height: 258px; z-index: 18000; margin-bottom: 0px;" frameborder="0"></iframe></div>
+
+<div id="page" class="hfeed site">
+
+	<div id="header-container" class="section-container">
+
+		<nav id="slide-out-menu">
+			<div class="menu-main-menu-container"><ul id="menu-main-menu" class="menu"><li id="menu-item-3523" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3523"><a href="https://www.klaasnienhuis.nl/shop/">Maproom</a></li>
+<li id="menu-item-2988" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2988"><a href="http://www.klaasnienhuis.nl/projects/">Projects</a></li>
+<li id="menu-item-2987" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-2987"><a href="http://www.klaasnienhuis.nl/blog/">Blog</a></li>
+<li id="menu-item-2989" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2989"><a href="http://www.klaasnienhuis.nl/scripts/">Scripts</a></li>
+<li id="menu-item-2990" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2990"><a href="http://www.klaasnienhuis.nl/tutorials/">Tutorials</a></li>
+<li id="menu-item-2985" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2985"><a href="#footer-container" class="_mPS2id-h">About me</a></li>
+<li id="menu-item-2986" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2986"><a href="#footer-container" class="_mPS2id-h">Contact</a></li>
+</ul></div>
+		</nav>
+		<div id="search-container">
+			<div id="search">
+				<form role="search" method="get" class="search-form" action="http://www.klaasnienhuis.nl/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search …" name="s">
+				</label>
+				<input type="submit" class="search-submit" value="Search">
+			</form>			</div>
+		</div>
+		<header id="masthead" class="site-header" role="banner">
+			<div class="site-branding">
+				<h1 class="site-title"><a href="http://www.klaasnienhuis.nl/" rel="home">Klaas Nienhuis</a></h1>			
+			</div>
+			
+			<span id="open-search" class="fa fa-search"></span> 
+			<span id="close-search" class="fa fa-times"></span> 
+			
+			<nav id="site-navigation" class="main-navigation" role="navigation">				
+				<span id="open-menu" class="fa fa-bars"></span>
+				<span id="close-menu" class="fa fa-times"></span>
+
+				<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+				<div class="menu-main-menu-container"><ul id="menu-main-menu-1" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3523"><a href="https://www.klaasnienhuis.nl/shop/">Maproom</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2988"><a href="http://www.klaasnienhuis.nl/projects/">Projects</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-2987"><a href="http://www.klaasnienhuis.nl/blog/">Blog</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2989"><a href="http://www.klaasnienhuis.nl/scripts/">Scripts</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2990"><a href="http://www.klaasnienhuis.nl/tutorials/">Tutorials</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2985"><a href="#footer-container" class="_mPS2id-h">About me</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2986"><a href="#footer-container" class="_mPS2id-h">Contact</a></li>
+</ul></div>
+			</nav><!-- #site-navigation -->
+		
+		</header><!-- #masthead -->
+
+	</div>
+
+	<div id="content" class="site-content">
+
+
+
+<div id="content-area-container" class="has-sidebar">	
+	<section id="primary" class="content-area">
+		<main id="main" class="site-main" role="main">
+
+					
+<article id="post-3326" class="post-3326 post type-post status-publish format-standard has-post-thumbnail hentry category-3dsmax-blog category-blog category-maxscript-blog">
+	<header class="entry-header">
+		<h1 class="entry-title">Referenced dll’s without locking in 3dsMax</h1>
+		<div class="entry-meta">
+			<span class="posted-on">Posted on <time class="entry-date published" datetime="2015-12-20T16:01:49+00:00">December 20, 2015</time><time class="updated" datetime="2015-12-20T16:08:40+00:00">December 20, 2015</time></span><span class="byline"> in <a href="http://www.klaasnienhuis.nl/blog/" title="View all posts in Blog"> </a><a href="http://www.klaasnienhuis.nl/blog/" title="Blog">Blog</a></span>		</div><!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<div class="mailmunch-forms-before-post" style="display: none !important;"></div><p>This
+ post is about using .NET dll’s in 3dsMax. In particular using 
+assemblies which in turn reference other assemblies. This happens for 
+instance when I write a wrapper for another library. In this example 
+it’s about json.net by Newtonsoft.</p>
+<p>There are several ways to load assemblies in 3dsMax. I cover loading 
+an assembly by bytes. There are advantages to this method. I can write 
+an assembly in Visual Studio and by loading the bytes I don’t lock the 
+assembly. This means I can work on the assembly in Visual Studio and my 
+script in 3dsMax side-by-side without having to restart 3dsMax when 
+making updates in Visual Studio.</p>
+<pre class=" language-clike"><code class=" language-clike"><span class="token operator">--</span>Loading a dll by bytes <span class="token keyword">in</span> 3dsMax
+local assemblyBytes <span class="token operator">=</span> <span class="token punctuation">(</span>dotnetClass <span class="token string">"System.IO.File"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>ReadAllBytes @<span class="token string">"path\to\assembly.dll"</span>
+local myAssembly <span class="token operator">=</span> <span class="token punctuation">(</span>dotnetClass <span class="token string">"System.Reflection.Assembly"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>Load assemblyBytes</code></pre>
+<p>A disadvantage however is this assembly can’t access another 
+assembly, even if I’ve set up the references in Visual Studio correctly.
+ It will work in Visual Studio but it won’t in 3dsMax. Bummer! This 
+article covers a workaround albeit a rather laborious one.</p>
+<h2>Example project</h2>
+<p>Regularly I need to read or write json from within 3dsMax to talk to 
+an API. A library called json.net makes it easy to read and write json 
+and convert my json to regular C# classes. To use json.net in Visual 
+Studio I reference it in my project and I’m ready to go.</p>
+<figure id="attachment_3345" style="width: 465px" class="wp-caption alignnone"><a href="http://www.klaasnienhuis.nl/WordPress/wp-content/uploads/2015/12/ReferenceAssembly_2015-12-18_1803.png"><img class="size-full wp-image-3345" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/ReferenceAssembly_2015-12-18_1803.png" alt="A sample json file with an array of json objects" srcset="http://www.klaasnienhuis.nl/WordPress/wp-content/uploads/2015/12/ReferenceAssembly_2015-12-18_1803.png 465w, http://www.klaasnienhuis.nl/WordPress/wp-content/uploads/2015/12/ReferenceAssembly_2015-12-18_1803-205x300.png 205w" sizes="(max-width: 465px) 100vw, 465px" width="465" height="679"></a><figcaption class="wp-caption-text">A sample json file with an array of json objects</figcaption></figure>
+<p>Let’s set up a project in Visual Studio without looking at 3dsMax. 
+I’ve created a class library which reads a json string from a file and 
+parses it into a list of objects. I’ve also created a class to match the
+ structure of the json. I did that here: <a href="http://json2csharp.com/" target="_blank">http://json2csharp.com</a>.
+ It saved me some typing. Then I’ve included a method to convert the 
+array of json objects to a list of .NET objects. I use a few methods and
+ objects supplied by json.net. Finally I’ve written a small console app 
+to test this out: load json and parse it. This works great! So what’s 
+the fuss?</p>
+<pre class=" language-clike"><code class=" language-clike"><span class="token comment" spellcheck="true">//converts a jsonstring which contains an array of objects to a list of jsonColor objects
+</span>public IList <span class="token function">ReadColors<span class="token punctuation">(</span></span>string filePath<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+   <span class="token comment" spellcheck="true"> //get the string contents of the file
+</span>    string jsonString <span class="token operator">=</span> File<span class="token punctuation">.</span><span class="token function">ReadAllText<span class="token punctuation">(</span></span>filePath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    JArray array <span class="token operator">=</span> JArray<span class="token punctuation">.</span><span class="token function">Parse<span class="token punctuation">(</span></span>jsonString<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    IList colorList <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">List</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    foreach <span class="token punctuation">(</span>JToken token <span class="token keyword">in</span> array<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        colorList<span class="token punctuation">.</span><span class="token function">Add<span class="token punctuation">(</span></span>token<span class="token punctuation">.</span><span class="token function">ToObject<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> colorList<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<h2>Use the dll in 3dsMax</h2>
+<p>Now that it works in Visual Studio I can make it work in 3dsMax as 
+well. First I create a script to replace the console app. I’ve already 
+shown how to load the assembly. I add the method to convert the json to a
+ list of objects and I add a loop to print out those objects. However, 
+this script fails. The error message is a bit vague but to my 
+understanding it’s the cause is my dll can’t locate the json.net dll.</p>
+<p>Here’s the entire script:</p>
+<pre class=" language-clike"><code class=" language-clike"><span class="token operator">--</span>first load the assembly
+local assemblyBytes <span class="token operator">=</span> <span class="token punctuation">(</span>dotnetClass <span class="token string">"System.IO.File"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>ReadAllBytes @<span class="token string">"path\to\assembly.dll"</span>
+local myAssembly <span class="token operator">=</span> <span class="token punctuation">(</span>dotnetClass <span class="token string">"System.Reflection.Assembly"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>Load assemblyBytes
+<span class="token operator">--</span>get the JsonReader class <span class="token class-name">and</span> create an instance of it
+local JsonReaderClass <span class="token operator">=</span> myAssembly<span class="token punctuation">.</span><span class="token function">GetType<span class="token punctuation">(</span></span><span class="token string">"MyLibrary.JsonReader"</span><span class="token punctuation">)</span>
+local JsonReader <span class="token operator">=</span> <span class="token punctuation">(</span>dotNetClass <span class="token string">"System.Activator"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>CreateInstance JsonReaderClass
+<span class="token operator">--</span>call the method to parse the json string
+local jsonPath <span class="token operator">=</span> @<span class="token string">"path\to\json.json"</span>
+local colorList <span class="token operator">=</span> JsonReader<span class="token punctuation">.</span>ReadColors jsonPath
+<span class="token operator">--</span>print the result
+<span class="token keyword">for</span> n <span class="token operator">=</span> <span class="token number">0</span> to colorList<span class="token punctuation">.</span>count<span class="token number">-1</span> <span class="token keyword">do</span>
+<span class="token punctuation">(</span>
+    format <span class="token string">"%: %\n"</span> colorList<span class="token punctuation">.</span>item<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">.</span>color colorList<span class="token punctuation">.</span>item<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">.</span>value
+<span class="token punctuation">)</span> </code></pre>
+<h2>Simulate failure</h2>
+<p>First I’ll set up my project in Visual Studio to behave the same as 
+3dsMax. I changed the “Copy Local” property of my json.net reference to 
+“False”. This will stop copying the actual json.net dll to my output 
+directory. I cleaned up the output directory and pressed F5 to run the 
+project and voila! Visual Studio now also can’t find the json.net 
+assembly. To fix this, I have to somehow include the json.net dll in my 
+own dll.</p>
+<figure id="attachment_3346" style="width: 384px" class="wp-caption alignnone"><a href="http://www.klaasnienhuis.nl/WordPress/wp-content/uploads/2015/12/ReferenceAssembly_2015-12-20_1812.png"><img class="size-full wp-image-3346" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/ReferenceAssembly_2015-12-20_1812.png" alt="Stop copying the json.net dll. It won't work in 3dsMax" srcset="http://www.klaasnienhuis.nl/WordPress/wp-content/uploads/2015/12/ReferenceAssembly_2015-12-20_1812.png 384w, http://www.klaasnienhuis.nl/WordPress/wp-content/uploads/2015/12/ReferenceAssembly_2015-12-20_1812-253x300.png 253w" sizes="(max-width: 384px) 100vw, 384px" width="384" height="454"></a><figcaption class="wp-caption-text">Stop copying the json.net dll. It won’t work in 3dsMax</figcaption></figure>
+<h2>Including the assembly</h2>
+<p>To include the json.net dll I just added it as an existing item to my
+ solution. Right click my class library in the solution explorer, Add, 
+Existing item… Find the json.net dll and add it. It will show up in the 
+solution explorer. Select the dll, in the properties panel set the Build
+ action to Embedded Resource. This will embed this dll into my assembly.</p><div class="mailmunch-forms-in-post-middle" style="display: none !important;"></div>
+<figure id="attachment_3347" style="width: 604px" class="wp-caption alignnone"><a href="http://www.klaasnienhuis.nl/WordPress/wp-content/uploads/2015/12/ReferenceAssembly_2015-12-20_1813.png"><img class="size-full wp-image-3347" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/ReferenceAssembly_2015-12-20_1813.png" alt="Adding the json.net dll to my project" srcset="http://www.klaasnienhuis.nl/WordPress/wp-content/uploads/2015/12/ReferenceAssembly_2015-12-20_1813.png 604w, http://www.klaasnienhuis.nl/WordPress/wp-content/uploads/2015/12/ReferenceAssembly_2015-12-20_1813-300x146.png 300w" sizes="(max-width: 604px) 100vw, 604px" width="604" height="294"></a><figcaption class="wp-caption-text">Adding the json.net dll to my project</figcaption></figure>
+<figure id="attachment_3348" style="width: 359px" class="wp-caption alignnone"><a href="http://www.klaasnienhuis.nl/WordPress/wp-content/uploads/2015/12/ReferenceAssembly_2015-12-20_1814.png"><img class="size-full wp-image-3348" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/ReferenceAssembly_2015-12-20_1814.png" alt="Embed the json.net dll in my dll" srcset="http://www.klaasnienhuis.nl/WordPress/wp-content/uploads/2015/12/ReferenceAssembly_2015-12-20_1814.png 359w, http://www.klaasnienhuis.nl/WordPress/wp-content/uploads/2015/12/ReferenceAssembly_2015-12-20_1814-300x249.png 300w" sizes="(max-width: 359px) 100vw, 359px" width="359" height="299"></a><figcaption class="wp-caption-text">Embed the json.net dll in my dll</figcaption></figure>
+<p>More about this here:<a href="http://www.klaasnienhuis.nl/2015/12/referenced-dlls-without-locking-in-3dsmax/%20https://support.microsoft.com/en-us/kb/319292" target="_blank"> https://support.microsoft.com/en-us/kb/319292</a>,<a href="http://www.klaasnienhuis.nl/2015/12/referenced-dlls-without-locking-in-3dsmax/%20http://stackoverflow.com/questions/8851991/unraveling-the-confusion-about-embedded-resources" target="_blank"> http://stackoverflow.com/questions/8851991/unraveling-the-confusion-about-embedded-resources</a>,<a href="http://www.klaasnienhuis.nl/2015/12/referenced-dlls-without-locking-in-3dsmax/%20http://www.codeproject.com/Articles/528178/Load-DLL-From-Embedded-Resource" target="_blank"> http://www.codeproject.com/Articles/528178/Load-DLL-From-Embedded-Resource</a></p>
+<h3>Resolve the assembly</h3>
+<p>My assembly is now considerable bigger. That’s because I’ve embedded 
+the json.net dll. However running the app still produces an error. 
+Json.net still can’t be found. Since the json.net dll isn’t copied when I
+ build the solution I need to specify how to get to the embedded dll. At
+ least, that’s my understanding of how this works.</p>
+<p>There’s an event for that called AssemblyResolve. This event is fired
+ when the app can’t find an assembly it needs. The event handler 
+contains the code to get the embedded resource as a stream, converts it 
+to bytes and loads it as the assembly we need. Of course, I didn’t come 
+up with this myself, but I’ve found this solution <a href="http://stackoverflow.com/questions/222655/embedding-assemblies-inside-another-assembly" target="_blank">here</a>.
+ Keep in mind that the assembly is loaded by name. This name obviously 
+depends on the name of the assembly but also on the name of my 
+namespace. I just added the method to my existing class. The 
+eventhandler has to be added when the class is instantiated.</p>
+<pre class=" language-clike"><code class=" language-clike">static <span class="token function">JsonReader<span class="token punctuation">(</span></span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+	AppDomain<span class="token punctuation">.</span>CurrentDomain<span class="token punctuation">.</span>AssemblyResolve <span class="token operator">+</span><span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ResolveEventHandler</span><span class="token punctuation">(</span>AssemblyResolver<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+static Assembly <span class="token function">AssemblyResolver<span class="token punctuation">(</span></span>object sender<span class="token punctuation">,</span> ResolveEventArgs args<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+	Assembly thisAssembly <span class="token operator">=</span> Assembly<span class="token punctuation">.</span><span class="token function">GetExecutingAssembly<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">	//this is the resource name of the assembly I want to load
+</span>	string resourceName <span class="token operator">=</span> <span class="token string">"MyLibrary.Newtonsoft.Json.dll"</span><span class="token punctuation">;</span>
+	Stream resourceStream <span class="token operator">=</span> thisAssembly<span class="token punctuation">.</span><span class="token function">GetManifestResourceStream<span class="token punctuation">(</span></span>resourceName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">	//convert the stream to something we can load as an assembly
+</span>	byte<span class="token punctuation">[</span><span class="token punctuation">]</span> buffer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">byte</span><span class="token punctuation">[</span>resourceStream<span class="token punctuation">.</span>Length<span class="token punctuation">]</span><span class="token punctuation">;</span>
+	resourceStream<span class="token punctuation">.</span><span class="token function">Read<span class="token punctuation">(</span></span>buffer<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> buffer<span class="token punctuation">.</span>Length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	Assembly referencedAssembly <span class="token operator">=</span> Assembly<span class="token punctuation">.</span><span class="token function">Load<span class="token punctuation">(</span></span>buffer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token keyword">return</span> referencedAssembly<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<h2>Wrapping up in 3dsMax</h2>
+<p>The project now runs in Visual Studio. To make it work in 3dsMax I 
+don’t need to change my existing maxscript code. The assembly is 
+resolved in my dll.</p>
+<h3>Why?</h3>
+<p>That’s a good question. It’s a lot of work. Instead of this you can 
+just load the dll’s separately with loadassembly and you get the same 
+results. The big advantage of the approach described here is you can 
+keep developing in Visual Studio, update your dll’s and run the code in 
+3dsMax without having to restart 3dsMax. For instance if I decide to 
+change the structure of the json while developing, I can just do that, 
+compile my dll and continue working in 3dsMax.</p>
+<p>I hope this approach makes sense and helps you develop a bit quicker with multiple assemblies.</p>
+<p>&nbsp;</p>
+<div class="mailmunch-forms-after-post" style="display: none !important;"></div><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon-text sd-sharing"><h3 class="sd-title">Share this:</h3><div class="sd-content"><ul><li><a href="#" class="sharing-anchor sd-button share-more"><span>Share</span></a></li><li class="share-end"></li></ul><div class="sharing-hidden"><div class="inner" style="display: none;"><ul><li class="share-linkedin"><a rel="nofollow noopener noreferrer" data-shared="sharing-linkedin-3326" class="share-linkedin sd-button share-icon" href="http://www.klaasnienhuis.nl/2015/12/referenced-dlls-without-locking-in-3dsmax/?share=linkedin&amp;nb=1" target="_blank" title="Click to share on LinkedIn"><span>LinkedIn</span></a></li><li class="share-twitter"><a rel="nofollow noopener noreferrer" data-shared="sharing-twitter-3326" class="share-twitter sd-button share-icon" href="http://www.klaasnienhuis.nl/2015/12/referenced-dlls-without-locking-in-3dsmax/?share=twitter&amp;nb=1" target="_blank" title="Click to share on Twitter"><span>Twitter</span></a></li><li class="share-end"></li><li class="share-pocket"><a rel="nofollow noopener noreferrer" data-shared="" class="share-pocket sd-button share-icon" href="http://www.klaasnienhuis.nl/2015/12/referenced-dlls-without-locking-in-3dsmax/?share=pocket&amp;nb=1" target="_blank" title="Click to share on Pocket"><span>Pocket</span></a></li><li class="share-email share-service-visible"><a rel="nofollow noopener noreferrer" data-shared="" class="share-email sd-button share-icon" href="http://www.klaasnienhuis.nl/2015/12/referenced-dlls-without-locking-in-3dsmax/?share=email&amp;nb=1" target="_blank" title="Click to email this to a friend"><span>Email</span></a></li><li class="share-end"></li><li class="share-end"></li></ul></div></div></div></div></div>			</div><!-- .entry-content -->
+
+	<footer class="entry-footer">
+		
+		<div id="share-buttons">
+		  
+			<a class="fa fa-twitter" href="http://twitter.com/home?status=Referenced%20dll%E2%80%99s%20without%20locking%20in%203dsMax+http%3A%2F%2Fwww.klaasnienhuis.nl%2F2015%2F12%2Freferenced-dlls-without-locking-in-3dsmax%2F+via%20@klaasnienhuis" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=no,scrollbars=no,height=400,width=600');return false;"></a>
+
+			<a class="fa fa-linkedin" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Fwww.klaasnienhuis.nl%2F2015%2F12%2Freferenced-dlls-without-locking-in-3dsmax%2F&amp;title=Referenced%20dll%E2%80%99s%20without%20locking%20in%203dsMax&amp;source=http%3A%2F%2Fwww.klaasnienhuis.nl%2FWordPress" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=no,scrollbars=no,height=400,width=600');return false;"></a>
+
+			<a class="fa fa-google" href="https://plus.google.com/share?url=http%3A%2F%2Fwww.klaasnienhuis.nl%2F2015%2F12%2Freferenced-dlls-without-locking-in-3dsmax%2F" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=no,scrollbars=no,height=400,width=600');return false"></a>
+
+			<a class="fa fa-tumblr" href="http://www.tumblr.com/share/photo?source=http%3A%2F%2Fwww.klaasnienhuis.nl%2FWordPress%2Fwp-content%2Fuploads%2F2015%2F12%2FReferenceAssembly_2015-12-20_1814-216x162.png&amp;caption=Use%20referenced%20assemblies%20in%20maxscript%20without%20locking%20them&amp;clickthru=http%3A%2F%2Fwww.klaasnienhuis.nl%2F2015%2F12%2Freferenced-dlls-without-locking-in-3dsmax%2F" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=no,scrollbars=no,height=400,width=600');return false;"></a>
+
+		</div>
+
+	</footer><!-- .entry-footer -->
+</article><!-- #post-## -->
+
+					
+			
+<div id="comments" class="comments-area">
+
+	
+			<hr>
+		<h2 class="comments-title">
+			2 comments		</h2>
+
+		
+		<div class="comment-list">
+
+				<div class="comment even thread-even depth-1" id="comment-18285">
+			<img alt="" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/8a5b50580bb23279d699f35dc939277a.png" srcset="http://2.gravatar.com/avatar/8a5b50580bb23279d699f35dc939277a?s=180&amp;d=identicon&amp;r=g 2x" class="avatar avatar-90 photo" width="90" height="90">		<article>
+			<div class="comment-author vcard">
+
+			<cite class="fn">Serejah</cite>			</div>
+			
+			<div class="comment-meta commentmetadata">
+				March 27, 2019 at 21:07			</div>
+			<div class="comment-text">
+				<p>This was very helpful, thank you!</p>
+			</div>
+		</article>
+
+	</div><!-- #comment-## -->
+	<div class="comment byuser comment-author-grabjacket bypostauthor odd alt thread-odd thread-alt depth-1" id="comment-18291">
+			<img alt="" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/52505d62e517cdf5fda8150da816af5e.jpg" srcset="http://2.gravatar.com/avatar/52505d62e517cdf5fda8150da816af5e?s=180&amp;d=identicon&amp;r=g 2x" class="avatar avatar-90 photo" width="90" height="90">		<article>
+			<div class="comment-author vcard">
+
+			<cite class="fn">Klaas Nienhuis</cite>			</div>
+			
+			<div class="comment-meta commentmetadata">
+				March 29, 2019 at 13:28			</div>
+			<div class="comment-text">
+				<p>I’m glad it helped. It’s quite the niche article.</p>
+			</div>
+		</article>
+
+	</div><!-- #comment-## -->
+		</div><!-- .comment-list -->
+
+		
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="http://www.klaasnienhuis.nl/2015/12/referenced-dlls-without-locking-in-3dsmax/#respond" style="display:none;">Cancel reply</a></small></h3>			<form action="http://www.klaasnienhuis.nl/WordPress/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate="">
+				<p class="comment-form-comment"><label for="comment">Comment</label> <textarea autocomplete="nope" id="comment" name="j4143f097a" cols="45" rows="8" maxlength="65525" required="required"></textarea><textarea id="a8890e93e8aed54a7ee9279a62e4eea4" aria-hidden="true" name="comment" autocomplete="nope" style="padding:0;clip:rect(1px, 1px, 1px, 1px);position:absolute !important;white-space:nowrap;height:1px;width:1px;overflow:hidden;" tabindex="-1"></textarea><script type="text/javascript">document.getElementById("comment").setAttribute( "id", "a8890e93e8aed54a7ee9279a62e4eea4" );document.getElementById("j4143f097a").setAttribute( "id", "comment" );</script></p><div id="no-publish-text">* Will not be published</div><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" size="30" maxlength="245" required="required"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" size="30" maxlength="100" aria-describedby="email-notes" required="required"></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="3326" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="dc948e4387"></p><p style="display: none;"></p>			<input type="hidden" id="ak_js" name="ak_js" value="1588015189396"></form>
+			</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments -->
+
+		
+		</main><!-- #main -->
+
+	</section><!-- #primary -->
+
+		<div id="secondary" class="widget-area" role="complementary">
+		<aside id="tag-cloud" class="widget">
+	
+	  			<nav id="tag-selector">
+
+		
+				<div id="tag-selector-container">		
+	  				<nav id="tag-selector">
+
+	  												
+																			
+								<span class="tag"><a href="http://www.klaasnienhuis.nl/blog/maxscript-blog">maxscript</a></span>									
+																		
+								<span class="tag"><a href="http://www.klaasnienhuis.nl/blog/3dsmax-blog">3dsmax</a></span>									
+																		
+								<span class="tag"><a href="http://www.klaasnienhuis.nl/blog/mapping-blog">mapping</a></span>									
+																		
+								<span class="tag"><a href="http://www.klaasnienhuis.nl/blog/renderitis-blog">renderitis</a></span>									
+																		
+								<span class="tag"><a href="http://www.klaasnienhuis.nl/blog/sketchfab-blog">sketchfab</a></span>									
+																		
+								<span class="tag"><a href="http://www.klaasnienhuis.nl/blog/augmented-reality">Augmented reality</a></span>									
+																		
+								<span class="tag"><a href="http://www.klaasnienhuis.nl/blog/maproom">maproom</a></span>									
+																		
+								<span class="tag"><a href="http://www.klaasnienhuis.nl/blog/configurator-blog">configurator</a></span>									
+																		
+								<span class="tag"><a href="http://www.klaasnienhuis.nl/blog/layar">Layar</a></span>									
+																		
+								<span class="tag"><a href="http://www.klaasnienhuis.nl/blog/whatsmyname-blog">whatsmyname</a></span>									
+																		
+								<span class="tag"><a href="http://www.klaasnienhuis.nl/blog/content">content</a></span>									
+																		
+								<span class="tag"><a href="http://www.klaasnienhuis.nl/blog/eue">eue</a></span>									
+																		
+								<span class="tag"><a href="http://www.klaasnienhuis.nl/blog/uar">UAR</a></span>									
+																		
+								<span class="tag"><a href="http://www.klaasnienhuis.nl/blog/furniture">furniture</a></span>									
+																		
+								<span class="tag"><a href="http://www.klaasnienhuis.nl/blog/modeling">modeling</a></span>									
+																		
+								<span class="tag"><a href="http://www.klaasnienhuis.nl/blog/nai">NAi</a></span>									
+																		
+								<span class="tag"><a href="http://www.klaasnienhuis.nl/blog/object2vr-blog">object2VR</a></span>									
+																		
+								<span class="tag"><a href="http://www.klaasnienhuis.nl/blog/openstreetmap">openstreetmap</a></span>									
+																		
+								<span class="tag"><a href="http://www.klaasnienhuis.nl/blog/reinier-de-jong">reinier de jong</a></span>									
+																		
+								<span class="tag"><a href="http://www.klaasnienhuis.nl/blog/webgl-blog">webgl</a></span>									
+										</nav>
+			</div></nav></aside>
+		
+<aside id="wpp-2" class="widget popular-posts">
+<h1 class="widget-title">Popular Posts</h1>
+<!-- WordPress Popular Posts -->
+
+<ul class="wpp-list">
+<li>
+<a href="http://www.klaasnienhuis.nl/2016/01/maproom-beta-started/" title="Maproom Beta started" class="wpp-post-title" target="_self">Maproom Beta started</a>
+</li>
+<li>
+<a href="http://www.klaasnienhuis.nl/2015/06/maproom-the-new-mapmax/" title="Maproom: the new Mapmax" class="wpp-post-title" target="_self">Maproom: the new Mapmax</a>
+</li>
+<li>
+<a href="http://www.klaasnienhuis.nl/2010/07/object2vr-script-for-3dsmax/" title="Object2VR script for 3dsMax" class="wpp-post-title" target="_self">Object2VR script for 3dsMax</a>
+</li>
+<li>
+<a href="http://www.klaasnienhuis.nl/2014/08/openstreetmap-3dsmax/" title="Openstreetmap in 3ds Max" class="wpp-post-title" target="_self">Openstreetmap in 3ds Max</a>
+</li>
+<li>
+<a href="http://www.klaasnienhuis.nl/2014/10/show-your-3d-models-on-sketchfab/" title="Sketchfab exporter script" class="wpp-post-title" target="_self">Sketchfab exporter script</a>
+</li>
+</ul>
+
+</aside>
+<aside id="execphp-2" class="widget widget_execphp"><h1 class="widget-title">Archives</h1>			<div class="execphpwidget"><ul>	<li><a href="http://www.klaasnienhuis.nl/2020/">2020</a>&nbsp;(1)</li>
+	<li><a href="http://www.klaasnienhuis.nl/2019/">2019</a>&nbsp;(3)</li>
+	<li><a href="http://www.klaasnienhuis.nl/2018/">2018</a>&nbsp;(5)</li>
+	<li><a href="http://www.klaasnienhuis.nl/2017/">2017</a>&nbsp;(5)</li>
+	<li><a href="http://www.klaasnienhuis.nl/2016/">2016</a>&nbsp;(8)</li>
+	<li><a href="http://www.klaasnienhuis.nl/2015/">2015</a>&nbsp;(11)</li>
+	<li><a href="http://www.klaasnienhuis.nl/2014/">2014</a>&nbsp;(29)</li>
+	<li><a href="http://www.klaasnienhuis.nl/2013/">2013</a>&nbsp;(10)</li>
+	<li><a href="http://www.klaasnienhuis.nl/2012/">2012</a>&nbsp;(25)</li>
+	<li><a href="http://www.klaasnienhuis.nl/2011/">2011</a>&nbsp;(20)</li>
+	<li><a href="http://www.klaasnienhuis.nl/2010/">2010</a>&nbsp;(13)</li>
+	<li><a href="http://www.klaasnienhuis.nl/2009/">2009</a>&nbsp;(3)</li>
+	<li><a href="http://www.klaasnienhuis.nl/2008/">2008</a>&nbsp;(4)</li>
+</ul></div>
+		</aside>	</div><!-- #secondary -->
+</div>
+
+	</div><!-- #content -->
+	<div id="footer-container" class="section-container _mPS2id-t">
+		<footer id="site-footer" class="site-footer" role="contentinfo">
+			
+			<div id="about-me-container">
+				<img src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/klaas-nienhuis.png">
+				<article id="about-me">
+					<h3>Need help with 3d work?</h3>
+					<p>Klaas Nienhuis has more than 15 years experience working with 3D
+ media. He is passionate about his work and helps people make the most 
+of 3D models. Have a challenge in that field? Do get in touch.</p>
+					<a href="https://twitter.com/klaasnienhuis" class="fa fa-twitter"></a>
+					<a href="http://nl.linkedin.com/in/klaasnienhuis" class="fa fa-linkedin"></a>
+					<a href="https://www.google.com/+KlaasNienhuis" class="fa fa-google-plus"></a>
+					<a href="http://www.youtube.com/user/grabjacket" class="fa fa-youtube"></a>
+					
+				</article>
+				<div id="copyright">
+					© 2013 - 2020 Klaas Nienhuis
+				</div>
+			</div>
+			<div role="form" class="wpcf7" id="wpcf7-f2338-o1" dir="ltr" lang="en-US">
+<div class="screen-reader-response"></div>
+<form action="/2015/12/referenced-dlls-without-locking-in-3dsmax/#wpcf7-f2338-o1" method="post" class="wpcf7-form" novalidate="novalidate">
+<div style="display: none;">
+<input type="hidden" name="_wpcf7" value="2338">
+<input type="hidden" name="_wpcf7_version" value="5.1.1">
+<input type="hidden" name="_wpcf7_locale" value="en_US">
+<input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f2338-o1">
+<input type="hidden" name="_wpcf7_container_post" value="0">
+<input type="hidden" name="g-recaptcha-response" value="03AGdBq27ILBIPKfs7vr-OmjB5nqDROAEWMuQbz2anina9kprpMFaTmZRGnQnYWphdh2aS_DP4Wz3hOveqWkSekklFGOMh9A47wGxTmVAx7wvgHyZsRowJZzYrNi5KWtGcE5fsZKrkTSRURbQ31fKfSiQ2u0qAUO8fYK6btBd22p0-uR5cyQ9GpECPRO83ouBsxxdUeRSsj-oeklJQMcWzjOPhQFVo_wiKkY2Uy9GQVmgVAAweCUcl-BhRgBoVTk-UixzXFWr4gAuTvyFdWk9cocnsPGQdayXDpDx_T1SyLrRM0AiW7GXTkOCUMuW5g_rT1mUbgf-yN2zcP64oiL7xTbk0cu70YpK6GiuRcf5pfqJ4P5KLb5bV_vRKHL133yQYWBdTBiVcqMmgxQMScWIKok-BCZbvvcgBoQ">
+</div>
+<p><span class="wpcf7-form-control-wrap email"><input type="email" name="email" value="Email" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false"></span><br>
+<span id="wpcf7-5ea728fec0355" class="wpcf7-form-control-wrap brazen-arch-wrap" style="display:none !important; visibility:hidden !important;"><label class="hp-message">Please leave this field empty.</label><input class="wpcf7-form-control wpcf7-text" type="text" name="brazen-arch" size="40" tabindex="-1" autocomplete="nope"></span><br>
+<span class="wpcf7-form-control-wrap message"><textarea name="message" cols="40" rows="5" class="wpcf7-form-control wpcf7-textarea wpcf7-validates-as-required" aria-required="true" aria-invalid="false">Message</textarea></span><br>
+<input type="submit" value="Send Message" class="wpcf7-form-control wpcf7-submit"><span class="ajax-loader"></span></p>
+<div class="wpcf7-response-output wpcf7-display-none"></div></form></div>			
+		</footer><!-- #colophon -->
+		<footer id="site-footer-mobile" class="site-footer" role="contentinfo">
+			
+			<div id="about-me-container">
+				<img src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/klaas-nienhuis.png">
+				<article id="about-me">
+					<h3>Need help with 3d work?</h3>
+					<p>Klaas Nienhuis has more than 15 years experience working with 3D
+ media. He is passionate about his work and helps people make the most 
+of 3D models. Have a challenge in that field? Do get in touch.</p>			
+				</article>
+				
+			</div>
+			<div role="form" class="wpcf7" id="wpcf7-f2338-o2" dir="ltr" lang="en-US">
+<div class="screen-reader-response"></div>
+<form action="/2015/12/referenced-dlls-without-locking-in-3dsmax/#wpcf7-f2338-o2" method="post" class="wpcf7-form" novalidate="novalidate">
+<div style="display: none;">
+<input type="hidden" name="_wpcf7" value="2338">
+<input type="hidden" name="_wpcf7_version" value="5.1.1">
+<input type="hidden" name="_wpcf7_locale" value="en_US">
+<input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f2338-o2">
+<input type="hidden" name="_wpcf7_container_post" value="0">
+<input type="hidden" name="g-recaptcha-response" value="03AGdBq27ILBIPKfs7vr-OmjB5nqDROAEWMuQbz2anina9kprpMFaTmZRGnQnYWphdh2aS_DP4Wz3hOveqWkSekklFGOMh9A47wGxTmVAx7wvgHyZsRowJZzYrNi5KWtGcE5fsZKrkTSRURbQ31fKfSiQ2u0qAUO8fYK6btBd22p0-uR5cyQ9GpECPRO83ouBsxxdUeRSsj-oeklJQMcWzjOPhQFVo_wiKkY2Uy9GQVmgVAAweCUcl-BhRgBoVTk-UixzXFWr4gAuTvyFdWk9cocnsPGQdayXDpDx_T1SyLrRM0AiW7GXTkOCUMuW5g_rT1mUbgf-yN2zcP64oiL7xTbk0cu70YpK6GiuRcf5pfqJ4P5KLb5bV_vRKHL133yQYWBdTBiVcqMmgxQMScWIKok-BCZbvvcgBoQ">
+</div>
+<p><span class="wpcf7-form-control-wrap email"><input type="email" name="email" value="Email" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false"></span><br>
+<span id="wpcf7-5ea728fec0e42" class="wpcf7-form-control-wrap brazen-arch-wrap" style="display:none !important; visibility:hidden !important;"><label class="hp-message">Please leave this field empty.</label><input class="wpcf7-form-control wpcf7-text" type="text" name="brazen-arch" size="40" tabindex="-1" autocomplete="nope"></span><br>
+<span class="wpcf7-form-control-wrap message"><textarea name="message" cols="40" rows="5" class="wpcf7-form-control wpcf7-textarea wpcf7-validates-as-required" aria-required="true" aria-invalid="false">Message</textarea></span><br>
+<input type="submit" value="Send Message" class="wpcf7-form-control wpcf7-submit"><span class="ajax-loader"></span></p>
+<div class="wpcf7-response-output wpcf7-display-none"></div></form></div>		
+			<div id="copyright">
+				© 2013 - 2020 Klaas Nienhuis
+
+			</div>	
+			<div id="footer-social-icons">
+				<a href="https://twitter.com/klaasnienhuis" class="fa fa-twitter"></a>
+				<a href="http://nl.linkedin.com/in/klaasnienhuis" class="fa fa-linkedin"></a>
+				<a href="https://www.google.com/+KlaasNienhuis" class="fa fa-google-plus"></a>
+				<a href="http://www.youtube.com/user/grabjacket" class="fa fa-youtube"></a>
+			</div>
+		</footer><!-- #colophon -->
+	</div>
+</div><!-- #page -->
+
+	<div style="display:none">
+	<div class="grofile-hash-map-8a5b50580bb23279d699f35dc939277a">
+	</div>
+	<div class="grofile-hash-map-52505d62e517cdf5fda8150da816af5e">
+	</div>
+	</div>
+	<script type="text/javascript">
+		var c = document.body.className;
+		c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
+		document.body.className = c;
+	</script>
+	
+	<script type="text/javascript">
+		window.WPCOM_sharing_counts = {"http:\/\/www.klaasnienhuis.nl\/2015\/12\/referenced-dlls-without-locking-in-3dsmax\/":3326};
+	</script>
+					
+<script type="text/javascript">
+/* <![CDATA[ */
+var wpcf7 = {"apiSettings":{"root":"http:\/\/www.klaasnienhuis.nl\/wp-json\/contact-form-7\/v1","namespace":"contact-form-7\/v1"}};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/scripts.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/devicepx-jetpack.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var mPS2id_params = {"instances":{"mPS2id_instance_0":{"selector":".menu-item a, .animated-scroll","autoSelectorMenuLinks":"false","scrollSpeed":800,"autoScrollSpeed":"true","scrollEasing":"easeInOutExpo","scrollingEasing":"easeInOutCirc","pageEndSmoothScroll":"true","stopScrollOnUserAction":"false","autoCorrectScroll":"false","layout":"vertical","offset":"140","highlightSelector":"","clickedClass":"mPS2id-clicked","targetClass":"mPS2id-target","highlightClass":"mPS2id-highlight","forceSingleHighlight":"false","keepHighlightUntilNext":"false","highlightByNextTarget":"false","appendHash":"false","scrollToHash":"false","scrollToHashForAll":"false","scrollToHashDelay":0,"scrollToHashUseElementData":"true","scrollToHashRemoveUrlHash":"false","disablePluginBelow":0,"adminDisplayWidgetsId":"true","adminTinyMCEbuttons":"true","unbindUnrelatedClickEvents":"false","normalizeAnchorPointTargets":"false"}},"total_instances":"1","shortcode_class":"_ps2id"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/page-scroll-to-id.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/frontend_002.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var aelia_eu_vat_assistant_params = {"tax_based_on":"billing","eu_vat_countries":["AT","BE","BG","CY","CZ","DE","DK","EE","ES","FI","FR","GB","GR","HU","HR","IE","IT","LT","LU","LV","MT","NL","PL","PT","RO","SE","SI","SK","MC","IM"],"ajax_url":"\/WordPress\/wp-admin\/admin-ajax.php","show_self_cert_field":"conflict-only","eu_vat_field_required":"optional","hide_self_cert_field_with_valid_vat":"1","ip_address_country":"CZ","use_shipping_as_evidence":"0","user_interface":{"self_certification_field_title":"I am established, have my permanent address, or usually reside within <strong>{billing_country}<\/strong>."},"show_eu_vat_number_for_base_country":"1","shop_base_country":"NL","_ajax_nonce":"0f75cbdddc"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/frontend.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/jquery_002.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wc_add_to_cart_params = {"ajax_url":"\/WordPress\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/?wc-ajax=%%endpoint%%","i18n_view_cart":"View cart","cart_url":"http:\/\/www.klaasnienhuis.nl\/cart\/","is_cart":"","cart_redirect_after_add":"yes"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/add-to-cart.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/js.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var woocommerce_params = {"ajax_url":"\/WordPress\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/?wc-ajax=%%endpoint%%"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/woocommerce.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var wc_cart_fragments_params = {"ajax_url":"\/WordPress\/wp-admin\/admin-ajax.php","wc_ajax_url":"\/?wc-ajax=%%endpoint%%","cart_hash_key":"wc_cart_hash_0d9cbc425da8858d883ba8a00f078ac2","fragment_name":"wc_fragments_0d9cbc425da8858d883ba8a00f078ac2"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/cart-fragments.js"></script>
+<script type="text/javascript">
+		jQuery( 'body' ).bind( 'wc_fragments_refreshed', function() {
+			jQuery( 'body' ).trigger( 'jetpack-lazy-images-load' );
+		} );
+	
+</script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/api.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/navigation.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/webgl-utils.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/spritespin.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/spritespin_002.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/skip-link-focus-fix.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/jquery_003.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/jquery_004.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/jquery_005.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/comment-reply.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/prism-core.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/prism-clike.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/prism-bash.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/prism-c.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/prism-javascript.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/prism-coffeescript.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/prism-cpp.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/prism-csharp.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/prism-css.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/prism-gherkin.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/prism-groovy.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/prism-http.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/prism-java.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/prism-markup.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/prism-php.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/prism-php-extras.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/prism-python.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/prism-ruby.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/prism-scss.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/prism-sql.js"></script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/wp-embed.js"></script>
+<script async="async" type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/form.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var sharing_js_options = {"lang":"en","counts":"1","is_stats_active":"1"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/sharing.js"></script>
+<script type="text/javascript">
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-linkedin', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomlinkedin', 'menubar=1,resizable=1,width=580,height=450' );
+				return false;
+			});
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-twitter', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+var windowOpen;
+			jQuery( document.body ).on( 'click', 'a.share-pocket', function() {
+				// If there's another sharing window open, close it.
+				if ( 'undefined' !== typeof windowOpen ) {
+					windowOpen.close();
+				}
+				windowOpen = window.open( jQuery( this ).attr( 'href' ), 'wpcompocket', 'menubar=1,resizable=1,width=450,height=450' );
+				return false;
+			});
+</script>
+<script type="text/javascript">
+( function( grecaptcha, sitekey ) {
+
+	var wpcf7recaptcha = {
+		execute: function() {
+			grecaptcha.execute(
+				sitekey,
+				{ action: 'homepage' }
+			).then( function( token ) {
+				var forms = document.getElementsByTagName( 'form' );
+
+				for ( var i = 0; i < forms.length; i++ ) {
+					var fields = forms[ i ].getElementsByTagName( 'input' );
+
+					for ( var j = 0; j < fields.length; j++ ) {
+						var field = fields[ j ];
+
+						if ( 'g-recaptcha-response' === field.getAttribute( 'name' ) ) {
+							field.setAttribute( 'value', token );
+							break;
+						}
+					}
+				}
+			} );
+		}
+	};
+
+	grecaptcha.ready( wpcf7recaptcha.execute );
+
+	document.addEventListener( 'wpcf7submit', wpcf7recaptcha.execute, false );
+
+} )( grecaptcha, '6LdnfJcUAAAAAGZPW9_HtLmtAqziCJ8-TCza1Oug' );
+</script>
+<script type="text/javascript" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/e-202018.js" async="async" defer="defer"></script>
+<script type="text/javascript">
+	_stq = window._stq || [];
+	_stq.push([ 'view', {v:'ext',j:'1:7.1.2',blog:'67786935',post:'3326',tz:'0',srv:'www.klaasnienhuis.nl'} ]);
+	_stq.push([ 'clickTrackerInit', '67786935', '3326' ]);
+</script>
+
+<!-- Slide out top menu for handheld devices -->
+<script>
+	var $status = '';
+    jQuery('#open-menu').click(function() {
+        jQuery('#slide-out-menu').slideToggle('fast');
+        jQuery('#open-menu').hide();
+        jQuery('#close-menu').show();
+        $status = 'open';
+    });
+    jQuery('#close-menu').click(function() {
+        jQuery('#slide-out-menu').slideToggle('fast');
+        jQuery('#open-menu').show();
+        jQuery('#close-menu').hide();
+        $status = 'closed';
+    });
+	
+	jQuery( window ).resize(function() {
+	    if ((jQuery(window).width() > 750) && ($status == 'open')){
+		   jQuery('#slide-out-menu').slideToggle('fast');
+		   jQuery('#open-menu').hide();
+	       jQuery('#close-menu').hide();
+		   $status = 'closed';
+	    }
+	    
+	    if ((jQuery(window).width() > 750) && ($status == 'closed')){
+			jQuery('#open-menu').hide();
+		}
+
+	    if((jQuery(window).width() < 750) && ($status == 'closed')){
+	    	jQuery('#open-menu').show();
+	    }
+    });
+
+    jQuery('#slide-out-menu ul li a').click(function() {
+        jQuery('#slide-out-menu').slideToggle('fast');
+        jQuery('#open-menu').show();
+        jQuery('#close-menu').hide();
+        $status = 'closed';
+    });
+
+    jQuery('#open-search').click(function() {
+        jQuery('#search-container').slideToggle('fast');
+        jQuery('#open-search').hide();
+        jQuery('#close-search').show();
+    });
+
+    jQuery('#close-search').click(function() {
+        jQuery('#search-container').slideToggle('fast');
+        jQuery('#open-search').show();
+        jQuery('#close-search').hide();
+    });
+
+
+</script>
+
+
+
+
+ <div id="sharing_email" style="display: none;">
+		<form action="/2015/12/referenced-dlls-without-locking-in-3dsmax/" method="post">
+			<label for="target_email">Send to Email Address</label>
+			<input type="email" name="target_email" id="target_email">
+
+			
+				<label for="source_name">Your Name</label>
+				<input type="text" name="source_name" id="source_name">
+
+				<label for="source_email">Your Email Address</label>
+				<input type="email" name="source_email" id="source_email">
+
+						<input type="text" id="jetpack-source_f_name" name="source_f_name" class="input" size="25" autocomplete="off" title="This field is for validation and should not be changed">
+			
+			<img style="float: right; display: none" class="loading" src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/loading.gif" alt="loading" width="16" height="16">
+			<input type="submit" value="Send Email" class="sharing_send">
+			<a rel="nofollow" href="#cancel" class="sharing_cancel" role="button">Cancel</a>
+
+			<div class="errors errors-1" style="display: none;">
+				Post was not sent - check your email addresses!			</div>
+
+			<div class="errors errors-2" style="display: none;">
+				Email check failed, please try again			</div>
+
+			<div class="errors errors-3" style="display: none;">
+				Sorry, your blog cannot share posts by email.			</div>
+		</form>
+	</div><img src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/g.gif" alt=":)" id="wpstats" width="6" height="5"><div><div class="grecaptcha-badge" data-style="bottomright" style="width: 256px; height: 60px; display: block; transition: right 0.3s ease 0s; position: fixed; bottom: 14px; right: -186px; box-shadow: gray 0px 0px 5px; border-radius: 2px; overflow: hidden;"><div class="grecaptcha-logo"><iframe src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/anchor.htm" role="presentation" name="a-ft27e61v56v1" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" width="256" height="60" frameborder="0"></iframe></div><div class="grecaptcha-error"></div><textarea id="g-recaptcha-response-100000" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;">03AGdBq27ILBIPKfs7vr-OmjB5nqDROAEWMuQbz2anina9kprpMFaTmZRGnQnYWphdh2aS_DP4Wz3hOveqWkSekklFGOMh9A47wGxTmVAx7wvgHyZsRowJZzYrNi5KWtGcE5fsZKrkTSRURbQ31fKfSiQ2u0qAUO8fYK6btBd22p0-uR5cyQ9GpECPRO83ouBsxxdUeRSsj-oeklJQMcWzjOPhQFVo_wiKkY2Uy9GQVmgVAAweCUcl-BhRgBoVTk-UixzXFWr4gAuTvyFdWk9cocnsPGQdayXDpDx_T1SyLrRM0AiW7GXTkOCUMuW5g_rT1mUbgf-yN2zcP64oiL7xTbk0cu70YpK6GiuRcf5pfqJ4P5KLb5bV_vRKHL133yQYWBdTBiVcqMmgxQMScWIKok-BCZbvvcgBoQ</textarea></div><iframe style="display: none;"></iframe></div><img src="Referenced%20dll's%20without%20locking%20in%203dsMax%20-%20Klaas%20Nienhuis_files/a.gif" style="display: none;" width="1" height="1"></body></html>

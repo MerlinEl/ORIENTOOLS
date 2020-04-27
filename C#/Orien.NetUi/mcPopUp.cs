@@ -1,17 +1,29 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace Orien.NetUi {
 
     public class McPopup {
         public const string Awesome = "Awesome";
-        /*private static string _msg;
-        private static string _title;
-        private static WindowType _type;
-        private static float _delay;
-        private static Point _pos;
-        private static bool _crypt;*/
+        static void OrienTools() {
+            AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(AssemblyResolver);
+        }
 
+        static Assembly AssemblyResolver(object sender, ResolveEventArgs args) {
+            Assembly thisAssembly = Assembly.GetExecutingAssembly();
+
+            //this is the resource name of the assembly I want to load
+            string resourceName = "Orien.NetUi.Orien.Tools.dll";
+            Stream resourceStream = thisAssembly.GetManifestResourceStream(resourceName);
+
+            //convert the stream to something we can load as an assembly
+            byte[] buffer = new byte[resourceStream.Length];
+            resourceStream.Read(buffer, 0, buffer.Length);
+            Assembly referencedAssembly = Assembly.Load(buffer);
+            return referencedAssembly;
+        }
         /// <summary>
         /// Define PopUp Windows Type
         /// </summary>
