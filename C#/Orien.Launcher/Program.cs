@@ -15,6 +15,11 @@ namespace Orien.Launcher {
 
         [STAThread] //required for full COM support
         private static void Main() {
+
+            /*Environment.SetEnvironmentVariable("CopyFilesOnBuild", "false");
+            string value = Environment.GetEnvironmentVariable("CopyFilesOnBuild");
+            if ( value == null ) Console.WriteLine("Enviroment variable CopyFilesOnBuild > value:{0}", value);*/
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Console.WriteLine("Orien Tools Solution START!");

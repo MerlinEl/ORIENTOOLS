@@ -39,9 +39,8 @@ namespace Orien.NetUi {
             return GetWindow(msg, "", type, options);
         }
 
-        public static object GetTypes() => Enum.ToObject(typeof(WindowType), 0);
-
-        public static object GetOptions() => Enum.ToObject(typeof(Options), 0);
+        public static object GetTypes() => new WindowType();
+        public static object GetOptions() => new Options();
 
         /*public static Form Create(
             WindowType type,
@@ -98,7 +97,11 @@ namespace Orien.NetUi {
     }*/
 }
 
-/*::mcPopUp.show ">< Is Done ><" delay:2000
+/*
+public static object GetTypes() => Enum.ToObject(typeof(WindowType), 0);
+*
+*
+ * ::mcPopUp.show ">< Is Done ><" delay:2000
 ::mcPopUp.show "<< abc >>\ncde" title:"ABC:" delay:2000 pos:[90, 313]
 ::mcPopUp.show "Micra instalation was Finished"
 ::mcPopUp.show "Select some Objects to Continue" type:#Warning

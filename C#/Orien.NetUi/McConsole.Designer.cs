@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Drawing;
+using System.Windows.Forms;
 
 namespace Orien.NetUi {
     partial class McConsole {
@@ -20,171 +21,250 @@ namespace Orien.NetUi {
         #region Windows Form Designer generated code
 
         private void InitializeComponent() {
-            this.mainMenu = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clearAllTabsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.clearCurrentTabToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutMcConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.mainTab = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.autoCompleteBox = new System.Windows.Forms.ListBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.mainMenu.SuspendLayout();
-            this.mainTab.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.MainTab = new System.Windows.Forms.TabControl();
+            this.TabPage1 = new System.Windows.Forms.TabPage();
+            this.AutoCompleteBox = new System.Windows.Forms.ListBox();
+            this.ProgressBar1 = new System.Windows.Forms.ProgressBar();
+            this.RichTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.BtnClose = new System.Windows.Forms.Button();
+            this.BtnMax = new System.Windows.Forms.Button();
+            this.BtnMin = new System.Windows.Forms.Button();
+            this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SaveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ShowHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AboutMcConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MainMenu = new System.Windows.Forms.MenuStrip();
+            this.EditToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ClearCurrentTabToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ClearAllTabsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyCurrentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MainTab.SuspendLayout();
+            this.TabPage1.SuspendLayout();
+            this.MainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
-            // mainMenu
+            // MainTab
             // 
-            this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.aboutToolStripMenuItem});
-            this.mainMenu.Location = new System.Drawing.Point(0, 0);
-            this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(1008, 24);
-            this.mainMenu.TabIndex = 3;
-            this.mainMenu.Text = "menuStrip1";
+            this.MainTab.Controls.Add(this.TabPage1);
+            this.MainTab.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainTab.Location = new System.Drawing.Point(0, 24);
+            this.MainTab.Name = "MainTab";
+            this.MainTab.SelectedIndex = 0;
+            this.MainTab.Size = new System.Drawing.Size(1008, 338);
+            this.MainTab.TabIndex = 4;
             // 
-            // fileToolStripMenuItem
+            // TabPage1
             // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveAsToolStripMenuItem,
-            this.clearCurrentTabToolStripMenuItem1,
-            this.clearAllTabsToolStripMenuItem1,
-            this.exitToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
-            this.fileToolStripMenuItem.Text = "Console";
+            this.TabPage1.Controls.Add(this.AutoCompleteBox);
+            this.TabPage1.Controls.Add(this.ProgressBar1);
+            this.TabPage1.Controls.Add(this.RichTextBox1);
+            this.TabPage1.Location = new System.Drawing.Point(4, 22);
+            this.TabPage1.Name = "TabPage1";
+            this.TabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.TabPage1.Size = new System.Drawing.Size(1000, 312);
+            this.TabPage1.TabIndex = 0;
+            this.TabPage1.Text = "Console";
+            this.TabPage1.UseVisualStyleBackColor = true;
             // 
-            // saveAsToolStripMenuItem
+            // AutoCompleteBox
             // 
-            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.saveAsToolStripMenuItem.Text = "Save As...";
-            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.OnsaveAsToolStripMenuItem_Click);
+            this.AutoCompleteBox.FormattingEnabled = true;
+            this.AutoCompleteBox.Location = new System.Drawing.Point(8, 16);
+            this.AutoCompleteBox.Name = "AutoCompleteBox";
+            this.AutoCompleteBox.Size = new System.Drawing.Size(179, 277);
+            this.AutoCompleteBox.TabIndex = 6;
+            this.AutoCompleteBox.Visible = false;
             // 
-            // clearAllTabsToolStripMenuItem1
+            // ProgressBar1
             // 
-            this.clearAllTabsToolStripMenuItem1.Name = "clearAllTabsToolStripMenuItem1";
-            this.clearAllTabsToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.clearAllTabsToolStripMenuItem1.Text = "Clear All";
-            this.clearAllTabsToolStripMenuItem1.Click += new System.EventHandler(this.OnclearAllTabsToolStripMenuItem1_Click);
+            this.ProgressBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ProgressBar1.Location = new System.Drawing.Point(3, 299);
+            this.ProgressBar1.Name = "ProgressBar1";
+            this.ProgressBar1.Size = new System.Drawing.Size(994, 10);
+            this.ProgressBar1.TabIndex = 7;
+            this.ProgressBar1.Value = 45;
             // 
-            // clearCurrentTabToolStripMenuItem1
+            // RichTextBox1
             // 
-            this.clearCurrentTabToolStripMenuItem1.Name = "clearCurrentTabToolStripMenuItem1";
-            this.clearCurrentTabToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.clearCurrentTabToolStripMenuItem1.Text = "Clear Current";
-            this.clearCurrentTabToolStripMenuItem1.Click += new System.EventHandler(this.OnclearCurrentTabToolStripMenuItem1_Click);
+            this.RichTextBox1.AcceptsTab = true;
+            this.RichTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(81)))));
+            this.RichTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RichTextBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.RichTextBox1.Location = new System.Drawing.Point(3, 3);
+            this.RichTextBox1.Name = "RichTextBox1";
+            this.RichTextBox1.Size = new System.Drawing.Size(994, 306);
+            this.RichTextBox1.TabIndex = 5;
+            this.RichTextBox1.Text = "";
+            this.RichTextBox1.WordWrap = false;
+            this.RichTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnConsoleKeyDown);
+            this.RichTextBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnConsoleKeyUp);
             // 
-            // exitToolStripMenuItem
+            // BtnClose
             // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.OnexitToolStripMenuItem_Click);
+            this.BtnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnClose.Location = new System.Drawing.Point(976, 1);
+            this.BtnClose.Name = "BtnClose";
+            this.BtnClose.Size = new System.Drawing.Size(28, 23);
+            this.BtnClose.TabIndex = 5;
+            this.BtnClose.Text = "X";
+            this.BtnClose.UseVisualStyleBackColor = true;
+            this.BtnClose.Click += new System.EventHandler(this.BtnClose_Click);
             // 
-            // aboutToolStripMenuItem
+            // BtnMax
             // 
-            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showHelpToolStripMenuItem,
-            this.aboutMcConsoleToolStripMenuItem});
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.aboutToolStripMenuItem.Text = "Help";
+            this.BtnMax.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnMax.Location = new System.Drawing.Point(942, 0);
+            this.BtnMax.Name = "BtnMax";
+            this.BtnMax.Size = new System.Drawing.Size(28, 23);
+            this.BtnMax.TabIndex = 6;
+            this.BtnMax.Text = "☐";
+            this.BtnMax.UseVisualStyleBackColor = true;
+            this.BtnMax.Click += new System.EventHandler(this.BtnMax_Click);
             // 
-            // showHelpToolStripMenuItem
+            // BtnMin
             // 
-            this.showHelpToolStripMenuItem.Name = "showHelpToolStripMenuItem";
-            this.showHelpToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.showHelpToolStripMenuItem.Text = "View Help";
-            this.showHelpToolStripMenuItem.Click += new System.EventHandler(this.OnshowHelpToolStripMenuItem_Click);
+            this.BtnMin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnMin.Location = new System.Drawing.Point(908, 1);
+            this.BtnMin.Name = "BtnMin";
+            this.BtnMin.Size = new System.Drawing.Size(28, 23);
+            this.BtnMin.TabIndex = 7;
+            this.BtnMin.Text = "-";
+            this.BtnMin.UseVisualStyleBackColor = true;
+            this.BtnMin.Click += new System.EventHandler(this.BtnMin_Click);
             // 
-            // aboutMcConsoleToolStripMenuItem
+            // FileToolStripMenuItem
             // 
-            this.aboutMcConsoleToolStripMenuItem.Name = "aboutMcConsoleToolStripMenuItem";
-            this.aboutMcConsoleToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
-            this.aboutMcConsoleToolStripMenuItem.Text = "About";
-            this.aboutMcConsoleToolStripMenuItem.Click += new System.EventHandler(this.OnaboutMcConsoleToolStripMenuItem_Click);
+            this.FileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.SaveAsToolStripMenuItem,
+            this.ExitToolStripMenuItem});
+            this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
+            this.FileToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.FileToolStripMenuItem.Text = "Main";
             // 
-            // mainTab
+            // SaveAsToolStripMenuItem
             // 
-            this.mainTab.Controls.Add(this.tabPage1);
-            this.mainTab.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainTab.Location = new System.Drawing.Point(0, 24);
-            this.mainTab.Name = "mainTab";
-            this.mainTab.SelectedIndex = 0;
-            this.mainTab.Size = new System.Drawing.Size(1008, 338);
-            this.mainTab.TabIndex = 4;
+            this.SaveAsToolStripMenuItem.Name = "SaveAsToolStripMenuItem";
+            this.SaveAsToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.SaveAsToolStripMenuItem.Text = "Save As...";
+            this.SaveAsToolStripMenuItem.Click += new System.EventHandler(this.OnsaveAsToolStripMenuItem_Click);
             // 
-            // tabPage1
+            // ExitToolStripMenuItem
             // 
-            this.tabPage1.Controls.Add(this.autoCompleteBox);
-            this.tabPage1.Controls.Add(this.richTextBox1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1000, 312);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "General";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.ExitToolStripMenuItem.Text = "Exit";
+            this.ExitToolStripMenuItem.Click += new System.EventHandler(this.OnexitToolStripMenuItem_Click);
             // 
-            // autoCompleteBox
+            // AboutToolStripMenuItem
             // 
-            this.autoCompleteBox.FormattingEnabled = true;
-            this.autoCompleteBox.Location = new System.Drawing.Point(8, 30);
-            this.autoCompleteBox.Name = "autoCompleteBox";
-            this.autoCompleteBox.Size = new System.Drawing.Size(179, 277);
-            this.autoCompleteBox.TabIndex = 6;
-            this.autoCompleteBox.Visible = false;
+            this.AboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ShowHelpToolStripMenuItem,
+            this.AboutMcConsoleToolStripMenuItem});
+            this.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem";
+            this.AboutToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.AboutToolStripMenuItem.Text = "Help";
             // 
-            // richTextBox1
+            // ShowHelpToolStripMenuItem
             // 
-            this.richTextBox1.AcceptsTab = true;
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Location = new System.Drawing.Point(3, 3);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(994, 306);
-            this.richTextBox1.TabIndex = 5;
-            this.richTextBox1.Text = "";
-            this.richTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnConsoleKeyDown);
-            this.richTextBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnConsoleKeyUp);
+            this.ShowHelpToolStripMenuItem.Name = "ShowHelpToolStripMenuItem";
+            this.ShowHelpToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.ShowHelpToolStripMenuItem.Text = "View Help";
+            this.ShowHelpToolStripMenuItem.Click += new System.EventHandler(this.OnshowHelpToolStripMenuItem_Click);
+            // 
+            // AboutMcConsoleToolStripMenuItem
+            // 
+            this.AboutMcConsoleToolStripMenuItem.Name = "AboutMcConsoleToolStripMenuItem";
+            this.AboutMcConsoleToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.AboutMcConsoleToolStripMenuItem.Text = "About";
+            this.AboutMcConsoleToolStripMenuItem.Click += new System.EventHandler(this.OnaboutMcConsoleToolStripMenuItem_Click);
+            // 
+            // MainMenu
+            // 
+            this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.FileToolStripMenuItem,
+            this.EditToolStripMenuItem,
+            this.AboutToolStripMenuItem});
+            this.MainMenu.Location = new System.Drawing.Point(0, 0);
+            this.MainMenu.Name = "MainMenu";
+            this.MainMenu.Size = new System.Drawing.Size(1008, 24);
+            this.MainMenu.TabIndex = 3;
+            this.MainMenu.Text = "menuStrip1";
+            this.MainMenu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnTitleMouseDown);
+            // 
+            // EditToolStripMenuItem
+            // 
+            this.EditToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyCurrentToolStripMenuItem,
+            this.ClearCurrentTabToolStripMenuItem1,
+            this.ClearAllTabsToolStripMenuItem1});
+            this.EditToolStripMenuItem.Name = "EditToolStripMenuItem";
+            this.EditToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.EditToolStripMenuItem.Text = "Edit";
+            // 
+            // ClearCurrentTabToolStripMenuItem1
+            // 
+            this.ClearCurrentTabToolStripMenuItem1.Name = "ClearCurrentTabToolStripMenuItem1";
+            this.ClearCurrentTabToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.ClearCurrentTabToolStripMenuItem1.Text = "Clear";
+            this.ClearCurrentTabToolStripMenuItem1.Click += new System.EventHandler(this.OnclearCurrentTabToolStripMenuItem1_Click);
+            // 
+            // ClearAllTabsToolStripMenuItem1
+            // 
+            this.ClearAllTabsToolStripMenuItem1.Name = "ClearAllTabsToolStripMenuItem1";
+            this.ClearAllTabsToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.ClearAllTabsToolStripMenuItem1.Text = "Clear All";
+            this.ClearAllTabsToolStripMenuItem1.Click += new System.EventHandler(this.OnclearAllTabsToolStripMenuItem1_Click);
+            // 
+            // copyCurrentToolStripMenuItem
+            // 
+            this.copyCurrentToolStripMenuItem.Name = "copyCurrentToolStripMenuItem";
+            this.copyCurrentToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.copyCurrentToolStripMenuItem.Text = "Copy";
+            this.copyCurrentToolStripMenuItem.Click += new System.EventHandler(this.OncopyCurrentToolStripMenuItem_Click);
             // 
             // McConsole
             // 
             this.ClientSize = new System.Drawing.Size(1008, 362);
-            this.Controls.Add(this.mainTab);
-            this.Controls.Add(this.mainMenu);
+            this.Controls.Add(this.BtnMin);
+            this.Controls.Add(this.BtnMax);
+            this.Controls.Add(this.BtnClose);
+            this.Controls.Add(this.MainTab);
+            this.Controls.Add(this.MainMenu);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "McConsole";
-            this.mainMenu.ResumeLayout(false);
-            this.mainMenu.PerformLayout();
-            this.mainTab.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
+            this.Text = "Proces:";
+            this.MainTab.ResumeLayout(false);
+            this.TabPage1.ResumeLayout(false);
+            this.MainMenu.ResumeLayout(false);
+            this.MainMenu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private MenuStrip mainMenu;
-        private ToolStripMenuItem fileToolStripMenuItem;
-        private ToolStripMenuItem saveAsToolStripMenuItem;
-        private ToolStripMenuItem clearAllTabsToolStripMenuItem1;
-        private ToolStripMenuItem clearCurrentTabToolStripMenuItem1;
-        private ToolStripMenuItem exitToolStripMenuItem;
-        private ToolStripMenuItem aboutToolStripMenuItem;
-        private ToolStripMenuItem showHelpToolStripMenuItem;
-        private ToolStripMenuItem aboutMcConsoleToolStripMenuItem;
-        private SaveFileDialog saveFileDialog;
-        private TabControl mainTab;
-        private TabPage tabPage1;
-        private RichTextBox richTextBox1;
-        private ListBox autoCompleteBox;
+        private SaveFileDialog SaveFileDialog;
+        private TabControl MainTab;
+        private TabPage TabPage1;
+        private RichTextBox RichTextBox1;
+        private ListBox AutoCompleteBox;
+        private ProgressBar ProgressBar1;
+        private Button BtnClose;
+        private Button BtnMax;
+        private Button BtnMin;
+        private ToolStripMenuItem FileToolStripMenuItem;
+        private ToolStripMenuItem SaveAsToolStripMenuItem;
+        private ToolStripMenuItem ExitToolStripMenuItem;
+        private ToolStripMenuItem AboutToolStripMenuItem;
+        private ToolStripMenuItem ShowHelpToolStripMenuItem;
+        private ToolStripMenuItem AboutMcConsoleToolStripMenuItem;
+        private MenuStrip MainMenu;
+        private ToolStripMenuItem EditToolStripMenuItem;
+        private ToolStripMenuItem ClearCurrentTabToolStripMenuItem1;
+        private ToolStripMenuItem ClearAllTabsToolStripMenuItem1;
+        private ToolStripMenuItem copyCurrentToolStripMenuItem;
     }
 }
