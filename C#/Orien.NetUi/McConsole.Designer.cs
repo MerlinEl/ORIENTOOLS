@@ -38,9 +38,10 @@ namespace Orien.NetUi {
             this.AboutMcConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.EditToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyCurrentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ClearCurrentTabToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ClearAllTabsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyCurrentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.BtnTopmost = new System.Windows.Forms.Button();
             this.MainTab.SuspendLayout();
             this.TabPage1.SuspendLayout();
             this.MainMenu.SuspendLayout();
@@ -204,6 +205,13 @@ namespace Orien.NetUi {
             this.EditToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.EditToolStripMenuItem.Text = "Edit";
             // 
+            // copyCurrentToolStripMenuItem
+            // 
+            this.copyCurrentToolStripMenuItem.Name = "copyCurrentToolStripMenuItem";
+            this.copyCurrentToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.copyCurrentToolStripMenuItem.Text = "Copy";
+            this.copyCurrentToolStripMenuItem.Click += new System.EventHandler(this.OncopyCurrentToolStripMenuItem_Click);
+            // 
             // ClearCurrentTabToolStripMenuItem1
             // 
             this.ClearCurrentTabToolStripMenuItem1.Name = "ClearCurrentTabToolStripMenuItem1";
@@ -218,16 +226,21 @@ namespace Orien.NetUi {
             this.ClearAllTabsToolStripMenuItem1.Text = "Clear All";
             this.ClearAllTabsToolStripMenuItem1.Click += new System.EventHandler(this.OnclearAllTabsToolStripMenuItem1_Click);
             // 
-            // copyCurrentToolStripMenuItem
+            // BtnTopmost
             // 
-            this.copyCurrentToolStripMenuItem.Name = "copyCurrentToolStripMenuItem";
-            this.copyCurrentToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.copyCurrentToolStripMenuItem.Text = "Copy";
-            this.copyCurrentToolStripMenuItem.Click += new System.EventHandler(this.OncopyCurrentToolStripMenuItem_Click);
+            this.BtnTopmost.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnTopmost.Location = new System.Drawing.Point(874, 1);
+            this.BtnTopmost.Name = "BtnTopmost";
+            this.BtnTopmost.Size = new System.Drawing.Size(28, 23);
+            this.BtnTopmost.TabIndex = 8;
+            this.BtnTopmost.Text = "∇";
+            this.BtnTopmost.UseVisualStyleBackColor = true;
+            this.BtnTopmost.Click += new System.EventHandler(this.BtnTopMost_Click);
             // 
             // McConsole
             // 
             this.ClientSize = new System.Drawing.Size(1008, 362);
+            this.Controls.Add(this.BtnTopmost);
             this.Controls.Add(this.BtnMin);
             this.Controls.Add(this.BtnMax);
             this.Controls.Add(this.BtnClose);
@@ -266,5 +279,6 @@ namespace Orien.NetUi {
         private ToolStripMenuItem ClearCurrentTabToolStripMenuItem1;
         private ToolStripMenuItem ClearAllTabsToolStripMenuItem1;
         private ToolStripMenuItem copyCurrentToolStripMenuItem;
+        private Button BtnTopmost;
     }
 }

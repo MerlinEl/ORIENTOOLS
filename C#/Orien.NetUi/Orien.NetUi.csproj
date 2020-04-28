@@ -66,6 +66,9 @@
     <Compile Include="McImageToolTip.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="McMaxConsole.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="McPopUpProgressBar.cs">
       <SubType>Form</SubType>
     </Compile>

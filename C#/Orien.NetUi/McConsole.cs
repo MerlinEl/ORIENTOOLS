@@ -7,7 +7,6 @@ using System.Windows.Forms;
 
 namespace Orien.NetUi {
     public partial class McConsole : Form {
-        private readonly Form form;
         //private readonly ListBox autoCompleteBox;
         private enum CMD {
             Help = 0,
@@ -18,12 +17,12 @@ namespace Orien.NetUi {
         }
 
         #region Constructor
+
         public McConsole() {
             InitializeComponent();
         }
         public McConsole(Form parent) {
             if (parent != null) {
-                form = this;
                 this.Owner = parent;
                 parent.FormClosed += new FormClosedEventHandler(OnOwnerClosed);
             }
@@ -35,22 +34,35 @@ namespace Orien.NetUi {
         #endregion
 
         #region Public Methods
+        /// <summary>
+        /// CConsole = new McConsole(progBar);
+        /// CConsole.Log("hello");
+        /// CConsole.Log("hello Body", "Personal");
+        /// CConsole.Log("hello Body a:{0} b:{1}", "Formated", new object[] { 15, "Custom String" });
+        /// </summary>
+        /// <param name="msg"></param>
         public void Log(string msg) => Log(msg, "Console", null);
         public void Log(string msg, string tabName) => Log(msg, tabName, null);
         public void Log(string msg, string tabName, params object[] args) {
 
             if (args != null) msg = string.Format(msg, args);
+            if (!this.Visible) this.Visible = true;
             if (tabName == "Console") {
 
-                GetCurrentTabPage().GetTextBox().AppendText(msg);
+                RichTextBox1.AppendText(msg + "\n");
 
             } else {
 
-                GetOrCreateTab(tabName).AppendText(msg);
+                GetOrCreateTab(tabName).AppendText(msg + "\n");
             }
             //if (console_parent != null) this.ShowDialog(console_parent); else this.Show();
             this.Show();
         }
+
+        #endregion
+
+        #region Protected Methods
+        protected RichTextBox CurrentRichTextBox => GetCurrentTabPage().GetTextBox();
 
         #endregion
 
@@ -91,19 +103,15 @@ namespace Orien.NetUi {
             }
             return null;
         }
-
-        private void RunCmd(string cmd) {
-            if (cmd.Length == 0) {
-                return;
-            }
-
+        virtual public void RunCmd(string cmd) {
+            if (cmd.Length == 0) return;
             if (Enum.TryParse(cmd, true, out CMD n)) { //parse the enum with ignoreCase flag 
                 Console.WriteLine("n:{0}", n);
                 switch (n) {
 
                     case CMD.Help: ShowCommands(); break;
-                    case CMD.Hide: form.Hide(); break;
-                    case CMD.Close: this.Close(); break;
+                    case CMD.Hide: Hide(); break;
+                    case CMD.Close: Close(); break;
                     case CMD.Clear: CurrentRichTextBox.Text = ""; break;
                     default: Log("\nCommand: ( " + cmd + " ) is not recognized."); break;
                 }
@@ -122,7 +130,7 @@ namespace Orien.NetUi {
         private TabPage GetOrCreateTab(string tabName) {
 
             TabPage tp = GetTab(tabName);
-            return tp != null ? tp : AddTab(tabName);
+            return tp ?? AddTab(tabName);
         }
 
         private TabPage GetTab(string tabName) {
@@ -135,15 +143,15 @@ namespace Orien.NetUi {
             return null;
         }
 
-        private RichTextBox CurrentRichTextBox => GetCurrentTabPage().GetTextBox();
-
         private TabPage GetCurrentTabPage() {
             return this.MainTab.TabPages.Count > 0 ? this.MainTab.SelectedTab : null;
         }
 
         private TabPage AddTab(string tabName) {
 
-            TabPage tp = new TabPage(tabName);
+            TabPage tp = new TabPage(tabName) {
+                Name = tabName
+            };
             RichTextBox rtb = new RichTextBox {
                 AcceptsTab = false,
                 ForeColor = Color.FromArgb(200, 200, 200),
@@ -151,8 +159,7 @@ namespace Orien.NetUi {
                 WordWrap = false,
                 ReadOnly = true,
                 Dock = DockStyle.Fill,
-                Name = "rtb",
-                Text = "..."
+                Name = "rtb"
             };
             tp.Controls.Add(rtb);
             this.MainTab.TabPages.Add(tp);
@@ -175,6 +182,9 @@ namespace Orien.NetUi {
         #endregion
 
         #region UI Events
+        private void BtnTopMost_Click(object sender, EventArgs e) {
+            TopMost = !TopMost;
+        }
 
         private void OnTitleMouseDown(object sender, MouseEventArgs e) {
             if (e.Button == MouseButtons.Left) {
@@ -192,20 +202,20 @@ namespace Orien.NetUi {
         }
 
         private void BtnClose_Click(object sender, EventArgs e) {
-            form.Close();
+            Close();
         }
 
         private void BtnMax_Click(object sender, EventArgs e) {
-            form.WindowState = form.WindowState == FormWindowState.Maximized ?
+            WindowState = WindowState == FormWindowState.Maximized ?
                 FormWindowState.Normal : FormWindowState.Maximized;
         }
 
         private void BtnMin_Click(object sender, EventArgs e) {
-            form.WindowState = FormWindowState.Minimized;
+            WindowState = FormWindowState.Minimized;
         }
 
         private void OnOwnerClosed(object sender, FormClosedEventArgs e) {
-            form.Close();
+            Close();
         }
 
         private void OnConsoleKeyDown(object sender, KeyEventArgs e) {
@@ -298,8 +308,13 @@ namespace Orien.NetUi {
             f.ShowDialog();
         }
 
+
         #endregion
 
+
+        #region TEST
+        //
+        #endregion
 
     }
 
