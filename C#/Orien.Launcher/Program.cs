@@ -49,8 +49,8 @@ namespace Orien.Launcher {
                 ToolTipTitle = "Button Tooltip"
             };
             //myToolTip1.IsBalloon = false;
-            myToolTip1.SetFont("Verdana", 12, FontStyle.Bold, McGetCs.NewColor(0, 32, 64));
-            myToolTip1.BorderColor = McGetCs.NewColor(1, 247, 46);
+            myToolTip1.SetFont("Verdana", 12, FontStyle.Bold, Color.FromArgb(0, 32, 64));
+            myToolTip1.BorderColor = Color.FromArgb(1, 247, 46);
             myToolTip1.SetToolTip(progBar, "Button 1. ToolTip with Image");
             progBar.Tag = Resources.tltp_flatten_01;
             progBar.Show();
@@ -73,16 +73,16 @@ namespace Orien.Launcher {
             */
         }
 
-        public static void CreateTestForm() {
+        /*public static void CreateTestForm() {
             _ = new Size(800, 600);
             Form aForm = new Form {
                 Text = @"About Us"
             };
             aForm.Controls.Add(new Label() { Text = "Version 5.0" });
             aForm.ShowDialog();  // Or just use Show(); if you don't want it to be modal.
-        }
+        }*/
 
-        public static void TestRoundLabel() {
+        /*public static void TestRoundLabel() {
             Form aForm = new Form {
                 Text = @"Label test:"
             };
@@ -105,6 +105,6 @@ namespace Orien.Launcher {
         public static void DynObjTest2() {
             SetMemberBinder bi = new SetMemberBinderChild("hola", false);
             Console.WriteLine("this is: " + bi.Name);
-        }
+        }*/
     }
 }

@@ -1,5 +1,3 @@
-D:\ReneBaca\Aprog\ORIENTOOLS\C#\Orien.Tools\bin\Debug\Orien.Tools.dll
-D:\ReneBaca\Aprog\ORIENTOOLS\C#\Orien.Tools\bin\Debug\Orien.Tools.pdb
 D:\ReneBaca\Aprog\ORIENTOOLS\C#\Orien.Tools\obj\Debug\Orien.Tools.csprojAssemblyReference.cache
 D:\ReneBaca\Aprog\ORIENTOOLS\C#\Orien.Tools\obj\Debug\Orien.Tools.csproj.CoreCompileInputs.cache
 D:\ReneBaca\Aprog\ORIENTOOLS\C#\Orien.Tools\obj\Debug\Orien.Tools.dll
@@ -12,7 +10,4 @@ E:\Aprog\Orien\OrienTools\C#\Orien.Tools\obj\Debug\Orien.Tools.dll
 E:\Aprog\Orien\OrienTools\C#\Orien.Tools\obj\Debug\Orien.Tools.pdb
 E:\Aprog\Orien\OrienTools\C#\Orien.Tools\bin\Debug\Newtonsoft.Json.xml
 E:\Aprog\Orien\OrienTools\C#\Orien.Tools\obj\Debug\Orien.Tools.csproj.CopyComplete
-D:\ReneBaca\Aprog\ORIENTOOLS\C#\Orien.Tools\bin\Debug\Newtonsoft.Json.dll
-D:\ReneBaca\Aprog\ORIENTOOLS\C#\Orien.Tools\bin\Debug\Newtonsoft.Json.xml
-D:\ReneBaca\Aprog\ORIENTOOLS\C#\Orien.Tools\obj\Debug\Orien.Tools.csproj.CopyComplete
 E:\Aprog\Orien\OrienTools\C#\Orien.Tools\bin\Debug\Newtonsoft.Json.dll

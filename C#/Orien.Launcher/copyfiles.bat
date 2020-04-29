@@ -1,8 +1,5 @@
-::call "$(SolutionDir)scripts\copyfiles.bat"
+SET OTSourceDir="%~dp0.\bin\Debug\"
+SET OTTargetDir="%~dp0..\..\..\Micra\Micra4\App\Orien_Tools\"
 
-::SET CopyFilesOnBuild = False
-:: if $(ConfigurationName) == "Debug" goto skip
-::if $(CopyFilesOnBuild) == False goto skip
-xcopy $(ProjectDir)bin\Debug\Orien.Tools.dll $(SolutionDir)..\..\..\Micra\Micra4\App\Assembly /Y /I
-xcopy $(ProjectDir)bin\Debug\Orien.NetUi.dll $(SolutionDir)..\..\..\Micra\Micra4\App\Assembly /Y /I
-:: :skip
+xcopy /s /y "%OTSourceDir%Orien.Tools.dll" "%OTTargetDir%"
+xcopy /s /y "%OTSourceDir%Orien.NetUi.dll" "%OTTargetDir%"
