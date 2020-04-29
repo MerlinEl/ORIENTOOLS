@@ -1,0 +1,21 @@
+﻿1>------ Build started: Project: Orien.Tools, Configuration: Debug Any CPU ------
+1>  Transitive merge
+1>  Merge PDBs: true
+1>  Merged assemblies: D:\ReneBaca\Aprog\ORIENTOOLS\C#\Orien.Tools\obj\Debug\Orien.Tools.dll;D:\ReneBaca\Aprog\ORIENTOOLS\C#\Orien.Launcher\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll;
+2>------ Build started: Project: Orien.NetUi, Configuration: Debug Any CPU ------
+2>  Transitive merge
+2>  Merge PDBs: true
+2>  Merged assemblies: D:\ReneBaca\Aprog\ORIENTOOLS\C#\Orien.NetUi\obj\Debug\Orien.NetUi.dll;D:\ReneBaca\Aprog\ORIENTOOLS\C#\Orien.Tools\bin\Debug\Orien.Tools.dll;D:\ReneBaca\Aprog\ORIENTOOLS\C#\Orien.Launcher\packages\WindowsBase.4.6.1055.0\lib\WindowsBase.dll;
+3>------ Build started: Project: Orien.Launcher, Configuration: Debug Any CPU ------
+3>  Transitive merge
+3>  Merge PDBs: true
+3>  Merged assemblies: D:\ReneBaca\Aprog\ORIENTOOLS\C#\Orien.Launcher\obj\Debug\Orien.Launcher.exe;D:\ReneBaca\Aprog\ORIENTOOLS\C#\Orien.NetUi\bin\Debug\Orien.NetUi.dll;D:\ReneBaca\Aprog\ORIENTOOLS\C#\Orien.Tools\bin\Debug\Orien.Tools.dll;
+3>  Ignoring unknown option: 'AllowDuplicateTypes:*'.
+3>  Usage: ilmerge [/lib:directory]* [/log[:filename]] [/keyfile:filename | /keycontainer:containername [/delaysign]] [/internalize[:filename]] [/t[arget]:(library|exe|winexe)] [/closed] [/ndebug] [/ver:version] [/copyattrs [/allowMultiple] [/keepFirst]] [/xmldocs] [/attr:filename] [/targetplatform:<version>[,<platformdir>] | /v1 | /v1.1 | /v2 | /v4] [/useFullPublicKeyForReferences] [/wildcards] [/zeroPeKind] [/allowDup:type]* [/union] [/align:n] /out:filename <primary assembly> [<other assemblies>...]
+3>  0 File(s) copied
+3>  File not found - Orien.Tools.dll
+3>  File not found - Orien.NetUi.dll
+3>  0 File(s) copied
+3>C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Current\Bin\Microsoft.Common.CurrentVersion.targets(5258,5): error MSB3073: The command "D:\ReneBaca\Aprog\ORIENTOOLS\C#\Orien.Launcher\packages\ILMerge.3.0.29\build\..\tools\net452\ILMerge.exe /AllowDuplicateTypes:* /allowDup /out:Orien.dll Orien.Tools.dll Orien.NetUi.dll
+3>C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Current\Bin\Microsoft.Common.CurrentVersion.targets(5258,5): error MSB3073: D:\ReneBaca\Aprog\ORIENTOOLS\C#\Orien.Launcher\copyfiles.bat" exited with code 4.
+========== Build: 2 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========

@@ -1,10 +1,7 @@
 ﻿using Orien.Launcher.Properties;
 using Orien.NetUi;
-using Orien.Tools;
 using System;
 using System.Drawing;
-using System.Dynamic;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace Orien.Launcher {
