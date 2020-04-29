@@ -21,6 +21,11 @@ namespace Orien.NetUi {
             /// </summary>
             /// <param name="msg"></param>
             /// if (msg == "@") { RichTextBox1.Text = ""; } RichTextBox1.AppendText(msg + "\n");
+            /// 
+
+            /*public static void RunMxs(string cmd) {
+                ManagedServices.MaxscriptSDK.ExecuteMaxscriptCommand(cmd);
+            }*/
         }
     }
 }

@@ -42,6 +42,7 @@ namespace Orien.NetUi {
             this.ClearCurrentTabToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ClearAllTabsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.BtnTopmost = new System.Windows.Forms.Button();
+            this.acceleratorsSwitchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MainTab.SuspendLayout();
             this.TabPage1.SuspendLayout();
             this.MainMenu.SuspendLayout();
@@ -200,7 +201,8 @@ namespace Orien.NetUi {
             this.EditToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.copyCurrentToolStripMenuItem,
             this.ClearCurrentTabToolStripMenuItem1,
-            this.ClearAllTabsToolStripMenuItem1});
+            this.ClearAllTabsToolStripMenuItem1,
+            this.acceleratorsSwitchToolStripMenuItem});
             this.EditToolStripMenuItem.Name = "EditToolStripMenuItem";
             this.EditToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.EditToolStripMenuItem.Text = "Edit";
@@ -236,6 +238,13 @@ namespace Orien.NetUi {
             this.BtnTopmost.Text = "∇";
             this.BtnTopmost.UseVisualStyleBackColor = true;
             this.BtnTopmost.Click += new System.EventHandler(this.BtnTopMost_Click);
+            // 
+            // acceleratorsSwitchToolStripMenuItem
+            // 
+            this.acceleratorsSwitchToolStripMenuItem.Name = "acceleratorsSwitchToolStripMenuItem";
+            this.acceleratorsSwitchToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.acceleratorsSwitchToolStripMenuItem.Text = "AcceleratorsSwitch";
+            this.acceleratorsSwitchToolStripMenuItem.Click += new System.EventHandler(this.acceleratorsSwitchToolStripMenuItem_Click);
             // 
             // McConsole
             // 
@@ -280,5 +289,6 @@ namespace Orien.NetUi {
         private ToolStripMenuItem ClearAllTabsToolStripMenuItem1;
         private ToolStripMenuItem copyCurrentToolStripMenuItem;
         private Button BtnTopmost;
+        private ToolStripMenuItem acceleratorsSwitchToolStripMenuItem;
     }
 }

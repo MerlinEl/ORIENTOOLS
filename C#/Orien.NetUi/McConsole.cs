@@ -8,6 +8,7 @@ using System.Windows.Forms;
 namespace Orien.NetUi {
     public partial class McConsole : Form {
         //private readonly ListBox autoCompleteBox;
+        private bool Suppres_Keypress = false;
         private enum CMD {
             Help = 0,
             Hide = 1,
@@ -56,7 +57,7 @@ namespace Orien.NetUi {
                 GetOrCreateTab(tabName).AppendText(msg + "\n");
             }
             //if (console_parent != null) this.ShowDialog(console_parent); else this.Show();
-            this.Show();
+            if ( Visible == false ) Show();
         }
 
         #endregion
@@ -81,11 +82,11 @@ namespace Orien.NetUi {
                 AutoCompleteBox.Show();
                 AutoCompleteBox.Location = new Point(
 
-                    0, CurrentRichTextBox.GetCaretPoint().Y + CurrentRichTextBox.GetLineHeight(word)
+                    0, RichTextBox1.GetCaretPoint().Y + RichTextBox1.GetLineHeight(word)
                 );
-                Focus();
                 //AutoCompleteBox.BringToFront();
             }
+            RichTextBox1.Focus();
         }
 
         internal string GetCommand() {
@@ -220,9 +221,16 @@ namespace Orien.NetUi {
 
         private void OnConsoleKeyDown(object sender, KeyEventArgs e) {
 
-            if (e.KeyCode == Keys.Enter) {
+            e.SuppressKeyPress = Suppres_Keypress;
+            if (e.KeyCode == Keys.Escape) {
+
+                Hide();
+
+            } else if (e.KeyCode == Keys.Enter) {
+
                 string cmd = GetCommand();
                 if (cmd != null) RunCmd(cmd);
+
             } else if (e.KeyCode == Keys.Tab && AutoCompleteBox.Visible) {
 
                 e.SuppressKeyPress = true; //prevent tab to be inserted in textbox
@@ -309,12 +317,15 @@ namespace Orien.NetUi {
         }
 
 
-        #endregion
 
+        #endregion
 
         #region TEST
-        //
+        private void acceleratorsSwitchToolStripMenuItem_Click(object sender, EventArgs e) {
+            Suppres_Keypress = !Suppres_Keypress;
+        }
         #endregion
+
 
     }
 
