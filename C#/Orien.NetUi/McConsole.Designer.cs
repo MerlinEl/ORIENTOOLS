@@ -163,18 +163,17 @@ namespace Orien.NetUi {
             // 
             // TabPage1
             // 
+            this.TabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(115)))), ((int)(((byte)(215)))));
             this.TabPage1.Controls.Add(this.AutoCompleteBox);
             this.TabPage1.Controls.Add(this.ProgressBar1);
             this.TabPage1.Controls.Add(this.RichTextBox1);
+            this.TabPage1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(212)))), ((int)(((byte)(254)))));
             this.TabPage1.Location = new System.Drawing.Point(4, 22);
             this.TabPage1.Name = "TabPage1";
             this.TabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.TabPage1.Size = new System.Drawing.Size(984, 314);
             this.TabPage1.TabIndex = 0;
             this.TabPage1.Text = "Console";
-            this.TabPage1.UseVisualStyleBackColor = true;
-            this.TabPage1.BackColor = Color.FromArgb(165, 115, 215);
-            this.TabPage1.ForeColor = Color.FromArgb(233, 212, 254);
             // 
             // AutoCompleteBox
             // 
