@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace Orien.NetUi {
@@ -19,10 +20,8 @@ namespace Orien.NetUi {
 
         #region Constructor
 
-        public McConsole() {
-            InitializeComponent();
-        }
-        public McConsole(Form parent) {
+        public McConsole() :base(){}
+        public McConsole(Form parent = null) {
             if (parent != null) {
                 this.Owner = parent;
                 parent.FormClosed += new FormClosedEventHandler(OnOwnerClosed);
@@ -57,7 +56,7 @@ namespace Orien.NetUi {
                 GetOrCreateTab(tabName).AppendText(msg + "\n");
             }
             //if (console_parent != null) this.ShowDialog(console_parent); else this.Show();
-            if ( Visible == false ) Show();
+            if (Visible == false) Show();
         }
 
         #endregion
@@ -114,11 +113,16 @@ namespace Orien.NetUi {
                     case CMD.Hide: Hide(); break;
                     case CMD.Close: Close(); break;
                     case CMD.Clear: CurrentRichTextBox.Text = ""; break;
+                    case CMD.ClearAll: ClearAllTabs(); break;
                     default: Log("\nCommand: ( " + cmd + " ) is not recognized."); break;
                 }
             } else {
                 Log("\nCommand: ( " + cmd + " ) is not recognized.");
             }
+        }
+
+        private void ClearAllTabs() {
+            foreach (TabPage tp in MainTab.TabPages) tp.GetTextBox().Clear();
         }
 
         private void ShowCommands() {
@@ -167,13 +171,17 @@ namespace Orien.NetUi {
             return tp;
         }
 
+#pragma warning disable IDE0051 // Remove unused private members
         private void RemoveTab(string tabName) {
+#pragma warning restore IDE0051 // Remove unused private members
 
             TabPage tp = GetTab(tabName);
             if (tp != null) MainTab.TabPages.Remove(tp);
         }
 
+#pragma warning disable IDE0051 // Remove unused private members
         private void ClearTabs() { //remove all except first one
+#pragma warning restore IDE0051 // Remove unused private members
 
             TabPage tp = MainTab.TabPages["Console"];
             this.MainTab.TabPages.Clear();
@@ -231,10 +239,19 @@ namespace Orien.NetUi {
                 string cmd = GetCommand();
                 if (cmd != null) RunCmd(cmd);
 
-            } else if (e.KeyCode == Keys.Tab && AutoCompleteBox.Visible) {
+            } else if (AutoCompleteBox.Visible) {
 
-                e.SuppressKeyPress = true; //prevent tab to be inserted in textbox
-                CurrentRichTextBox.ReplaceLastLine(AutoCompleteBox.SelectedItem.ToString());
+                if (e.KeyCode == Keys.Tab) {
+
+                    e.SuppressKeyPress = true; //prevent tab to be inserted in textbox
+                    CurrentRichTextBox.ReplaceLastLine(AutoCompleteBox.SelectedItem.ToString());
+
+                } else if ( //prevent popup Autocomplete ListBox in other sitution than Typing Letters
+                e.KeyCode == Keys.Up || e.KeyCode == Keys.Down ||
+                e.KeyCode == Keys.Left || e.KeyCode == Keys.Right
+                ) {
+                    e.SuppressKeyPress = true;
+                }
             }
         }
 
@@ -262,13 +279,23 @@ namespace Orien.NetUi {
                 e.KeyCode == Keys.Up || e.KeyCode == Keys.Down ||
                 e.KeyCode == Keys.Left || e.KeyCode == Keys.Right
                 ) { //do nothing
-
+                e.SuppressKeyPress = true;
             } else {
                 AutocompleteCheck();
             }
         }
 
         private void OnTabIndexChanged(object sender, EventArgs e) {
+        }
+
+        private void OnTabPageDrawn(object sender, DrawItemEventArgs e) {
+            TabPage page = MainTab.TabPages[e.Index];
+            e.Graphics.FillRectangle(new SolidBrush(page.BackColor), e.Bounds);
+
+            Rectangle paddedBounds = e.Bounds;
+            int yOffset = (e.State == DrawItemState.Selected) ? -2 : 1;
+            paddedBounds.Offset(1, yOffset);
+            TextRenderer.DrawText(e.Graphics, page.Text, e.Font, paddedBounds, page.ForeColor);
         }
 
         #endregion
@@ -290,9 +317,8 @@ namespace Orien.NetUi {
         }
         private void OnclearAllTabsToolStripMenuItem1_Click(object sender, EventArgs e) {
 
-            foreach (TabPage tp in MainTab.TabPages) tp.GetTextBox().Clear();
+            ClearAllTabs();
         }
-
         private void OncopyCurrentToolStripMenuItem_Click(object sender, EventArgs e) {
             Clipboard.SetText(CurrentRichTextBox.Text);
         }
@@ -321,11 +347,11 @@ namespace Orien.NetUi {
         #endregion
 
         #region TEST
-        private void acceleratorsSwitchToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void OnacceleratorsSwitchToolStripMenuItem_Click(object sender, EventArgs e) {
             Suppres_Keypress = !Suppres_Keypress;
         }
-        #endregion
 
+        #endregion
 
     }
 

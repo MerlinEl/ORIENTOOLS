@@ -7,23 +7,6 @@ namespace Orien.NetUi {
 
     public class McPopup {
         public const string Awesome = "Awesome";
-        static void OrienTools() {
-            AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(AssemblyResolver);
-        }
-
-        static Assembly AssemblyResolver(object sender, ResolveEventArgs args) {
-            Assembly thisAssembly = Assembly.GetExecutingAssembly();
-
-            //this is the resource name of the assembly I want to load
-            string resourceName = "Orien.NetUi.Orien.Tools.dll";
-            Stream resourceStream = thisAssembly.GetManifestResourceStream(resourceName);
-
-            //convert the stream to something we can load as an assembly
-            byte[] buffer = new byte[resourceStream.Length];
-            resourceStream.Read(buffer, 0, buffer.Length);
-            Assembly referencedAssembly = Assembly.Load(buffer);
-            return referencedAssembly;
-        }
         /// <summary>
         /// Define PopUp Windows Type
         /// </summary>
@@ -48,7 +31,7 @@ namespace Orien.NetUi {
 
         public static Form Create(string msg, string title, WindowType type, Options options) { //for progressbar
             //Array.CreateInstance(typeof(Int32),1, 2)
-            return GetWindow(msg, "", type, options);
+            return GetWindow(msg, title, type, options);
         }
 
         public static object GetTypes() => new WindowType();
@@ -72,6 +55,7 @@ namespace Orien.NetUi {
         }*/
 
         private static Form GetWindow(string msg, string title, WindowType type, Options options) {
+            Console.WriteLine(title);
             Form form = new Form();
             //var map = EnumNamedValues<WindowType>();
             switch (type) {

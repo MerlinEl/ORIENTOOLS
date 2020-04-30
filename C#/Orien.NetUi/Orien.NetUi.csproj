@@ -54,18 +54,21 @@
     <Compile Include="McButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="McConsole.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="McConsole.Designer.cs">
-      <DependentUpon>McConsole.cs</DependentUpon>
-    </Compile>
     <Compile Include="McConsoleAbout.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="McConsoleAbout.Designer.cs">
       <DependentUpon>McConsoleAbout.cs</DependentUpon>
     </Compile>
+    <Compile Include="McConsole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="McConsole.Designer.cs">
+      <DependentUpon>McConsole.cs</DependentUpon>
+    </Compile>
+    <None Include="Backup\McFlatTab.bk">
+      <SubType>Component</SubType>
+    </None>
     <Compile Include="McImageToolTip.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -92,6 +95,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Win32.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -103,20 +107,18 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="McConsole.resx">
-      <DependentUpon>McConsole.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="McConsoleAbout.resx">
       <DependentUpon>McConsoleAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="McConsole.resx">
+      <DependentUpon>McConsole.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Backup\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Resources\TextFile1.txt" />
   </ItemGroup>

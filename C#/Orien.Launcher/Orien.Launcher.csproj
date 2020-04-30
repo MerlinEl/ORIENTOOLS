@@ -15,6 +15,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -64,16 +65,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Orien.NetUi\Orien.NetUi.csproj">
-      <Project>{bb779fa8-a6c3-41e1-b7b9-9809df8c3504}</Project>
-      <Name>Orien.NetUi</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Orien.Tools\Orien.Tools.csproj">
-      <Project>{44e5920e-191f-4ef8-b153-a31518e23c29}</Project>
-      <Name>Orien.Tools</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="info\CircProgb.txt" />
     <Content Include="info\Csharp_to_Max.txt" />
     <Content Include="info\mcRadialProgressBar.txt" />
@@ -86,6 +77,16 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Orien.NetUi\Orien.NetUi.csproj">
+      <Project>{bb779fa8-a6c3-41e1-b7b9-9809df8c3504}</Project>
+      <Name>Orien.NetUi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orien.Tools\Orien.Tools.csproj">
+      <Project>{44e5920e-191f-4ef8-b153-a31518e23c29}</Project>
+      <Name>Orien.Tools</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
