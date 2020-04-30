@@ -41,10 +41,10 @@ namespace Orien.Tools {
         /// <returns></returns>
         public static Point GetBoundsCenter(Rectangle bounds1, Rectangle bounds2, Point offset = new Point()) { //, string archonPoint = "left"
 
-            int center_x = bounds1.X + (bounds1.Width / 2);
-            int center_y = bounds1.Y + (bounds1.Height / 2);
-            center_x -= (bounds2.Width / 2) + offset.X;
-            center_y -= (bounds2.Height / 2) + offset.Y;
+            int center_x = bounds1.X + ( bounds1.Width / 2 );
+            int center_y = bounds1.Y + ( bounds1.Height / 2 );
+            center_x -= ( bounds2.Width / 2 ) + offset.X;
+            center_y -= ( bounds2.Height / 2 ) + offset.Y;
             return new Point(center_x, center_y);
         }
         /// <summary>

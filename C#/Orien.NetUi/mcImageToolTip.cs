@@ -101,7 +101,7 @@ namespace Orien.NetUi {
                 return base.OwnerDraw;
             }
             set {
-                if (value) {
+                if ( value ) {
                     this.ToolTipIcon = ToolTipIcon.None;
                     this.ToolTipTitle = string.Empty;
                 }
@@ -120,7 +120,7 @@ namespace Orien.NetUi {
                 return base.ToolTipIcon;
             }
             set {
-                if (!OwnerDraw) {
+                if ( !OwnerDraw ) {
                     base.ToolTipIcon = value;
                 }
             }
@@ -136,7 +136,7 @@ namespace Orien.NetUi {
                 return base.ToolTipTitle;
             }
             set {
-                if (!OwnerDraw) {
+                if ( !OwnerDraw ) {
                     base.ToolTipTitle = value;
                 }
             }
@@ -183,7 +183,7 @@ namespace Orien.NetUi {
             get { return _autoSize; }
             set {
                 _autoSize = value;
-                if (_autoSize) {
+                if ( _autoSize ) {
                     _textFormat.Trimming = StringTrimming.None;
                 } else {
                     _textFormat.Trimming = StringTrimming.EllipsisCharacter;
@@ -199,7 +199,7 @@ namespace Orien.NetUi {
         public Size Size {
             get { return _size; }
             set {
-                if (!_autoSize) {
+                if ( !_autoSize ) {
                     _size = value;
                     _toolTipRectangle.Size = _size;
                 }
@@ -240,7 +240,7 @@ namespace Orien.NetUi {
 
                 this.Popup += new PopupEventHandler(CustomizedToolTip_Popup);
                 this.Draw += new DrawToolTipEventHandler(CustomizedToolTip_Draw);
-            } catch (Exception ex) {
+            } catch ( Exception ex ) {
                 string logMessage = "Exception in mcImageToolTip.mcImageToolTip () " + ex.ToString();
                 Trace.TraceError(logMessage);
                 throw;
@@ -268,27 +268,27 @@ namespace Orien.NetUi {
             try {
                 //Dispose of the disposable objects.
                 try {
-                    if (disposing) {
-                        if (_font != null) {
+                    if ( disposing ) {
+                        if ( _font != null ) {
                             _font.Dispose();
                         }
-                        if (_textBrush != null) {
+                        if ( _textBrush != null ) {
                             _textBrush.Dispose();
                         }
-                        if (_backColorBrush != null) {
+                        if ( _backColorBrush != null ) {
                             _backColorBrush.Dispose();
                         }
-                        if (_borderBrush != null) {
+                        if ( _borderBrush != null ) {
                             _borderBrush.Dispose();
                         }
-                        if (_textFormat != null) {
+                        if ( _textFormat != null ) {
                             _textFormat.Dispose();
                         }
                     }
                 } finally {
                     base.Dispose(disposing);
                 }
-            } catch (Exception ex) {
+            } catch ( Exception ex ) {
                 string logMessage = "Exception in mcImageToolTip.Dispose (bool) " + ex.ToString();
                 Trace.TraceError(logMessage);
                 throw;
@@ -309,12 +309,12 @@ namespace Orien.NetUi {
                 e.Graphics.FillRectangle(_backColorBrush, _imageRectangle);
 
                 Control parent = e.AssociatedControl;
-                if (parent.Tag is Image toolTipImage) {
+                if ( parent.Tag is Image toolTipImage ) {
                     _imageRectangle.Width = _internalImageWidth;
                     _textRectangle = new Rectangle(
                         _imageRectangle.Right,
                         _imageRectangle.Top,
-                        (_toolTipRectangle.Width - _imageRectangle.Right - BORDER_THICKNESS),
+                        ( _toolTipRectangle.Width - _imageRectangle.Right - BORDER_THICKNESS ),
                         _imageRectangle.Height
                     );
                     _textRectangle.Location = new Point(_imageRectangle.Right, _imageRectangle.Top);
@@ -325,7 +325,7 @@ namespace Orien.NetUi {
                 } else {
                     e.Graphics.DrawString(e.ToolTipText, _font, _textBrush, _imageRectangle, _textFormat);
                 }
-            } catch (Exception ex) {
+            } catch ( Exception ex ) {
                 string logMessage = "Exception in mcImageToolTip.BlindHeaderToolTip_Draw (object, DrawToolTipEventArgs) " + ex.ToString();
                 Trace.TraceError(logMessage);
                 throw;
@@ -339,14 +339,14 @@ namespace Orien.NetUi {
         /// <param name="e">e</param>
         private void CustomizedToolTip_Popup(object sender, PopupEventArgs e) {
             try {
-                if (OwnerDraw) {
-                    if (!_autoSize) {
+                if ( OwnerDraw ) {
+                    if ( !_autoSize ) {
                         e.ToolTipSize = _size;
                         _internalImageWidth = _size.Height;
                     } else {
                         Size oldSize = e.ToolTipSize;
                         Control parent = e.AssociatedControl;
-                        if (parent.Tag is Image toolTipImage) {
+                        if ( parent.Tag is Image toolTipImage ) {
                             _internalImageWidth = oldSize.Height;
                             oldSize.Width += _internalImageWidth + PADDING;
                         } else {
@@ -355,7 +355,7 @@ namespace Orien.NetUi {
                         e.ToolTipSize = oldSize;
                     }
                 }
-            } catch (Exception ex) {
+            } catch ( Exception ex ) {
                 string logMessage = "Exception in mcImageToolTip.CustomizedToolTip_Popup (object, PopupEventArgs) " + ex.ToString();
                 Trace.TraceError(logMessage);
                 throw;

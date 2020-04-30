@@ -20,7 +20,7 @@ namespace Orien.Tools {
         }
 
         public static int GetDaysOffset(DateTime StartDate, DateTime EndDate) {
-            return Convert.ToInt32((EndDate - StartDate).TotalDays);
+            return Convert.ToInt32(( EndDate - StartDate ).TotalDays);
         }
     }
 }

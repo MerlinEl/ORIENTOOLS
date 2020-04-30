@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Reflection;
 using System.Windows.Forms;
 
 namespace Orien.NetUi {
@@ -58,28 +56,28 @@ namespace Orien.NetUi {
             Console.WriteLine(title);
             Form form = new Form();
             //var map = EnumNamedValues<WindowType>();
-            switch (type) {
+            switch ( type ) {
                 case WindowType.E_Default:
-                    break;
+                break;
 
                 case WindowType.E_Warning:
-                    break;
+                break;
 
                 case WindowType.E_Error:
-                    break;
+                break;
 
                 case WindowType.E_Confirm:
-                    break;
+                break;
 
                 case WindowType.E_YesNo:
-                    break;
+                break;
 
                 case WindowType.E_Input:
-                    break;
+                break;
 
                 case WindowType.E_Progress:
-                    form = new McPopUpProgressBar(msg, options.ConfirmToClose, options.ShowButtonOnDone, true); //turn off last bool(Debug)
-                    break;
+                form = new McPopUpProgressBar(msg, options.ConfirmToClose, options.ShowButtonOnDone, true); //turn off last bool(Debug)
+                break;
             }
             return form;
         }

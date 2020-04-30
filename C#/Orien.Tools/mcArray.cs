@@ -5,7 +5,7 @@ namespace Orien.Tools {
 
         public static void AddItem<T>(List<T> list, T item, bool unique = false) {
 
-            if (unique && !list.Contains(item)) {
+            if ( unique && !list.Contains(item) ) {
                 list.Add(item);
             } else {
 
@@ -26,8 +26,8 @@ namespace Orien.Tools {
         /// <returns></returns>
         public static string IntArrayToString(this int[] input, bool newLine = false) {
             var result_str = newLine ? "\n" : "";
-            foreach (int i in input) {
-                result_str += "\t" + i.ToString() + (newLine ? "\n" : "");
+            foreach ( int i in input ) {
+                result_str += "\t" + i.ToString() + ( newLine ? "\n" : "" );
             }
             return result_str;
         }

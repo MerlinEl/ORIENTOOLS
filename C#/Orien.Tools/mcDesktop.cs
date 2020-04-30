@@ -23,7 +23,7 @@ namespace Orien.Tools {
         public static string SizeToString(Int64 bytes) {
             int counter = 0;
             decimal number = bytes;
-            while (Math.Round(number / 1024) >= 1) {
+            while ( Math.Round(number / 1024) >= 1 ) {
                 number /= 1024;
                 counter++;
             }
@@ -31,14 +31,14 @@ namespace Orien.Tools {
         }
 
         public static long GetFileSize(string fpath) {
-            if (!File.Exists(fpath)) {
+            if ( !File.Exists(fpath) ) {
                 return 0;
             }
 
             try {
                 FileInfo fileInfo = new FileInfo(fpath);
                 return fileInfo.Length;
-            } catch (Exception e) {
+            } catch ( Exception e ) {
                 Console.WriteLine("Failed to get file size for {0}. Exception: {1}", fpath, e.Message);
             }
             return 0;
@@ -47,7 +47,7 @@ namespace Orien.Tools {
         public static bool DeleteFile(string fpath) {
             try {
                 File.Delete(fpath);
-            } catch (Exception e) {
+            } catch ( Exception e ) {
                 Console.WriteLine("Unable to delete file {0}. Exception: {1}", fpath, e.Message);
                 return false;
             }
@@ -55,14 +55,14 @@ namespace Orien.Tools {
         }
 
         public static void ShowInExporer(string dir) {
-            if (DirectoryExists(dir)) {
+            if ( DirectoryExists(dir) ) {
                 Process.Start(dir);
             }
         }
         // Todo implement back response to prevent double run
         public static int RunFile(string fpath, bool waitForExit = false) {
             int exitCode = 0;
-            if (!File.Exists(fpath)) {
+            if ( !File.Exists(fpath) ) {
                 return 0;
             }
 
@@ -70,7 +70,7 @@ namespace Orien.Tools {
             proc.StartInfo.FileName = fpath;
             proc.StartInfo.Arguments = "-v -s -a";
             proc.Start();
-            if (waitForExit) {
+            if ( waitForExit ) {
                 proc.WaitForExit();
                 exitCode = proc.ExitCode;
             }
@@ -86,7 +86,7 @@ namespace Orien.Tools {
         public static bool ProvideDirectory(string dir) {
 
             bool exists = Directory.Exists(dir);
-            if (exists) { return true; } else {
+            if ( exists ) { return true; } else {
                 try {
                     Directory.CreateDirectory(dir);
                     return true;
@@ -100,11 +100,11 @@ namespace Orien.Tools {
         /// <param name="fpath_trgt"></param>
         /// <returns></returns>
         public static bool ReplaceFile(string fpath_src, string fpath_trgt) {
-            if (!fpath_trgt.Equals(fpath_src, StringComparison.InvariantCultureIgnoreCase)) {
+            if ( !fpath_trgt.Equals(fpath_src, StringComparison.InvariantCultureIgnoreCase) ) {
                 try {
                     File.Delete(fpath_trgt);
                     File.Move(fpath_src, fpath_trgt);
-                } catch (Exception e) {
+                } catch ( Exception e ) {
                     Console.WriteLine("Unable replace local file {0} with {1}, {2}", fpath_trgt, fpath_src, e.Message);
                     return false;
                 }

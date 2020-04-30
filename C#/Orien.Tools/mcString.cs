@@ -21,9 +21,9 @@ namespace Orien.Tools {
         public static string FilterStars(string str) => string.Join("", str.Split('*')); //rename to FilterChars(string str, char character)
         public static int IndexOfChar(char[] array, char ch) {
 
-            for (int i = 0; i < array.Length; i++) {
+            for ( int i = 0; i < array.Length; i++ ) {
 
-                if (array[i] == ch) {
+                if ( array[i] == ch ) {
                     return i;
                 }
             }

@@ -55,14 +55,14 @@ namespace Orien.Tools {
                 new string[block_length],
                 new string[block_length]
             };
-            for (var i = 0; i < result_input.Count; i++) { //for all blocks except last one
+            for ( var i = 0; i < result_input.Count; i++ ) { //for all blocks except last one
 
                 int num = mixer_array[i];
                 string in_block = shuffled_arr[i];
                 result_input[0][num] = in_block[0].ToString();
                 result_input[1][num] = in_block[1].ToString();
                 result_input[2][num] = in_block[2].ToString();
-                if (i == 0) { //insert last char (one time)
+                if ( i == 0 ) { //insert last char (one time)
 
                     num = mixer_array[mixer_array.Length - 1];
                     //replace strings

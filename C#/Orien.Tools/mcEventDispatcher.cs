@@ -28,8 +28,8 @@ namespace Orien.Tools {
         public void RemoveEventListener(string event_type, Action<McEventArgs> event_action) {
 
             // Console.WriteLine("mcEventDispatcher > RemoveEventListener >\n\tEvent_Type:\t" + event_type + "\n\tAction:\t" + event_action.ToString());
-            foreach (McEvent evt in REGISTRED_EVENTS) {
-                if (evt.eventType == event_type && evt.eventAction == event_action) {
+            foreach ( McEvent evt in REGISTRED_EVENTS ) {
+                if ( evt.eventType == event_type && evt.eventAction == event_action ) {
                     REGISTRED_EVENTS.Remove(evt);
                     break;
                 }
@@ -41,7 +41,7 @@ namespace Orien.Tools {
             McEvent evt = REGISTRED_EVENTS.Find(delegate (McEvent i) {
                 return i.eventType == event_type;
             });
-            if (evt != null) {
+            if ( evt != null ) {
                 evt.Dispatch(event_args);
             }
         }

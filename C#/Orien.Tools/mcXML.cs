@@ -7,7 +7,7 @@ namespace Orien.Tools {
         readonly XmlDocument doc;
         public string url = "";
         public bool loaded = false;
-        public string xmlNodeQuan = (typeof(XmlNode)).AssemblyQualifiedName;
+        public string xmlNodeQuan = ( typeof(XmlNode) ).AssemblyQualifiedName;
         /// <summary>
         /// Open or Create XML file
         /// </summary>
@@ -16,7 +16,7 @@ namespace Orien.Tools {
 
             url = xmlPath;
             doc = new XmlDocument();
-            if (File.Exists(xmlPath)) {
+            if ( File.Exists(xmlPath) ) {
 
                 doc.Load(xmlPath);
 
@@ -33,16 +33,16 @@ namespace Orien.Tools {
         *   nodePath  "/ACTIONS/Object/Clone_2"
         */
         public MaxXmlNode GetNode(string nodePath) {
-            if (nodePath.Length == 0) {
+            if ( nodePath.Length == 0 ) {
                 return null;
             }
 
             XmlNode target_node = doc.DocumentElement.SelectSingleNode(nodePath);
-            if (target_node == null) {
+            if ( target_node == null ) {
                 return null;
             }
 
-            return (new MaxXmlNode(doc, target_node, nodePath));
+            return ( new MaxXmlNode(doc, target_node, nodePath) );
         }
         /**
         *@Usage
@@ -50,18 +50,18 @@ namespace Orien.Tools {
         */
         public List<MaxXmlNode> GetNodes(string nodePath) {
 
-            if (nodePath.Length == 0) {
+            if ( nodePath.Length == 0 ) {
                 return new List<MaxXmlNode>();
             }
 
             XmlNode target_node = doc.DocumentElement.SelectSingleNode(nodePath);
-            if (target_node == null) {
+            if ( target_node == null ) {
                 return new List<MaxXmlNode>();
             }
 
             XmlNodeList nodes = target_node.ChildNodes;
             List<MaxXmlNode> nodes_list = new List<MaxXmlNode>();
-            foreach (XmlNode n in nodes) {
+            foreach ( XmlNode n in nodes ) {
                 nodes_list.Add(new MaxXmlNode(doc, n, nodePath));
             }
             return nodes_list;
@@ -84,17 +84,17 @@ namespace Orien.Tools {
         *   nodePath   "/Names/Name" 
         */
         public List<MaxXmlNode> GetNodesByName(string nodePath) {
-            if (nodePath.Length == 0) {
+            if ( nodePath.Length == 0 ) {
                 return new List<MaxXmlNode>();
             }
 
             XmlNodeList nodes = doc.DocumentElement.SelectNodes(nodePath);
-            if (nodes == null) {
+            if ( nodes == null ) {
                 return new List<MaxXmlNode>();
             }
 
             var nodes_list = new List<MaxXmlNode>();
-            foreach (XmlNode n in nodes) {
+            foreach ( XmlNode n in nodes ) {
                 nodes_list.Add(new MaxXmlNode(doc, n, nodePath));
             }
             return nodes_list;
@@ -106,16 +106,16 @@ namespace Orien.Tools {
         *   find one person in xml
         */
         public MaxXmlNode FindNodeByName(string nodePath, string nodeName) {
-            if (nodePath.Length == 0) {
+            if ( nodePath.Length == 0 ) {
                 return null;
             }
 
             XmlNodeList nodes = doc.DocumentElement.SelectNodes(nodePath);
             //List<MaxXmlNode> nodes_list = new List<MaxXmlNode>();
             MaxXmlNode max_node = null;
-            foreach (XmlNode n in nodes) {
+            foreach ( XmlNode n in nodes ) {
 
-                if (n.LocalName == nodeName) {
+                if ( n.LocalName == nodeName ) {
 
                     max_node = new MaxXmlNode(doc, n, nodePath);
                     break;
@@ -145,11 +145,11 @@ namespace Orien.Tools {
         public string GetAttribute(string attribName) {
 
             XmlAttribute attr = node.Attributes[attribName];
-            return (attr == null) ? "" : attr.Value.ToString();
+            return ( attr == null ) ? "" : attr.Value.ToString();
         }
         public string SetAttribute(string attribName, string value) {
 
-            if (node.Attributes != null && node.Attributes[attribName] != null) {
+            if ( node.Attributes != null && node.Attributes[attribName] != null ) {
                 node.Attributes[attribName].Value = value;
             } else {
                 XmlAttribute attr = doc.CreateAttribute(attribName);

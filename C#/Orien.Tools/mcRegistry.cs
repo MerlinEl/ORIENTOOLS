@@ -14,19 +14,19 @@ namespace Orien.Tools {
         /// <returns>String Value</returns>
         public static string ReadValue(string key_path, string key_name) {
             RegistryKey root_key;
-            if (Environment.Is64BitOperatingSystem) {
+            if ( Environment.Is64BitOperatingSystem ) {
                 root_key = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64);
             } else {
                 root_key = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32);
             }
 
             RegistryKey sub_key = root_key.OpenSubKey(key_path, RegistryKeyPermissionCheck.ReadSubTree);
-            if (sub_key == null) {
+            if ( sub_key == null ) {
                 return "";
             }
 
             object val = sub_key.GetValue(key_name);
-            return (val == null) ? "" : val.ToString();
+            return ( val == null ) ? "" : val.ToString();
         }
         /// <summary>
         /// Collect folder names in path
@@ -37,7 +37,7 @@ namespace Orien.Tools {
         public static string[] GetFolders(string key_path) {
 
             RegistryKey root_key;
-            if (Environment.Is64BitOperatingSystem) {
+            if ( Environment.Is64BitOperatingSystem ) {
                 root_key = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64);
             } else {
                 root_key = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32);
@@ -45,7 +45,7 @@ namespace Orien.Tools {
 
             RegistryKey sub_key = root_key.OpenSubKey(key_path, RegistryKeyPermissionCheck.ReadSubTree);
             string[] key_names = new string[] { };
-            if (sub_key == null) {
+            if ( sub_key == null ) {
                 return key_names;
             }
             /*foreach (string keyname in sub_key.GetSubKeyNames()) {
@@ -68,23 +68,23 @@ namespace Orien.Tools {
         public static void PrintContent(string key_path) {
 
             RegistryKey root_key;
-            if (Environment.Is64BitOperatingSystem) {
+            if ( Environment.Is64BitOperatingSystem ) {
                 root_key = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64);
             } else {
                 root_key = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry32);
             }
 
             RegistryKey sub_key = root_key.OpenSubKey(key_path, RegistryKeyPermissionCheck.ReadSubTree);
-            if (sub_key == null) {
+            if ( sub_key == null ) {
                 return;
             }
 
-            foreach (string keyname in sub_key.GetSubKeyNames()) {
+            foreach ( string keyname in sub_key.GetSubKeyNames() ) {
                 try {
-                    using (RegistryKey key = sub_key.OpenSubKey(keyname)) {
+                    using ( RegistryKey key = sub_key.OpenSubKey(keyname) ) {
                         Console.WriteLine("Registry key found : {0} contains {1} values", key.Name, key.ValueCount);
                     }
-                } catch (System.Security.SecurityException) {
+                } catch ( System.Security.SecurityException ) {
                 }
             }
         }

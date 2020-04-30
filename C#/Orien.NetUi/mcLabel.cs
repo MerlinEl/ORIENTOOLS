@@ -38,7 +38,7 @@ namespace Orien.NetUi {
         public void StartAnimateDots() {
 
             Console.WriteLine("Thread StartAnimateDots was executed");
-            if (DotTimer != null) {
+            if ( DotTimer != null ) {
                 StopAnimateDots();
             }
 
@@ -51,7 +51,7 @@ namespace Orien.NetUi {
         }
 
         private void StopAnimateDots() {
-            if (DotTimer != null) {
+            if ( DotTimer != null ) {
 
                 DotTimer.Stop();
                 DotTimer.Dispose();
@@ -99,13 +99,13 @@ namespace Orien.NetUi {
         protected override void OnPaint(PaintEventArgs e) {
 
             base.OnPaint(e);
-            using (GraphicsPath graphicsPath = GetRoundRectangle(this.ClientRectangle)) {
+            using ( GraphicsPath graphicsPath = GetRoundRectangle(this.ClientRectangle) ) {
                 e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-                using (SolidBrush solidBrush = new SolidBrush(FillColor)) {
+                using ( SolidBrush solidBrush = new SolidBrush(FillColor) ) {
                     e.Graphics.FillPath(solidBrush, graphicsPath);
                 }
 
-                using (Pen pen = new Pen(BorderColor, BorderThickness)) {
+                using ( Pen pen = new Pen(BorderColor, BorderThickness) ) {
                     e.Graphics.DrawPath(pen, graphicsPath);
                 }
 

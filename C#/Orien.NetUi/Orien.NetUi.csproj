@@ -84,6 +84,9 @@
     <Compile Include="McProgressBarCircular.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="McTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="McUiGlobal.cs" />
     <Compile Include="McLabel.cs">
       <SubType>Component</SubType>
