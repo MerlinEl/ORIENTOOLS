@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace Orien.NetUi {
@@ -12,7 +13,10 @@ namespace Orien.NetUi {
         /// <summary>
         /// ProgressBar with percent Label implemented
         /// </summary>
-        public McProgressBar() { SetStyle(ControlStyles.AllPaintingInWmPaint, true); }
+        public McProgressBar() { 
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            //this.SetStyle(ControlStyles.UserPaint, true);
+        }
         protected override void OnCreateControl() {
             progressString = null;
             base.OnCreateControl();
@@ -57,6 +61,28 @@ namespace Orien.NetUi {
             }
         }
         protected override void OnPaint(PaintEventArgs e) {
+
+            //draw gradient fill
+            const int inset = 2; // A single inset value to control teh sizing of the inner rect.
+            using ( Image offscreenImage = new Bitmap(this.Width, this.Height) ) {
+                using ( Graphics offscreen = Graphics.FromImage(offscreenImage) ) {
+                    Rectangle rect = new Rectangle(0, 0, this.Width, this.Height);
+
+                    if ( ProgressBarRenderer.IsSupported )
+                        ProgressBarRenderer.DrawHorizontalBar(offscreen, rect);
+
+                    rect.Inflate(new Size(-inset, -inset)); // Deflate inner rect.
+                    rect.Width = (int)( rect.Width * ( (double)this.Value / this.Maximum ) );
+                    if ( rect.Width == 0 ) rect.Width = 1; // Can't draw rec with width of 0.
+
+                    LinearGradientBrush brush = new LinearGradientBrush(rect, this.BackColor, this.ForeColor, LinearGradientMode.Vertical);
+                    offscreen.FillRectangle(brush, inset, inset, rect.Width, rect.Height);
+
+                    e.Graphics.DrawImage(offscreenImage, 0, 0);
+                    offscreenImage.Dispose();
+                }
+            }
+            //draw text with progress
             Rectangle cr = ClientRectangle;
             RectangleF crF = new RectangleF(cr.Left, cr.Top, cr.Width, cr.Height);
             using ( Brush br = new SolidBrush(TextColor) ) {
@@ -65,6 +91,11 @@ namespace Orien.NetUi {
 
             base.OnPaint(e);
         }
+
+        protected override void OnPaintBackground(PaintEventArgs pevent) {
+            // None... Helps control the flicker.
+        }
+
         public bool HideBar {
             get { return GetStyle(ControlStyles.UserPaint); }
             set { if ( HideBar != value ) { SetStyle(ControlStyles.UserPaint, value); Refresh(); } }

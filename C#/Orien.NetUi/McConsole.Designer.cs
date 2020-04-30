@@ -24,7 +24,7 @@ namespace Orien.NetUi {
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
+        protected void InitializeComponent() {
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -37,16 +37,16 @@ namespace Orien.NetUi {
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ShowHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutMcConsoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.MainTab = new System.Windows.Forms.TabControl();
-            this.TabPage1 = new System.Windows.Forms.TabPage();
-            this.AutoCompleteBox = new System.Windows.Forms.ListBox();
-            this.ProgressBar1 = new System.Windows.Forms.ProgressBar();
-            this.RichTextBox1 = new System.Windows.Forms.RichTextBox();
             this.BtnTopmost = new System.Windows.Forms.Button();
             this.BtnMin = new System.Windows.Forms.Button();
             this.BtnMax = new System.Windows.Forms.Button();
             this.BtnClose = new System.Windows.Forms.Button();
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.MainTab = new Orien.NetUi.McTabs();
+            this.TabPage1 = new System.Windows.Forms.TabPage();
+            this.AutoCompleteBox = new System.Windows.Forms.ListBox();
+            this.ProgressBar1 = new Orien.NetUi.McProgressBar();
+            this.RichTextBox1 = new System.Windows.Forms.RichTextBox();
             this.MainMenu.SuspendLayout();
             this.MainTab.SuspendLayout();
             this.TabPage1.SuspendLayout();
@@ -150,64 +150,6 @@ namespace Orien.NetUi {
             this.AboutMcConsoleToolStripMenuItem.Text = "About";
             this.AboutMcConsoleToolStripMenuItem.Click += new System.EventHandler(this.OnaboutMcConsoleToolStripMenuItem_Click);
             // 
-            // MainTab
-            // 
-            this.MainTab.Controls.Add(this.TabPage1);
-            this.MainTab.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainTab.Location = new System.Drawing.Point(0, 24);
-            this.MainTab.Name = "MainTab";
-            this.MainTab.SelectedIndex = 0;
-            this.MainTab.Size = new System.Drawing.Size(992, 340);
-            this.MainTab.TabIndex = 5;
-            this.MainTab.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.OnTabPageDrawn);
-            // 
-            // TabPage1
-            // 
-            this.TabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(115)))), ((int)(((byte)(215)))));
-            this.TabPage1.Controls.Add(this.AutoCompleteBox);
-            this.TabPage1.Controls.Add(this.ProgressBar1);
-            this.TabPage1.Controls.Add(this.RichTextBox1);
-            this.TabPage1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(212)))), ((int)(((byte)(254)))));
-            this.TabPage1.Location = new System.Drawing.Point(4, 22);
-            this.TabPage1.Name = "TabPage1";
-            this.TabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.TabPage1.Size = new System.Drawing.Size(984, 314);
-            this.TabPage1.TabIndex = 0;
-            this.TabPage1.Text = "Console";
-            // 
-            // AutoCompleteBox
-            // 
-            this.AutoCompleteBox.FormattingEnabled = true;
-            this.AutoCompleteBox.Location = new System.Drawing.Point(8, 16);
-            this.AutoCompleteBox.Name = "AutoCompleteBox";
-            this.AutoCompleteBox.Size = new System.Drawing.Size(179, 277);
-            this.AutoCompleteBox.TabIndex = 6;
-            this.AutoCompleteBox.Visible = false;
-            // 
-            // ProgressBar1
-            // 
-            this.ProgressBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.ProgressBar1.Location = new System.Drawing.Point(3, 301);
-            this.ProgressBar1.Name = "ProgressBar1";
-            this.ProgressBar1.Size = new System.Drawing.Size(978, 10);
-            this.ProgressBar1.TabIndex = 7;
-            this.ProgressBar1.Value = 45;
-            // 
-            // RichTextBox1
-            // 
-            this.RichTextBox1.AcceptsTab = true;
-            this.RichTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(81)))));
-            this.RichTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RichTextBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.RichTextBox1.Location = new System.Drawing.Point(3, 3);
-            this.RichTextBox1.Name = "RichTextBox1";
-            this.RichTextBox1.Size = new System.Drawing.Size(978, 308);
-            this.RichTextBox1.TabIndex = 5;
-            this.RichTextBox1.Text = "";
-            this.RichTextBox1.WordWrap = false;
-            this.RichTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnConsoleKeyDown);
-            this.RichTextBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnConsoleKeyUp);
-            // 
             // BtnTopmost
             // 
             this.BtnTopmost.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -252,6 +194,79 @@ namespace Orien.NetUi {
             this.BtnClose.UseVisualStyleBackColor = true;
             this.BtnClose.Click += new System.EventHandler(this.BtnClose_Click);
             // 
+            // MainTab
+            // 
+            this.MainTab.ActiveTabEndColor = System.Drawing.Color.DarkOrange;
+            this.MainTab.ActiveTabStartColor = System.Drawing.Color.Yellow;
+            this.MainTab.CloseButtonColor = System.Drawing.Color.Red;
+            this.MainTab.Controls.Add(this.TabPage1);
+            this.MainTab.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainTab.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.MainTab.GradientAngle = 90;
+            this.MainTab.Location = new System.Drawing.Point(0, 24);
+            this.MainTab.Name = "MainTab";
+            this.MainTab.NonActiveTabEndColor = System.Drawing.Color.DarkOliveGreen;
+            this.MainTab.NonActiveTabStartColor = System.Drawing.Color.LightGreen;
+            this.MainTab.Padding = new System.Drawing.Point(22, 4);
+            this.MainTab.SelectedIndex = 0;
+            this.MainTab.Size = new System.Drawing.Size(992, 340);
+            this.MainTab.TabIndex = 5;
+            this.MainTab.TextColor = System.Drawing.Color.Navy;
+            this.MainTab.Transparent1 = 150;
+            this.MainTab.Transparent2 = 150;
+            // 
+            // TabPage1
+            // 
+            this.TabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(165)))), ((int)(((byte)(115)))), ((int)(((byte)(215)))));
+            this.TabPage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TabPage1.Controls.Add(this.AutoCompleteBox);
+            this.TabPage1.Controls.Add(this.ProgressBar1);
+            this.TabPage1.Controls.Add(this.RichTextBox1);
+            this.TabPage1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.TabPage1.Location = new System.Drawing.Point(4, 24);
+            this.TabPage1.Name = "TabPage1";
+            this.TabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.TabPage1.Size = new System.Drawing.Size(984, 312);
+            this.TabPage1.TabIndex = 0;
+            this.TabPage1.Text = "Console";
+            // 
+            // AutoCompleteBox
+            // 
+            this.AutoCompleteBox.FormattingEnabled = true;
+            this.AutoCompleteBox.Location = new System.Drawing.Point(8, 16);
+            this.AutoCompleteBox.Name = "AutoCompleteBox";
+            this.AutoCompleteBox.Size = new System.Drawing.Size(179, 277);
+            this.AutoCompleteBox.TabIndex = 6;
+            this.AutoCompleteBox.Visible = false;
+            // 
+            // ProgressBar1
+            // 
+            this.ProgressBar1.BackColor = System.Drawing.Color.MediumAquamarine;
+            this.ProgressBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ProgressBar1.ForeColor = System.Drawing.Color.Aquamarine;
+            this.ProgressBar1.HideBar = false;
+            this.ProgressBar1.Location = new System.Drawing.Point(3, 297);
+            this.ProgressBar1.Name = "ProgressBar1";
+            this.ProgressBar1.Size = new System.Drawing.Size(976, 10);
+            this.ProgressBar1.TabIndex = 7;
+            this.ProgressBar1.TextColor = System.Drawing.SystemColors.ControlText;
+            this.ProgressBar1.Value = 45;
+            // 
+            // RichTextBox1
+            // 
+            this.RichTextBox1.AcceptsTab = true;
+            this.RichTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(66)))), ((int)(((byte)(81)))));
+            this.RichTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RichTextBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.RichTextBox1.Location = new System.Drawing.Point(3, 3);
+            this.RichTextBox1.Name = "RichTextBox1";
+            this.RichTextBox1.Size = new System.Drawing.Size(976, 304);
+            this.RichTextBox1.TabIndex = 5;
+            this.RichTextBox1.Text = "";
+            this.RichTextBox1.WordWrap = false;
+            this.RichTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnConsoleKeyDown);
+            this.RichTextBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnConsoleKeyUp);
+            // 
             // McConsole
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -289,15 +304,15 @@ namespace Orien.NetUi {
         private System.Windows.Forms.ToolStripMenuItem AboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ShowHelpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem AboutMcConsoleToolStripMenuItem;
-        private System.Windows.Forms.TabControl MainTab;
         private System.Windows.Forms.TabPage TabPage1;
         private System.Windows.Forms.ListBox AutoCompleteBox;
-        private System.Windows.Forms.ProgressBar ProgressBar1;
-        private System.Windows.Forms.RichTextBox RichTextBox1;
+        protected System.Windows.Forms.RichTextBox RichTextBox1;
         private System.Windows.Forms.Button BtnTopmost;
         private System.Windows.Forms.Button BtnMin;
         private System.Windows.Forms.Button BtnMax;
         private System.Windows.Forms.Button BtnClose;
         private System.Windows.Forms.SaveFileDialog SaveFileDialog;
+        private McTabs MainTab;
+        private McProgressBar ProgressBar1;
     }
 }

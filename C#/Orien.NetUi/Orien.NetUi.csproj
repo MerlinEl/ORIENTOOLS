@@ -51,6 +51,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="McMaxConsole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="McMaxConsole.Designer.cs">
+      <DependentUpon>McMaxConsole.cs</DependentUpon>
+    </Compile>
     <Compile Include="McButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -72,9 +78,6 @@
     <Compile Include="McImageToolTip.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="McMaxConsole.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="McPopUpProgressBar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,7 +87,7 @@
     <Compile Include="McProgressBarCircular.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="McTabControl.cs">
+    <Compile Include="McTabs.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="McUiGlobal.cs" />

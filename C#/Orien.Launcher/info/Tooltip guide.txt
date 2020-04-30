@@ -1,0 +1,13 @@
+System.Windows.Controls.Ribbon
+
+Press F1 for more help
+
+ToolTip Support in WPF Ribbon
+System.Windows.Controls.Ribbon
+
+ScreenTip has four properties.
+
+	Description - Specifies the description of the ScreenTip.
+	Image - Specifies the image of the ScreenTip.
+	Content - Specifies the content of the ScreenTip.
+	HelpText - Specifies the HelpText of the ScreenTip.

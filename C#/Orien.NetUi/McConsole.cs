@@ -17,21 +17,14 @@ namespace Orien.NetUi {
             Clear = 3,
             ClearAll = 4
         }
-
-        #region Constructor
-
-        public McConsole() : base() { }
+        public McConsole() => InitializeComponent();
         public McConsole(Form parent = null) {
             if ( parent != null ) {
                 this.Owner = parent;
                 parent.FormClosed += new FormClosedEventHandler(OnOwnerClosed);
             }
             InitializeComponent();
-            //autoCompleteBox = new ListBox();
-            //this.Controls.Add(autoCompleteBox);
         }
-
-        #endregion
 
         #region Public Methods
         /// <summary>
@@ -41,22 +34,11 @@ namespace Orien.NetUi {
         /// CConsole.Log("hello Body a:{0} b:{1}", "Formated", new object[] { 15, "Custom String" });
         /// </summary>
         /// <param name="msg"></param>
-        public void Log(string msg) => Log(msg, "Console", null);
-        public void Log(string msg, string tabName) => Log(msg, tabName, null);
-        public void Log(string msg, string tabName, params object[] args) {
+        /// <param name="tabName"></param>
+        /// <param name="args"></param>
+        public void Log(string msg, string tabName = "Console", params object[] args) {
 
-            if ( args != null ) msg = string.Format(msg, args);
-            if ( !this.Visible ) this.Visible = true;
-            if ( tabName == "Console" ) {
-
-                RichTextBox1.AppendText(msg + "\n");
-
-            } else {
-
-                GetOrCreateTab(tabName).AppendText(msg + "\n");
-            }
-            //if (console_parent != null) this.ShowDialog(console_parent); else this.Show();
-            if ( Visible == false ) Show();
+            AddConsoleText(msg, tabName, args);
         }
 
         #endregion
@@ -89,6 +71,22 @@ namespace Orien.NetUi {
         #endregion
 
         #region Private Methods
+
+        protected void AddConsoleText(string msg, string tabName, params object[] args) {
+
+            if ( args != null ) msg = string.Format(msg, args);
+            if ( !this.Visible ) this.Visible = true;
+            if ( tabName == "Console" ) {
+
+                RichTextBox1.AppendText(msg + "\n");
+
+            } else {
+
+                GetOrCreateTab(tabName).AppendText(msg + "\n");
+            }
+            //if (console_parent != null) this.ShowDialog(console_parent); else this.Show();
+            if ( Visible == false ) Show();
+        }
 
         private void AutocompleteCheck() {
 
@@ -137,7 +135,7 @@ namespace Orien.NetUi {
             }
         }
 
-        private TabPage GetOrCreateTab(string tabName) {
+        protected TabPage GetOrCreateTab(string tabName) {
 
             TabPage tp = GetTab(tabName);
             return tp ?? AddTab(tabName);
@@ -290,19 +288,6 @@ namespace Orien.NetUi {
             }
         }
 
-        private void OnTabIndexChanged(object sender, EventArgs e) {
-        }
-
-        private void OnTabPageDrawn(object sender, DrawItemEventArgs e) {
-            TabPage page = MainTab.TabPages[e.Index];
-            e.Graphics.FillRectangle(new SolidBrush(page.BackColor), e.Bounds);
-
-            Rectangle paddedBounds = e.Bounds;
-            int yOffset = ( e.State == DrawItemState.Selected ) ? -2 : 1;
-            paddedBounds.Offset(1, yOffset);
-            TextRenderer.DrawText(e.Graphics, page.Text, e.Font, paddedBounds, page.ForeColor);
-        }
-
         #endregion
 
         #region Menu Events
@@ -344,7 +329,7 @@ namespace Orien.NetUi {
                 StartPosition = FormStartPosition.Manual
             };
             f.SetDesktopLocation(Cursor.Position.X, Cursor.Position.Y);
-            f.ShowDialog();
+            f.ShowDialog(this);
         }
 
 
@@ -359,7 +344,6 @@ namespace Orien.NetUi {
         #endregion
 
     }
-
 
     #region RichTextBox Extensions
     internal static class RichTextBoxExtensions {
