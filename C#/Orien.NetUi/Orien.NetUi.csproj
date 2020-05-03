@@ -72,9 +72,6 @@
     <Compile Include="McConsole.Designer.cs">
       <DependentUpon>McConsole.cs</DependentUpon>
     </Compile>
-    <None Include="Backup\McFlatTab.bk">
-      <SubType>Component</SubType>
-    </None>
     <Compile Include="McImageToolTip.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -90,6 +87,9 @@
     <Compile Include="McTabs.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="McTooltip.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="McUiGlobal.cs" />
     <Compile Include="McLabel.cs">
       <SubType>Component</SubType>
@@ -101,6 +101,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Content Include="Resources\McTooltip.txt">
+      <SubType>Form</SubType>
+    </Content>
     <Compile Include="Win32.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -119,12 +122,17 @@
     <EmbeddedResource Include="McConsole.resx">
       <DependentUpon>McConsole.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="mcImageToolTip.resx">
+      <DependentUpon>McImageToolTip.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Backup\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\TextFile1.txt" />
   </ItemGroup>

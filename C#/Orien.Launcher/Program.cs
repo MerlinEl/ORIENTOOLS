@@ -27,7 +27,7 @@ namespace Orien.Launcher {
 
             //Application.Run(TestRadialProgressBar());
             TestRadialProgressBar();
-            while ( !Exit ) {
+            while (!Exit) {
                 Application.DoEvents(); //Now if you call "form.Show()" your form won´t be frozen
                 //Do your stuff
             };
@@ -35,12 +35,13 @@ namespace Orien.Launcher {
         //public static Form TestRadialProgressBar() {
         //}
         public static void TestRadialProgressBar() {
-            McPopup.Options options = new McPopup.Options {
+            /*McPopup.Options options = new McPopup.Options {
                 ConfirmToClose = true
             };
-            Form progBar = McPopup.Create("Processing geometry calculations", "", McPopup.WindowType.E_Progress, options);
+            Form progBar = McPopup.Create("Processing geometry calculations", "", McPopup.WindowType.E_Progress, options);*/
             //progb.Show();
-            McImageToolTip myToolTip1 = new McImageToolTip {
+
+            /*McImageToolTip myToolTip1 = new McImageToolTip {
                 AutoSize = false,
                 Size = new Size(400, 128),
                 ToolTipTitle = "Button Tooltip"
@@ -48,13 +49,37 @@ namespace Orien.Launcher {
             //myToolTip1.IsBalloon = false;
             myToolTip1.SetFont("Verdana", 12, FontStyle.Bold, Color.FromArgb(0, 32, 64));
             myToolTip1.BorderColor = Color.FromArgb(1, 247, 46);
-            myToolTip1.SetToolTip(progBar, "Button 1. ToolTip with Image");
-            progBar.Tag = Resources.tltp_flatten_01;
-            progBar.Show();
-            CConsole = new McConsole(progBar);
+            myToolTip1.SetToolTip(progBar, "Button 1. ToolTip with Image");*/
+
+            Form form = new Form {
+                Size = new Size(400, 200)
+            };
+            Button btn = new Button {
+                Text = "Tooltip Test"
+            };
+            form.Controls.Add(btn);
+
+            McTooltip tltp = new McTooltip {
+
+                HeaderText = "The Title",
+                BodyText = "Button 1. ToolTip with Image",
+                FooterText = "For Help press F1",
+                BodyImageStretch = true,
+                ExtendedMode = true,
+                AutoHide = false,
+                DebugMode = true,
+                MaxSize = new Size(100, 300)
+            };
+            tltp.SetToolTip(btn, Resources.tltp_flatten_01);
+            //progBar.Tag = Resources.tltp_flatten_01;
+
+            form.Show();
+
+
+            /*CConsole = new McConsole(form);
             CConsole.Log("hello");
             CConsole.Log("hello Rene", "Personal");
-            CConsole.Log("hello Rene a:{0} b:{1}", "Formated", new object[] { 15, "Custom String" });
+            CConsole.Log("hello Rene a:{0} b:{1}", "Formated", new object[] { 15, "Custom String" });*/
 
             /*
             ToolTip buttonToolTip = newToolTip();

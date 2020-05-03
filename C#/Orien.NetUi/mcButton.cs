@@ -15,7 +15,7 @@ BackDownColor " - specifies the fill color when button triggers the event "OnMou
 BackOverColor " - specifies the over color when button triggers the event "OnMouseEnter""        
 */
 namespace Orien.NetUi {
-    internal class McButton : Button {
+    public class McButton : Button {
         public Color TransparentColor { get; set; } = Color.FromArgb(0, 0, 50, 50);
         [Category("Fill"), DisplayName("Fill Down Color")] //FlatAppearance.MouseDownBackColor
         public Color BackDownColor { get; set; } = Color.FromArgb(113, 117, 121); //Invalidate();
