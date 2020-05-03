@@ -10,7 +10,7 @@ namespace Orien.NetUi {
         //private readonly ListBox autoCompleteBox;
         private bool Suppres_Keypress = false;
         //McConsoleCommands
-        private enum CMD {
+        public enum CMD {
             Help = 0,
             Hide = 1,
             Close = 2,
@@ -50,7 +50,7 @@ namespace Orien.NetUi {
 
         #region Virtual Methods
 
-        virtual public void RunCmd(string cmd) {
+        virtual protected void RunCmd(string cmd) {
             if ( cmd.Length == 0 ) return;
             if ( Enum.TryParse(cmd, true, out CMD n) ) { //parse the enum with ignoreCase flag 
                 Console.WriteLine("n:{0}", n);
@@ -88,7 +88,7 @@ namespace Orien.NetUi {
             if ( Visible == false ) Show();
         }
 
-        private void AutocompleteCheck() {
+        virtual protected void AutocompleteCheck() {
 
             string word = GetCommand();
             if ( word == null ) return;
@@ -108,7 +108,7 @@ namespace Orien.NetUi {
             RichTextBox1.Focus();
         }
 
-        internal string GetCommand() {
+        protected string GetCommand() {
 
             if ( CurrentRichTextBox != null && CurrentRichTextBox.Lines.Any() ) {
                 string lastLine = CurrentRichTextBox.Lines[CurrentRichTextBox.Lines.Length - 1];
@@ -124,7 +124,7 @@ namespace Orien.NetUi {
             return null;
         }
 
-        private void ClearAllTabs() {
+        public void ClearAllTabs() {
             foreach ( TabPage tp in MainTab.TabPages ) tp.GetTextBox().Clear();
         }
 
@@ -344,41 +344,6 @@ namespace Orien.NetUi {
         #endregion
 
     }
-
-    #region RichTextBox Extensions
-    internal static class RichTextBoxExtensions {
-
-        internal static Point GetCaretPoint(this RichTextBox tb) {
-            int start = tb.SelectionStart;
-            if ( start == tb.TextLength )
-                start--;
-            return tb.GetPositionFromCharIndex(start);
-        }
-
-        internal static int GetLineHeight(this RichTextBox tb, string word) {
-
-            int textHeight;
-            using ( Graphics g = tb.CreateGraphics() ) {
-                textHeight = TextRenderer.MeasureText(g, word, tb.Font).Height;
-            }
-            return textHeight;
-        }
-
-        internal static bool ReplaceLastLine(this RichTextBox tb, string word) {
-
-            int index = tb.SelectionStart;
-            int lineNumber = tb.GetLineFromCharIndex(index);
-            int first = tb.GetFirstCharIndexFromLine(lineNumber);
-            if ( first < 0 ) return false;
-            int last = tb.GetFirstCharIndexFromLine(lineNumber + 1);
-            tb.Select(first,
-                last < 0 ? int.MaxValue : last - first - Environment.NewLine.Length);
-            tb.SelectedText = ":" + word;
-            return true;
-        }
-    }
-
-    #endregion
 
     #region ListBox Extensions
 

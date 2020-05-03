@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="McExtensions.cs" />
     <Compile Include="McMaxConsole.cs">
       <SubType>Form</SubType>
     </Compile>

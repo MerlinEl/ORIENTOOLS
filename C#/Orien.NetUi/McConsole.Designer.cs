@@ -305,7 +305,7 @@ namespace Orien.NetUi {
         private System.Windows.Forms.ToolStripMenuItem ShowHelpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem AboutMcConsoleToolStripMenuItem;
         private System.Windows.Forms.TabPage TabPage1;
-        private System.Windows.Forms.ListBox AutoCompleteBox;
+        protected System.Windows.Forms.ListBox AutoCompleteBox;
         protected System.Windows.Forms.RichTextBox RichTextBox1;
         private System.Windows.Forms.Button BtnTopmost;
         private System.Windows.Forms.Button BtnMin;

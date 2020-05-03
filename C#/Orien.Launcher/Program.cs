@@ -8,7 +8,7 @@ namespace Orien.Launcher {
 
     internal class Program {
         public static bool Exit { get; private set; }
-        public static McConsole CConsole;
+        //public static McConsole CConsole;
 
         [STAThread] //required for full COM support
         private static void Main() {
