@@ -399,11 +399,21 @@ namespace Orien.NetUi {
             //Update Form size
             Size = TotalSize;
             Rectangle button_area = ParentButtonControl.Bounds;
-            Rectangle window_area = ParentButtonControl.Parent != null ? ParentButtonControl.Parent.Bounds : new Rectangle();
+
+            /*Rectangle window_area = ParentButtonControl.Parent != null ? ParentButtonControl.Parent.Bounds : new Rectangle();
             Point location = new Point(
                 window_area.Left + button_area.Left + button_area.Width + 2,
                 window_area.Top + button_area.Bottom + button_area.Height + 2
+            );*/
+
+            // Set the picture location equal to the drop point.
+            Point screen_piont = ParentButtonControl.PointToScreen(Point.Empty);
+            Point location = new Point(
+                screen_piont.X + button_area.Right,
+                screen_piont.Y + button_area.Bottom
             );
+
+
             //calculate where ToolTip will be shown ( top, bottom, left, right )
             Rectangle screen = Screen.FromControl(ParentButtonControl).WorkingArea;
             if (location.X + Size.Width > (screen.Left + screen.Width)) {
