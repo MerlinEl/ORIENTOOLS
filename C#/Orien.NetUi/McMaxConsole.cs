@@ -25,12 +25,6 @@ namespace Orien.NetUi {
         public McMaxConsole() {
             InitializeComponent();
         }
-        public void Log(string msg) {
-            AddConsoleText(msg, "Console", new object[] { });
-        }
-        public void Log(string msg, string tabName) {
-            AddConsoleText(msg, tabName, new object[] { });
-        }
 
         /*public static void RunMxs(string cmd) {
             ManagedServices.MaxscriptSDK.ExecuteMaxscriptCommand(cmd);

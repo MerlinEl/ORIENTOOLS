@@ -25,6 +25,7 @@ namespace Orien.NetUi {
         /// the contents of this method with the code editor.
         /// </summary>
         protected void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(McConsole));
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -279,6 +280,7 @@ namespace Orien.NetUi {
             this.Controls.Add(this.MainTab);
             this.Controls.Add(this.MainMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "McConsole";
             this.Text = "McConsoleC";
             this.MainMenu.ResumeLayout(false);

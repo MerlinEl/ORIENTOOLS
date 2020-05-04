@@ -8,7 +8,7 @@ namespace Orien.Launcher {
 
     internal class Program {
         public static bool Exit { get; private set; }
-        //public static McConsole CConsole;
+        public static McConsole CConsole;
 
         [STAThread] //required for full COM support
         private static void Main() {
@@ -77,10 +77,14 @@ namespace Orien.Launcher {
             form.Show();
 
 
-            /*CConsole = new McConsole(form);
-            CConsole.Log("hello");
-            CConsole.Log("hello Rene", "Personal");
-            CConsole.Log("hello Rene a:{0} b:{1}", "Formated", new object[] { 15, "Custom String" });*/
+            CConsole = new McConsole(form);
+            CConsole.Log("hello!"); // main console tab
+            CConsole.Log("", "The {0} is {1} years old.", "Tifany", 12); // main console tab
+            CConsole.Log("The {0} is {1} years old.", new object[] {"Tifany", 12}); // main console tab
+            CConsole.Log("Console", "The {0} is {1} years old.", "Tifany", 12); // main console tab
+            CConsole.Log("The {0} is {1} years old.", new object[] {"John", 33});
+            CConsole.Log("Personal", "hello Body"); //ok
+            CConsole.Log("Formated", "The {0} is {1} years old.", new object[] { "Monika", 22});
 
             /*
             ToolTip buttonToolTip = newToolTip();
