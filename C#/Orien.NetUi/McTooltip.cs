@@ -111,11 +111,11 @@ namespace Orien.NetUi {
         public Color FooterTextColor { get; set; }
 
         [CategoryAttribute("Text Font"), DescriptionAttribute(@"Gets or sets the Header text font.")]
-        public Font HeaderFont { get; set; } = new Font("Verdana", 10, FontStyle.Bold);
+        public Font HeaderextFont { get; set; } = new Font("Verdana", 10, FontStyle.Bold);
         [CategoryAttribute("Text Font"), DescriptionAttribute(@"Gets or sets the Body text font.")]
-        public Font BodyFont { get; set; } = new Font("Arial", 8);
+        public Font BodyTextFont { get; set; } = new Font("Arial", 8);
         [CategoryAttribute("Text Font"), DescriptionAttribute(@"Gets or sets the Footer text font.")]
-        public Font FooterFont { get; set; } = new Font("Arial", 8);
+        public Font FooterTextFont { get; set; } = new Font("Arial", 8);
 
 
         [CategoryAttribute("Behavior"), DescriptionAttribute(@"Gets or sets the maximum size of the ToolTip.")]
@@ -351,12 +351,14 @@ namespace Orien.NetUi {
         }
         private void UpdateSizeAndPosition() {
 
+            TotalSize = MaxSize;
+
             if (DrawExtend) {
 
                 //Get component sizes
-                headTextSize = TextRenderer.MeasureText(HeaderText, HeaderFont);
+                headTextSize = TextRenderer.MeasureText(HeaderText, HeaderextFont);
                 headTextSize.Width = TotalSize.Width - UiOffset * 2;
-                footerTextSize = TextRenderer.MeasureText(FooterText, FooterFont);
+                footerTextSize = TextRenderer.MeasureText(FooterText, FooterTextFont);
 
                 //Calculate total width of Tooltip
                 TotalSize.Width = (
@@ -365,7 +367,7 @@ namespace Orien.NetUi {
                     headTextSize.Width + UiOffset * 2 : TotalSize.Width
                 );
                 // 100000  = max field height
-                bodyTextSize = TextRenderer.MeasureText(BodyText, BodyFont, new Size(TotalSize.Width, 100000), TextFormatFlags.WordBreak);
+                bodyTextSize = TextRenderer.MeasureText(BodyText, BodyTextFont, new Size(TotalSize.Width, 100000), TextFormatFlags.WordBreak);
                 // scale up image or leave it small
                 if (BodyImageStretch) {
 
@@ -389,7 +391,7 @@ namespace Orien.NetUi {
             } else {
 
                 // 100000  = max field height
-                bodyTextSize = TextRenderer.MeasureText(BodyText, BodyFont, new Size(TotalSize.Width, 100000), TextFormatFlags.WordBreak);
+                bodyTextSize = TextRenderer.MeasureText(BodyText, BodyTextFont, new Size(TotalSize.Width, 100000), TextFormatFlags.WordBreak);
                 TotalSize.Height = bodyTextSize.Height + UiOffset * 2;
                 //Update form Shape
                 GraphicsPath gp = McGra.RoundedRect(new Rectangle(0, 0, TotalSize.Width, TotalSize.Height), RoundCornersRadius);
@@ -494,7 +496,7 @@ namespace Orien.NetUi {
                     Height = bodyTextSize.Height
                 };
                 //Draw Body Text
-                TextRenderer.DrawText(e.Graphics, BodyText, BodyFont, textRect, BodyTextColor, CenterFlags);
+                TextRenderer.DrawText(e.Graphics, BodyText, BodyTextFont, textRect, BodyTextColor, CenterFlags);
                 return;
             }
             //Layout distribution
@@ -554,17 +556,17 @@ namespace Orien.NetUi {
                 headTextRect.Height + 2
             ));
             //Draw head text
-            e.Graphics.DrawString(HeaderText, HeaderFont, headerTextBrush, headTextRect, TextFormatHeader);
+            e.Graphics.DrawString(HeaderText, HeaderextFont, headerTextBrush, headTextRect, TextFormatHeader);
             //Draw separator 1
             e.Graphics.DrawLine(new Pen(BorderColor), break1Rect.Left, break1Rect.Top, break1Rect.Right, break1Rect.Top);
             //Draw Body Text
-            TextRenderer.DrawText(e.Graphics, BodyText, BodyFont, bodyTextRect, BodyTextColor, TextFormatFlags.WordBreak);
+            TextRenderer.DrawText(e.Graphics, BodyText, BodyTextFont, bodyTextRect, BodyTextColor, TextFormatFlags.WordBreak);
             //Draw Image
             e.Graphics.DrawImage(BodyImage, bodyImageRect);
             //Draw separator 2
             e.Graphics.DrawLine(new Pen(BorderColor), break2Rect.Left, break2Rect.Top, break2Rect.Right, break2Rect.Top);
             //Draw Footer Text
-            e.Graphics.DrawString(FooterText, BodyFont, footerTextBrush, footerTextRect, TextFormatFooter);
+            e.Graphics.DrawString(FooterText, BodyTextFont, footerTextBrush, footerTextRect, TextFormatFooter);
         }
 
         // Show a Form without stealing focus

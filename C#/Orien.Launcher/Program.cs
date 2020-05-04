@@ -68,7 +68,8 @@ namespace Orien.Launcher {
                 ExtendedMode = true,
                 AutoHide = false,
                 DebugMode = true,
-                MaxSize = new Size(100, 300)
+                //MaxSize = new Size(100, 300)
+                MaxSize = new Size(400, 400)
             };
             tltp.SetToolTip(btn, Resources.tltp_flatten_01);
             //progBar.Tag = Resources.tltp_flatten_01;

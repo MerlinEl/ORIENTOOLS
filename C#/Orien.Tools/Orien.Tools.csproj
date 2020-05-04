@@ -64,6 +64,7 @@
     <Compile Include="McNet.cs" />
     <Compile Include="McNum.cs" />
     <Compile Include="McRegistry.cs" />
+    <Compile Include="McSet.cs" />
     <Compile Include="McString.cs" />
     <Compile Include="McThreadedExecuter.cs" />
     <Compile Include="McThreadHelper.cs" />
