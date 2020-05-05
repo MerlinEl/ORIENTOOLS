@@ -68,6 +68,7 @@ namespace Orien.Launcher {
                 ExtendedMode = true,
                 AutoHide = false,
                 DebugMode = true,
+                BodyTextFont = new Font("Arial", 12, FontStyle.Regular),
                 //MaxSize = new Size(100, 300)
                 MaxSize = new Size(400, 400)
             };

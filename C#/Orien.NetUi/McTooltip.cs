@@ -366,7 +366,7 @@ namespace Orien.NetUi {
                     headTextSize.Width + UiOffset * 2 <= TotalSize.Width ?
                     headTextSize.Width + UiOffset * 2 : TotalSize.Width
                 );
-                // 100000  = max field height
+                // 100000 = max field height
                 bodyTextSize = TextRenderer.MeasureText(BodyText, BodyTextFont, new Size(TotalSize.Width, 100000), TextFormatFlags.WordBreak);
                 // scale up image or leave it small
                 if (BodyImageStretch) {
@@ -396,7 +396,6 @@ namespace Orien.NetUi {
                 //Update form Shape
                 GraphicsPath gp = McGra.RoundedRect(new Rectangle(0, 0, TotalSize.Width, TotalSize.Height), RoundCornersRadius);
                 this.Region = new Region(gp);
-
             }
             //Update Form size
             Size = TotalSize;
@@ -414,7 +413,6 @@ namespace Orien.NetUi {
                 screen_piont.X + button_area.Right,
                 screen_piont.Y + button_area.Bottom
             );
-
 
             //calculate where ToolTip will be shown ( top, bottom, left, right )
             Rectangle screen = Screen.FromControl(ParentButtonControl).WorkingArea;
