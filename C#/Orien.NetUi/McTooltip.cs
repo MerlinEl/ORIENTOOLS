@@ -62,10 +62,10 @@ namespace Orien.NetUi {
             WAIT_INIT = 1,
             WAIT_EXPAND = 2,
             WAIT_HIDE = 3,
-            EXTEND_MODE = 4,//,
+            EXTEND_MODE = 4,
             DISABLED = 5
         }
-        private MorphTypes MorphType = MorphTypes.ALLOW_START;
+        private MorphTypes MorphTo = MorphTypes.ALLOW_START;
         private Control ParentButtonControl;
         private Timer MorphTimer;
         private bool DrawExtend = false;
@@ -136,8 +136,8 @@ namespace Orien.NetUi {
         public int ReshowDelay { get; set; } = 500; //2s TODO reshow delay
         [CategoryAttribute("Behavior"), DescriptionAttribute(@"Force the ToolTip text to be displayed whether or not the form is active.")]
         public bool ShowAlways { get; set; } = true;
-        [CategoryAttribute("Behavior"), DescriptionAttribute(@"Keep visible as long the user have mouse under control.")]
-        public bool AutoHide { get; set; } = false;
+        [CategoryAttribute("Behavior"), DescriptionAttribute(@"Keep visible Extended version while mouse is under control.")]
+        public bool AutoHide { get; set; } = true;
         [CategoryAttribute("Behavior"), DescriptionAttribute(@"Enable - Disable fade in - out.")]
         public bool Animated { get; private set; } = true;
 
@@ -237,7 +237,7 @@ namespace Orien.NetUi {
 
             } else {
                 Hide();
-                MorphType = MorphTypes.ALLOW_START;
+                MorphTo = MorphTypes.ALLOW_START;
             }
         }
 
@@ -271,7 +271,7 @@ namespace Orien.NetUi {
             //FadeTimer.Tick += new EventHandler(FadeOut);  //this calls the fade out function
             //FadeTimer.Start();
             Hide();
-            MorphType = MorphTypes.ALLOW_START;
+            MorphTo = MorphTypes.ALLOW_START;
         }
 
         void FadeOut(object sender, EventArgs e) {
@@ -296,9 +296,9 @@ namespace Orien.NetUi {
 
         private void OnLeave(object sender, EventArgs e) => HideTooltip();
         private void OnHover(object sender, EventArgs e) {
-            if (DebugMode) Console.WriteLine("OnHover > MorphType:{0}", MorphType);
-            if (MorphType != MorphTypes.ALLOW_START) return;
-            MorphType = MorphTypes.WAIT_INIT;
+            if (DebugMode) Console.WriteLine("OnHover > MorphType:{0}", MorphTo);
+            if (MorphTo != MorphTypes.ALLOW_START) return;
+            MorphTo = MorphTypes.WAIT_INIT;
             ParentButtonControl = sender as Control;
             MorphTimer = new Timer {
                 Interval = InitialDelay,
@@ -312,13 +312,13 @@ namespace Orien.NetUi {
 
         private void OnDealayPased(object sender, EventArgs e) {
             if (FadeProgress) return;
-            if (DebugMode) Console.WriteLine("OnDealayPased > type:{0} interval:{1}", MorphType, MorphTimer.Interval);
+            if (DebugMode) Console.WriteLine("OnDealayPased > MorphTo:{0} Interval:{1}", MorphTo, MorphTimer.Interval);
             if (ParentButtonControl == null) { //the user have left control
-                MorphType = MorphTypes.DISABLED;
+                MorphTo = MorphTypes.DISABLED;
                 HideTooltip();
                 return;
             }
-            switch (MorphType) {
+            switch (MorphTo) {
 
                 case MorphTypes.WAIT_INIT:
                     if (DebugMode) Console.WriteLine("\tcase Wait_Init");
@@ -326,12 +326,12 @@ namespace Orien.NetUi {
                     if (ExtendedMode) { //if user stil have mouse on control and is ExtendMode
 
                         if (DebugMode) Console.WriteLine("\t\tset WAIT_EXPAND>");
-                        MorphType = MorphTypes.WAIT_EXPAND;
+                        MorphTo = MorphTypes.WAIT_EXPAND;
                         DrawExtend = false;
                         MorphTimer.Interval = ExtendedDelay; //setup next interval // Math.Abs(ExtendedDelay - InitialDelay);
                     } else {
                         if (DebugMode) Console.WriteLine("\t\tset WAIT_HIDE\n\t\tset Wait to Hide>");
-                        MorphType = MorphTypes.WAIT_HIDE;
+                        MorphTo = MorphTypes.WAIT_HIDE;
                         MorphTimer.Interval = DurationSimple;
                     }
                     break;
@@ -341,12 +341,12 @@ namespace Orien.NetUi {
                     UpdateSizeAndPosition();
                     Invalidate(); //Method will cause a repaint. (invoke onPaint)
                     MorphTimer.Interval = DurationExtended;
-                    MorphType = MorphTypes.WAIT_HIDE;
+                    MorphTo = MorphTypes.WAIT_HIDE;
                     break;
                 case MorphTypes.WAIT_HIDE:
                     if (DebugMode) Console.WriteLine("\tcase Wait_Hide");
-                    if (!AutoHide) HideTooltip();
-                    break;
+                    if (AutoHide) HideTooltip(); //if not autohide tooltip stay as long is mouse on control (simple or extended version)
+                break;
             }
         }
         private void UpdateSizeAndPosition() {
@@ -460,11 +460,11 @@ namespace Orien.NetUi {
         #region Overridden Methods - Events
 
         protected override void OnPaint(PaintEventArgs e) {
-
+            
             base.OnPaint(e);
+            //Layout distribution
             if (DebugMode) Console.WriteLine("OnPaint > DrawExtend:{0}\n", DrawExtend);
 
-            //Else show extended tooltip
             e.Graphics.CompositingQuality = CompositingQuality.HighQuality;
 
             //Brushes
@@ -474,10 +474,11 @@ namespace Orien.NetUi {
             Brush footerTextBrush = new SolidBrush(FooterTextColor);
             Brush borderBrush = new SolidBrush(BorderColor);
 
-            if (!DrawExtend) { // Show simple tooltip
-
+            //Show simple tooltip
+            if (!DrawExtend) { 
+                
                 //e.Graphics.Clear(Color.Transparent);
-                Rectangle rect = new Rectangle {
+                Rectangle rect = new Rectangle { //draw simple bubble
                     Width = TotalSize.Width,
                     Height = TotalSize.Height
                 };
@@ -497,7 +498,7 @@ namespace Orien.NetUi {
                 TextRenderer.DrawText(e.Graphics, BodyText, BodyTextFont, textRect, BodyTextColor, CenterFlags);
                 return;
             }
-            //Layout distribution
+            //Else show extended tooltip
             Rectangle tltpRect = new Rectangle {
                 Width = TotalSize.Width,
                 Height = TotalSize.Height
@@ -564,7 +565,7 @@ namespace Orien.NetUi {
             //Draw separator 2
             e.Graphics.DrawLine(new Pen(BorderColor), break2Rect.Left, break2Rect.Top, break2Rect.Right, break2Rect.Top);
             //Draw Footer Text
-            e.Graphics.DrawString(FooterText, BodyTextFont, footerTextBrush, footerTextRect, TextFormatFooter);
+            e.Graphics.DrawString(FooterText, FooterTextFont, footerTextBrush, footerTextRect, TextFormatFooter);
         }
 
         // Show a Form without stealing focus
