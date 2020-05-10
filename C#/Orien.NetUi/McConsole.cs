@@ -238,7 +238,7 @@ namespace Orien.NetUi {
             WindowState = FormWindowState.Minimized;
         }
 
-        private void OnOwnerClosed(object sender, FormClosedEventArgs e) {
+        protected void OnOwnerClosed(object sender, FormClosedEventArgs e) {
             Close(); //only here is realy closed
         }
 
