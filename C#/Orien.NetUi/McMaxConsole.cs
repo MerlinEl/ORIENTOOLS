@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Orien.Tools;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,6 +25,16 @@ namespace Orien.NetUi {
         /// 
         public McMaxConsole() {
             InitializeComponent();
+            RichTextBox1.GotFocus += new EventHandler(OnTextAreaGotFocus);
+            RichTextBox1.LostFocus += new EventHandler(OnTextAreaLostFocus);
+        }
+
+        private void OnTextAreaLostFocus(object sender, EventArgs e) {
+            McGet.SetAccelerators(true);
+        }
+
+        private void OnTextAreaGotFocus(Object sender, EventArgs e) {
+            McGet.SetAccelerators(false);
         }
 
         /*public static void RunMxs(string cmd) {
