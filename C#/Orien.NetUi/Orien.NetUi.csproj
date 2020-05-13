@@ -99,6 +99,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Content Include="Resources\3ds Max .NET Assemblies.txt" />
     <Content Include="Resources\McTooltip.txt">
       <SubType>Form</SubType>
     </Content>
