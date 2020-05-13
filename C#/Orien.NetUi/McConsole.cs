@@ -61,7 +61,8 @@ namespace Orien.NetUi {
 
         protected void AddConsoleText(string tabName, string msg, params object[] args) {
 
-            if (args.Length > 0) msg = string.Format(msg, args);
+            if (args.Length > 0)
+                msg = string.Format(msg, args);
             //if (!this.Visible &&) this.Visible = true;
             if (tabName == "Console" || tabName == "") {
 
@@ -71,7 +72,8 @@ namespace Orien.NetUi {
 
                 GetOrCreateTab(tabName).AppendText(msg + "\n");
             }
-            if (!Visible && !Inivisible) Show();
+            if (!Visible && !Inivisible)
+                Show();
         }
         protected string GetCommand() {
 
@@ -94,16 +96,27 @@ namespace Orien.NetUi {
         #region Virtual Methods
 
         virtual protected void RunCmd(string cmd) {
-            if (cmd.Length == 0) return;
+            if (cmd.Length == 0)
+                return;
             if (Enum.TryParse(cmd, true, out CMD n)) { //parse the enum with ignoreCase flag 
                 Console.WriteLine("n:{0}", n);
                 switch (n) {
 
-                    case CMD.Help: ShowCommands(); break;
-                    case CMD.Close: Hide(); break;
-                    case CMD.Clear: CurrentRichTextBox.Text = ""; break;
-                    case CMD.ClearAll: ClearAllTabs(); break;
-                    default: Log("\nCommand: ( " + cmd + " ) is not recognized."); break;
+                    case CMD.Help:
+                        ShowCommands();
+                        break;
+                    case CMD.Close:
+                        Hide();
+                        break;
+                    case CMD.Clear:
+                        CurrentRichTextBox.Text = "";
+                        break;
+                    case CMD.ClearAll:
+                        ClearAllTabs();
+                        break;
+                    default:
+                        Log("\nCommand: ( " + cmd + " ) is not recognized.");
+                        break;
                 }
             } else {
                 Log("\nCommand: ( " + cmd + " ) is not recognized.");
@@ -112,7 +125,8 @@ namespace Orien.NetUi {
         virtual protected void AutocompleteCheck() {
 
             string word = GetCommand();
-            if (word == null) return;
+            if (word == null)
+                return;
             string[] list = Enum.GetNames(typeof(CMD));
             // search word in enum list (ignoreCase = true)
             List<string> localList = list.Where(z => z.StartsWith(word, true)).ToList();
@@ -145,8 +159,7 @@ namespace Orien.NetUi {
             NativeWindow parentWindow = McGet.GetWindowFromHwnd(hwnd);
             try {
                 ShowDialog(parentWindow);
-            }
-            finally {
+            } finally {
                 parentWindow.DestroyHandle(); //yea this will kill 3DsMax Aplication. Do not use!
             }
         }
@@ -156,7 +169,8 @@ namespace Orien.NetUi {
         #region UI Methods
 
         public void ClearAllTabs() {
-            foreach (TabPage tp in MainTab.TabPages) tp.GetTextBox().Clear();
+            foreach (TabPage tp in MainTab.TabPages)
+                tp.GetTextBox().Clear();
         }
 
         /*private void RemoveTabByName(string tabName) {
@@ -263,7 +277,8 @@ namespace Orien.NetUi {
             } else if (e.KeyCode == Keys.Enter) {
 
                 string cmd = GetCommand();
-                if (cmd != null) RunCmd(cmd);
+                if (cmd != null)
+                    RunCmd(cmd);
 
             } else if (AutoCompleteBox.Visible) {
 
@@ -348,12 +363,30 @@ namespace Orien.NetUi {
             // Determine whether the user selected a file name from the saveFileDialog.
             SaveFileDialog.ShowDialog();
         }
+
         private void OnaboutMcConsoleToolStripMenuItem_Click(object sender, EventArgs e) {
             McConsoleAbout f = new McConsoleAbout {
                 StartPosition = FormStartPosition.Manual
             };
             f.SetDesktopLocation(Cursor.Position.X, Cursor.Position.Y);
             f.ShowDialog(this);
+        }
+
+        private const int cGrip = 16;      // Grip size
+        protected override void WndProc(ref Message m) {
+            if (m.Msg == 0x84) {  // Trap WM_NCHITTEST
+                Point pos = new Point(m.LParam.ToInt32());
+                pos = this.PointToClient(pos);
+                if (pos.Y < this.MainMenu.Height) {
+                    m.Result = (IntPtr)2;  // HTCAPTION
+                    return;
+                }
+                if (pos.X >= this.ClientSize.Width - cGrip && pos.Y >= this.ClientSize.Height - cGrip) {
+                    m.Result = (IntPtr)17; // HTBOTTOMRIGHT
+                    return;
+                }
+            }
+            base.WndProc(ref m);
         }
 
         #endregion
@@ -386,7 +419,8 @@ namespace Orien.NetUi {
             int prev = lbx.SelectedIndex - 1;
             if (prev >= 0) {
 
-                lbx.SelectedIndex = prev; return true;
+                lbx.SelectedIndex = prev;
+                return true;
             };
             return false;
         }
@@ -399,7 +433,9 @@ namespace Orien.NetUi {
     internal static class TabExtensions {
 
         internal static RichTextBox GetTextBox(this TabPage tp) {
-            foreach (Control c in tp.Controls) if (c is RichTextBox) return c as RichTextBox;
+            foreach (Control c in tp.Controls)
+                if (c is RichTextBox)
+                    return c as RichTextBox;
             return null;
         }
         internal static void AppendText(this TabPage tp, string str) {
