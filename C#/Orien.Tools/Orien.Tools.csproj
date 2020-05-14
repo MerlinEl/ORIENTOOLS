@@ -61,14 +61,12 @@
     <Compile Include="McEventDispatcher.cs" />
     <Compile Include="McDesktop.cs" />
     <Compile Include="McGeo.cs" />
-    <Compile Include="McGet.cs" />
     <Compile Include="McGra.cs" />
     <Compile Include="McLinq.cs" />
     <Compile Include="McMath.cs" />
     <Compile Include="McNet.cs" />
     <Compile Include="McNum.cs" />
     <Compile Include="McRegistry.cs" />
-    <Compile Include="McSet.cs" />
     <Compile Include="McString.cs" />
     <Compile Include="McThreadedExecuter.cs" />
     <Compile Include="McThreadHelper.cs" />

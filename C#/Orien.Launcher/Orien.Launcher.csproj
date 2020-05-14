@@ -70,6 +70,7 @@
     <Content Include="info\mcRadialProgressBar.txt" />
     <Content Include="info\mcRadialProgressBar_animated.txt" />
     <Content Include="info\TimerThread_01.txt" />
+    <Content Include="Resources\ILMerge.txt" />
     <Content Include="Resources\tltp_flatten_01.png" />
   </ItemGroup>
   <ItemGroup>
@@ -94,8 +95,8 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>$(ILMergeConsolePath) /log:ILMerge_Log.txt  /allowDup:* /ver:1.0.0.2 /out:Orien.Star.dll Orien.Tools.dll Orien.NetUi.dll
-xcopy $(ProjectDir)bin\Debug\Orien.Star.dll $(SolutionDir)..\..\..\Micra\Micra4\Assembly /Y /I</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -18,11 +18,12 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\..\..\..\..\..\Program Files\Autodesk\3ds Max 2013\bin\assemblies\</OutputPath>
+    <OutputPath>C:\Program Files\Autodesk\3ds Max 2018\bin\assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -35,11 +36,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autodesk.Max">
-      <HintPath>.\Autodesk.Max.dll</HintPath>
+      <HintPath>C:\Program Files\Autodesk\3ds Max 2018\Autodesk.Max.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="CSharpUtilities">
+      <HintPath>C:\Program Files\Autodesk\3ds Max 2018\CSharpUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="ManagedServices">
+      <HintPath>C:\Program Files\Autodesk\3ds Max 2018\ManagedServices.dll</HintPath>
+    </Reference>
     <Reference Include="MaxCustomControls">
-      <HintPath>.\MaxCustomControls.dll</HintPath>
+      <HintPath>C:\Program Files\Autodesk\3ds Max 2018\MaxCustomControls.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PresentationCore" />
@@ -53,7 +60,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="UiViewModels">
-      <HintPath>..\..\..\..\..\..\..\..\..\Program Files\Autodesk\3ds Max 2013\UiViewModels.dll</HintPath>
+      <HintPath>C:\Program Files\Autodesk\3ds Max 2018\UiViewModels.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="WindowsBase" />

@@ -154,16 +154,6 @@ namespace Orien.NetUi {
             }
         }
 
-        public void ShowConsole(long hwnd) {
-
-            NativeWindow parentWindow = McGet.GetWindowFromHwnd(hwnd);
-            try {
-                ShowDialog(parentWindow);
-            } finally {
-                parentWindow.DestroyHandle(); //yea this will kill 3DsMax Aplication. Do not use!
-            }
-        }
-
         #endregion
 
         #region UI Methods
