@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace Orien.NetUi {
+namespace Orien.NetUi { //not used
     internal class Win32 {
         /*
 		 * GetWindow() Constants
