@@ -87,52 +87,51 @@ namespace Orien.Launcher {
             CConsole.Log("Personal", "hello Body"); //ok
             CConsole.Log("Formated", "The {0} is {1} years old.", new object[] { "Monika", 22});
 
-            /*
-            ToolTip buttonToolTip = newToolTip();
-            buttonToolTip.ToolTipTitle = "Button Tooltip";
-            buttonToolTip.UseFading = true;
-            buttonToolTip.UseAnimation = true;
-            buttonToolTip.IsBalloon = true;
-            buttonToolTip.ShowAlways = true;
-            buttonToolTip.AutoPopDelay = 5000;
-            buttonToolTip.InitialDelay = 1000;
-            buttonToolTip.ReshowDelay = 500;
-            buttonToolTip.SetToolTip(button1, "Click me to execute.");
-            */
+            DialogResult result = McInputBox.Show(
+                "Input Required",
+                "Please enter the value (if available) below.",
+                "Value",
+                out string output,
+                true
+            );
+            if (result != DialogResult.OK) {
+                return;
+            }
+            CConsole.Log("Input result:" + result + " output:" + output);
         }
 
-        /*public static void CreateTestForm() {
-            _ = new Size(800, 600);
-            Form aForm = new Form {
-                Text = @"About Us"
-            };
-            aForm.Controls.Add(new Label() { Text = "Version 5.0" });
-            aForm.ShowDialog();  // Or just use Show(); if you don't want it to be modal.
-        }*/
+            /*public static void CreateTestForm() {
+                _ = new Size(800, 600);
+                Form aForm = new Form {
+                    Text = @"About Us"
+                };
+                aForm.Controls.Add(new Label() { Text = "Version 5.0" });
+                aForm.ShowDialog();  // Or just use Show(); if you don't want it to be modal.
+            }*/
 
-        /*public static void TestRoundLabel() {
-            Form aForm = new Form {
-                Text = @"Label test:"
-            };
-            aForm.Controls.Add(new McLabel() {
-                Text = "Version 5.0",
-                Location = new Point(60, 20),
-                FillColor = Color.FromArgb(255, 0, 0),
-                TextColor = Color.FromArgb(0, 255, 0)
-            });
-            aForm.ShowDialog();  // Or just use Show(); if you don't want it to be modal.
+            /*public static void TestRoundLabel() {
+                Form aForm = new Form {
+                    Text = @"Label test:"
+                };
+                aForm.Controls.Add(new McLabel() {
+                    Text = "Version 5.0",
+                    Location = new Point(60, 20),
+                    FillColor = Color.FromArgb(255, 0, 0),
+                    TextColor = Color.FromArgb(0, 255, 0)
+                });
+                aForm.ShowDialog();  // Or just use Show(); if you don't want it to be modal.
+            }
+
+            public static void DynObjTest() {
+                dynamic person = new McDynObj();
+                person.FirstName = "Ellen";
+                person.LastName = "Adams";
+                Console.WriteLine(person.firstname + " " + person.lastname);
+            }
+
+            public static void DynObjTest2() {
+                SetMemberBinder bi = new SetMemberBinderChild("hola", false);
+                Console.WriteLine("this is: " + bi.Name);
+            }*/
         }
-
-        public static void DynObjTest() {
-            dynamic person = new McDynObj();
-            person.FirstName = "Ellen";
-            person.LastName = "Adams";
-            Console.WriteLine(person.firstname + " " + person.lastname);
-        }
-
-        public static void DynObjTest2() {
-            SetMemberBinder bi = new SetMemberBinderChild("hola", false);
-            Console.WriteLine("this is: " + bi.Name);
-        }*/
-    }
 }

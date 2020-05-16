@@ -3,18 +3,25 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Orien.NetUi {
     public partial class McConsole : Form {
+        private const int SnapDist = 100;
         private bool Suppres_Keypress = false;
         public bool Inivisible = false;
         public enum CMD {
-            Help = 0,
-            Close = 1,
-            Clear = 2,
-            ClearAll = 3
+            Help,
+            Close,
+            Clear,
+            ClearAll,
+            DockLeft,
+            DockRight,
+            DockTop,
+            DockBottom
         }
+        public enum DockSide { Left, Right, Top, Bottom }
 
         #region Constructor
 
@@ -32,6 +39,7 @@ namespace Orien.NetUi {
                 parent.FormClosed += new FormClosedEventHandler(OnOwnerClosed);
             }
             InitializeComponent();
+            DockTo(DockSide.Right);
         }
 
         #endregion
@@ -52,6 +60,36 @@ namespace Orien.NetUi {
         public void Log(string msg, params object[] args) => AddConsoleText("Console", msg, args);
         public void Log(string tabName, string msg) => AddConsoleText(tabName, msg);
         public void Log(string tabName, string msg, params object[] args) => AddConsoleText(tabName, msg, args);
+        public void DockTo(DockSide side) {
+
+            Screen scn = Screen.FromPoint(this.Location);
+            switch (side) {
+                case DockSide.Left:
+                    this.Width = scn.WorkingArea.Width / 4;
+                    this.Height = scn.WorkingArea.Height;
+                    SnapTo(DockSide.Top);
+                    SnapTo(DockSide.Left);
+                    break;
+                case DockSide.Right:
+                    this.Width = scn.WorkingArea.Width / 4;
+                    this.Height = scn.WorkingArea.Height;
+                    SnapTo(DockSide.Top);
+                    SnapTo(DockSide.Right);
+                    break;
+                case DockSide.Top:
+                    this.Width = scn.WorkingArea.Width;
+                    this.Height = scn.WorkingArea.Height / 3;
+                    SnapTo(DockSide.Left);
+                    SnapTo(DockSide.Top);
+                    break;
+                case DockSide.Bottom:
+                    this.Width = scn.WorkingArea.Width;
+                    this.Height = scn.WorkingArea.Height / 3;
+                    SnapTo(DockSide.Left);
+                    SnapTo(DockSide.Bottom);
+                    break;
+            }
+        }
 
         #endregion
 
@@ -96,8 +134,7 @@ namespace Orien.NetUi {
         #region Virtual Methods
 
         virtual protected void RunCmd(string cmd) {
-            if (cmd.Length == 0)
-                return;
+            if (cmd.Length == 0)return;
             if (Enum.TryParse(cmd, true, out CMD n)) { //parse the enum with ignoreCase flag 
                 Console.WriteLine("n:{0}", n);
                 switch (n) {
@@ -113,6 +150,18 @@ namespace Orien.NetUi {
                         break;
                     case CMD.ClearAll:
                         ClearAllTabs();
+                        break;
+                    case CMD.DockLeft:
+                        DockTo(DockSide.Left);
+                        break;
+                    case CMD.DockRight:
+                        DockTo(DockSide.Right);
+                        break;
+                    case CMD.DockTop:
+                        DockTo(DockSide.Top);
+                        break;
+                    case CMD.DockBottom:
+                        DockTo(DockSide.Bottom);
                         break;
                     default:
                         Log("\nCommand: ( " + cmd + " ) is not recognized.");
@@ -142,12 +191,7 @@ namespace Orien.NetUi {
             }
             RichTextBox1.Focus();
         }
-
-        #endregion
-
-        #region Private Methods
-
-        private void ShowCommands() {
+        virtual protected void ShowCommands() {
             Log("\nCommands List:");
             foreach (string s in Enum.GetNames(typeof(CMD))) {
                 Log("\t" + s);
@@ -156,11 +200,60 @@ namespace Orien.NetUi {
 
         #endregion
 
+        #region Private Methods
+
+        //empty
+
+        #endregion
+
         #region UI Methods
 
         public void ClearAllTabs() {
             foreach (TabPage tp in MainTab.TabPages)
                 tp.GetTextBox().Clear();
+        }
+
+        private bool DoSnap(int pos, int edge) {
+            int delta = pos - edge;
+            return delta > 0 && delta <= SnapDist;
+        }
+
+
+
+        private void SnapTo(DockSide side) {
+
+            Screen scn = Screen.FromPoint(this.Location);
+            switch (side) {
+                case DockSide.Left:
+                    DoSnap(this.Left, scn.WorkingArea.Left);
+                    this.Left = scn.WorkingArea.Left;
+                    break;
+                case DockSide.Right:
+                    DoSnap(this.Top, scn.WorkingArea.Top);
+                    this.Left = scn.WorkingArea.Right - this.Width;
+                    break;
+                case DockSide.Top:
+                    DoSnap(scn.WorkingArea.Right, this.Right);
+                    this.Top = scn.WorkingArea.Top;
+                    break;
+                case DockSide.Bottom:
+                    DoSnap(scn.WorkingArea.Bottom, this.Bottom);
+                    this.Top = scn.WorkingArea.Bottom - this.Height;
+                    break;
+            }
+        }
+
+        protected override void OnResizeEnd(EventArgs e) {
+            base.OnResizeEnd(e);
+            Screen scn = Screen.FromPoint(this.Location);
+            if (DoSnap(this.Left, scn.WorkingArea.Left))
+                this.Left = scn.WorkingArea.Left;
+            if (DoSnap(this.Top, scn.WorkingArea.Top))
+                this.Top = scn.WorkingArea.Top;
+            if (DoSnap(scn.WorkingArea.Right, this.Right))
+                this.Left = scn.WorkingArea.Right - this.Width;
+            if (DoSnap(scn.WorkingArea.Bottom, this.Bottom))
+                this.Top = scn.WorkingArea.Bottom - this.Height;
         }
 
         /*private void RemoveTabByName(string tabName) {
@@ -226,7 +319,8 @@ namespace Orien.NetUi {
         }
 
         private void OnTitleMouseDown(object sender, MouseEventArgs e) {
-            if (e.Button == MouseButtons.Left) {
+
+            if (e.Button == MouseButtons.Left && e.Clicks == 1) { //single click
                 // Release the mouse capture started by the mouse down.
                 (sender as MenuStrip).Capture = false;
                 // Create and send a WM_NCLBUTTONDOWN message.
@@ -235,6 +329,12 @@ namespace Orien.NetUi {
                         new IntPtr((int)McUIMsg.HT.CAPTION), IntPtr.Zero);
                 this.DefWndProc(ref msg);
             }
+        }
+
+        private void OnTitleDoubleClick(object sender, MouseEventArgs e) {
+
+            WindowState = WindowState == FormWindowState.Maximized ?
+                FormWindowState.Normal : FormWindowState.Maximized;
         }
 
         private void BtnClose_Click(object sender, EventArgs e) {
@@ -384,7 +484,6 @@ namespace Orien.NetUi {
         }
 
         #endregion
-
     }
 
     #region ListBox Extensions

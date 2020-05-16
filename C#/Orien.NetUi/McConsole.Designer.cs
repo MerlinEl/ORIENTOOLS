@@ -65,6 +65,7 @@ namespace Orien.NetUi {
             this.MainMenu.Size = new System.Drawing.Size(992, 24);
             this.MainMenu.TabIndex = 4;
             this.MainMenu.Text = "menuStrip1";
+            this.MainMenu.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.OnTitleDoubleClick);
             this.MainMenu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnTitleMouseDown);
             // 
             // FileToolStripMenuItem
@@ -283,6 +284,7 @@ namespace Orien.NetUi {
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "McConsole";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "McConsoleC";
             this.MainMenu.ResumeLayout(false);
             this.MainMenu.PerformLayout();
