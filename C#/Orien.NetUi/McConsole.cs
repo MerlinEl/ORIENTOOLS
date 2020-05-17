@@ -30,7 +30,7 @@ namespace Orien.NetUi {
         public McConsole(Form parent, bool topMost) => Init(parent, topMost);
         public McConsole(Form parent, bool topMost, bool inivisible) => Init(parent, topMost, inivisible);
 
-        private void Init(Form parent = null, bool topMost = true, bool inivisible = false) {
+        protected void Init(Form parent = null, bool topMost = true, bool inivisible = false) {
 
             TopMost = topMost;
             Inivisible = inivisible;
@@ -39,7 +39,6 @@ namespace Orien.NetUi {
                 parent.FormClosed += new FormClosedEventHandler(OnOwnerClosed);
             }
             InitializeComponent();
-            DockTo(DockSide.Right);
         }
 
         #endregion

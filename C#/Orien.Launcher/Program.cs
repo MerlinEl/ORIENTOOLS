@@ -79,6 +79,7 @@ namespace Orien.Launcher {
 
 
             CConsole = new McConsole(form);
+            CConsole.DockTo(McConsole.DockSide.Right);
             CConsole.Log("hello!"); // main console tab
             CConsole.Log("", "The {0} is {1} years old.", "Tifany", 12); // main console tab
             CConsole.Log("The {0} is {1} years old.", new object[] {"Tifany", 12}); // main console tab

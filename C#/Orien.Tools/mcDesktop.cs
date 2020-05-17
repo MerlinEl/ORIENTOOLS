@@ -20,6 +20,12 @@ namespace Orien.Tools {
 
             Environment.GetFolderPath(Environment.SpecialFolder.Personal)
         );
+
+        public static readonly string App_Directory = Path.GetDirectoryName(
+
+            System.Reflection.Assembly.GetExecutingAssembly().Location
+        );
+
         public static string SizeToString(Int64 bytes) {
             int counter = 0;
             decimal number = bytes;
@@ -28,6 +34,11 @@ namespace Orien.Tools {
                 counter++;
             }
             return string.Format("{0:n1}{1}", number, suffixes[counter]);
+        }
+
+        public static string GetLastDirectory(string path) {
+
+            return new DirectoryInfo(path).Name;
         }
 
         public static long GetFileSize(string fpath) {
