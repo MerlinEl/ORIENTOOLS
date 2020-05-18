@@ -1,0 +1,6 @@
+create three solutions
+main
+assembly v1.0
+assembly v2.0
+
+set both assembly build path as "..\..\CodeProject - Unload.Net Assembly\CodeProject - Unload.Net Assembly\bin\Debug\" for making the assemblies comes under main executable path.
