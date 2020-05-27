@@ -29,6 +29,15 @@ namespace Orien.Tools {
             }
             return -1;
         }
+        //source = "[0, 0, 0]"
+        //source = McString.RemoveChars(source, new string[] { "[", "]", "(", ")", " "}); //remove brackets and empty spaces
+        public static string RemoveChars(string str, string[] charsToRemove) {
+
+            foreach ( string c in charsToRemove ) {
+                str = str.Replace(c, String.Empty);
+            }
+            return str;
+        }
         public static bool Contains(string src_str, string find_str, bool ignoreCase = false) { //not used
             StringComparison type = ignoreCase ?
                 StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
