@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>TryCatchFinally</Title>
+      <Author>Orien</Author>
+      <Description></Description>
+      <HelpUrl></HelpUrl>
+      <Shortcut>tryf</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>tryf</ID>
+          <ToolTip>Try &gt; Catch &gt; Finaly</ToolTip>
+          <Default>a</Default>
+          <Function></Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[try {
+	  
+	  $tryf$
+			} catch (Exception ex) {
+	throw  new Exception(ex.Message); 
+} finally {
+
+}]]></Code>
+    </Snippet>
+  </CodeSnippet>
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>MethodVoid</Title>
+      <Author></Author>
+      <Description></Description>
+      <HelpUrl></HelpUrl>
+      <Shortcut>mev</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>mev</ID>
+          <ToolTip>Method &gt; Void</ToolTip>
+          <Default>a</Default>
+          <Function></Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[public void Test(string $mev$)
+{
+    m_Test = $mev$;
+}]]></Code>
+    </Snippet>
+  </CodeSnippet>
+    <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>WriteToListenner</Title>
+      <Author></Author>
+      <Description></Description>
+      <HelpUrl></HelpUrl>
+      <Shortcut>wrl</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>wrl</ID>
+          <ToolTip>Write &gt; To &gt; Listenner</ToolTip>
+          <Default>a</Default>
+          <Function></Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$"><![CDATA[Kernel.WriteLine("$wrl${0}",);]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
