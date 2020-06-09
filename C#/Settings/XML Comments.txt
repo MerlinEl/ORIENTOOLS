@@ -1,0 +1,32 @@
+It appears to me that what the /// generates is coded in: 
+Macros.Samples.Utilities.InsertDocComments
+
+
+https://www.pluralsight.com/guides/using-code-example-tags-csharp-xml-documentation-comments
+https://marketplace.visualstudio.com/items?itemName=k--kato.docomment
+https://docs.microsoft.com/en-us/archive/blogs/lisa/how-to-customize-the-xml-comments-that-are-inserted-by-the-visual-basic-code-editor
+https://docs.microsoft.com/en-us/archive/msdn-magazine/2009/may/documenting-your-code-with-xml-comments
+https://www.oreilly.com/library/view/c-in-a/0596001819/ch04s10.html
+
+//or snippet 
+
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+
+    <CodeSnippet Format="1.0.0">
+        <Header>
+                <Title>Summary - inline</Title>
+                <Description>Created inline summary comment tag</Description>
+                <Author>Mike Vanderkley</Author>
+                <Shortcut>summ</Shortcut>
+                <SnippetTypes>
+                        <SnippetType>Expansion</SnippetType>
+                </SnippetTypes>
+        </Header>
+        <Snippet>
+            <Code Language="csharp">
+                <![CDATA[/// <summary> $end$ </summary>]]>
+            </Code>
+    </Snippet>
+  </CodeSnippet>
+
+</CodeSnippets>
